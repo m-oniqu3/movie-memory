@@ -1,15 +1,17 @@
 @use "../abstracts/variables" as v;
 
-button {
+.button {
   border: none;
   border-radius: 5px;
   padding: 10px 30px;
   width: fit-content;
   transition: all .3s ease-in-out;
   cursor: pointer;
+  text-decoration: none;
+  
 
-    &.primary {
-        @extend button;
+    &--primary {
+        @extend .button;
         background-color: v.$primary-neutral;
         color: v.$primary;
 
