@@ -1,7 +1,5 @@
-import { BaseHeader } from "./header";
+import { BaseNav } from "./header";
 
-const landingHeader = document.querySelector(".header") as HTMLElement;
-
-const baseHeader = new BaseHeader();
-
-landingHeader.appendChild(baseHeader.generateHeader());
+// generate navbar
+const baseNav = new BaseNav();
+baseNav.generateNavbar();
