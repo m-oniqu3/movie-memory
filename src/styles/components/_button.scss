@@ -1,0 +1,22 @@
+@use "../abstracts/variables" as v;
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 30px;
+  width: fit-content;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+
+    &.primary {
+        @extend button;
+        background-color: v.$primary-neutral;
+        color: v.$primary;
+
+        &:hover {
+            background-color: v.$primary;
+            color: v.$primary-neutral;
+        }
+    }
+
+}

@@ -1,0 +1,16 @@
+@use "../abstracts/variables" as v;
+
+.heading {
+  font-family: "Montserrat", sans-serif;
+
+  &--medium {
+    @extend .heading;
+    
+    font-size: 2rem;
+    color: v.$primary-neutral;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-weight: 900;
+    line-height: 100%;
+  }
+}

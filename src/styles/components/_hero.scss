@@ -1,0 +1,22 @@
+@use "../abstracts/variables" as v;
+
+
+.hero__background {
+  background: url(#{v.$assetsPath}/movies.png);
+  background-position: 70% 0%;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    height: 90vh;
+    justify-content: center;
+
+    .text {
+      color: v.$primary-neutral;
+    }
+  }
+}
