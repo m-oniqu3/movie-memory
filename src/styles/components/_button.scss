@@ -5,20 +5,48 @@
   border-radius: 5px;
   padding: 10px 30px;
   width: fit-content;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   cursor: pointer;
   text-decoration: none;
-  
 
-    &--primary {
-        @extend .button;
-        background-color: v.$primary-neutral;
-        color: v.$primary;
+  &__primary {
+    @extend .button;
+    background-color: v.$primary-neutral;
+    color: v.$primary;
 
-        &:hover {
-            background-color: v.$primary;
-            color: v.$primary-neutral;
-        }
+    &:hover {
+      background-color: v.$primary;
+      color: v.$primary-neutral;
     }
 
+    &--dark {
+      @extend .button;
+      background-color: v.$primary;
+      color: v.$primary-neutral;
+
+      &:hover {
+        background-color: v.$primary-neutral;
+        color: v.$primary;
+      }
+    }
+  }
+
+  &__secondary {
+    @extend .button;
+    background-color: v.$primary-neutral;
+    color: v.$primary;
+    border: 1px solid v.$primary;
+
+    &--dark {
+      @extend .button;
+      background-color: v.$primary-neutral;
+      color: v.$primary;
+      border: 1px solid v.$primary;
+
+      &:hover {
+        background-color: v.$primary;
+        color: v.$primary-neutral;
+      }
+    }
+  }
 }

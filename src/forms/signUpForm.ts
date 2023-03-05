@@ -7,7 +7,10 @@ export class SignUpForm extends Form {
   }
 
   generateCompleteForm(): void {
-    this.generateFormHeader("Create Account", "Lorem");
+    this.generateFormHeader(
+      "Create Account",
+      "Keep track of the movies you've watched with Movie Memory. Create an account to get started."
+    );
     this.generateFormInputs();
     this.generateFormButtons("Create Account", () => console.log("hey"));
   }

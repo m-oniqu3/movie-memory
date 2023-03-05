@@ -1,0 +1,45 @@
+@use "../abstracts/variables" as v;
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+
+  &__buttonContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    button {
+        width: 100%;
+    }
+
+    .text{
+        text-align: center;
+    }
+  }
+
+  .form {
+    width: 100%;
+    
+    input {
+      border: none;
+      outline: none;
+      border-bottom: 1px solid #000;
+      margin: .5rem 0;
+      width: 100%;
+      padding: 0.8rem 0;
+
+      &::placeholder {
+        color: v.$placeholder;
+      }
+    }
+  }
+}

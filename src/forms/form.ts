@@ -8,39 +8,34 @@ export class Form {
   protected generateFormHeader(title: string, paragraph: string) {
     const h1 = document.createElement("h1");
     const p = document.createElement("p");
-    const div = document.createElement("div");
+    const header = document.createElement("div");
 
-    h1.classList.add("heading", "heading--sml");
+    h1.classList.add("heading", "heading--small");
     p.classList.add("text");
+    header.classList.add("form__container__header");
 
     h1.textContent = title;
     p.textContent = paragraph;
 
-    div.append(h1, p);
-    this.formContainer.appendChild(div);
+    header.append(h1, p);
+    this.formContainer.appendChild(header);
   }
 
   protected generateFormInputs() {
-    const firstFormGroup = document.createElement("div");
-    const emailLabel = document.createElement("label");
+    const form = document.createElement("form");
     const emailInput = document.createElement("input");
-
-    const secondFormGroup = document.createElement("div");
-    const passwordLabel = document.createElement("label");
     const passwordInput = document.createElement("input");
 
-    firstFormGroup.classList.add("form__group");
-    emailLabel.textContent = "Email";
+    form.classList.add("form");
+
     emailInput.type = "email";
+    emailInput.placeholder = "Email";
 
-    secondFormGroup.classList.add("form__group");
-    passwordLabel.textContent = "Password";
     passwordInput.type = "password";
+    passwordInput.placeholder = "Password";
 
-    firstFormGroup.append(emailLabel, emailInput);
-    secondFormGroup.append(passwordLabel, passwordInput);
-
-    this.formContainer.append(firstFormGroup, secondFormGroup);
+    form.append(emailInput, passwordInput);
+    this.formContainer.append(form);
   }
 
   protected generateFormButtons(
@@ -52,8 +47,9 @@ export class Form {
     const buttonContainer = document.createElement("div");
     const prompt = this.generatePrompt();
 
-    primaryButton.classList.add("button", "button--primary");
-    secondaryButton.classList.add("button", "button--primary");
+    primaryButton.classList.add("button", "button__primary--dark");
+    secondaryButton.classList.add("button", "button__secondary--dark");
+    buttonContainer.classList.add("form__container__buttonContainer");
 
     primaryButton.textContent = primaryButtonText;
     secondaryButton.textContent = "Continue as Guest";
