@@ -1,3 +1,7 @@
-import "./style.css";
+import { BaseHeader } from "./header";
 
-console.log("Hello World");
+const landingHeader = document.querySelector(".header") as HTMLElement;
+
+const baseHeader = new BaseHeader();
+
+landingHeader.appendChild(baseHeader.generateHeader());

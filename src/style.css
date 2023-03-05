@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Didact Gothic', sans-serif;
+  font-size: 1rem;
+}
+
+
+
+:root {
+  --primary-neutral: #fff;
+  --primary: #3b5249;
+
+}
+
+.hero__background {
+  background-image: url("./assets/movies.png");
+  background-size: cover;
+  background-position: 70% 0%;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 10vh;
+}
+
+.header__logo {
+  width: 120px;
+}
+
+.header__logo img {
+  width: 100%;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  height: 90vh;
+  justify-content: center;
+}
+
+h1 {
+  margin: 0 0 0 0 !important;
+}
+
+
+.hero__content .title {
+
+  font-size: 2rem;
+  color: var(--primary-neutral);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  line-height: 100%;
+}
+
+.hero__content .text {
+  color: var(--primary-neutral);
+}
+
+.text {
+  line-height: 150%;
+}
+
+.button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 30px;
+  width: fit-content;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+}
+
+.button__primary {
+  background-color: var(--primary-neutral);
+  color: var(--primary);
+}
+
+.button__primary:hover {
+  background-color: var(--primary);
+  color: var(--primary-neutral);
+}
