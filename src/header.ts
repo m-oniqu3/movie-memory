@@ -31,7 +31,7 @@ export class DarkBaseNav extends BaseNav {
   generateNavbar() {
     const nav = document.querySelector(".nav") as HTMLElement;
     nav.classList.add("nav");
-    const imageSrc = this.windowWidth > 768 ? Logo : DarkLogo;
+    const imageSrc = this.windowWidth > 900 ? Logo : DarkLogo;
 
     nav.innerHTML = `
       <figure class="nav__logo">
