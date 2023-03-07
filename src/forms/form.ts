@@ -2,13 +2,9 @@ import { validateEmail } from "./helpers";
 
 export class Form {
   formContainer: HTMLElement;
-  emailRes: string;
-  password: string;
 
   constructor(formElement: HTMLElement) {
     this.formContainer = formElement;
-    this.emailRes = "";
-    this.password = "";
   }
 
   protected generateFormHeader(title: string, paragraph: string) {
@@ -29,19 +25,22 @@ export class Form {
     this.formContainer.appendChild(header);
   }
 
+  private generateInput(element: string, placeholder?: string, type?: string) {
+    const newElement = document.createElement(element) as HTMLInputElement;
+
+    placeholder !== undefined ? (newElement.placeholder = placeholder) : null;
+    type !== undefined ? (newElement.type = type) : null;
+
+    return newElement;
+  }
+
   protected generateFormInputs() {
-    const emailInput = document.createElement("input");
-    const passwordInput = document.createElement("input");
-    const emailError = document.createElement("p");
-    const inputGroup = document.createElement("div");
+    const emailInput = this.generateInput("input", "Email", "email");
+    const passwordInput = this.generateInput("input", "Password", "password");
+    const emailError = this.generateInput("p");
+    const inputGroup = this.generateInput("div");
 
     emailError.classList.add("error");
-
-    emailInput.type = "email";
-    emailInput.placeholder = "Email";
-
-    passwordInput.type = "password";
-    passwordInput.placeholder = "Password";
 
     inputGroup.append(emailInput, emailError, passwordInput);
     this.validateFormInputs(inputGroup);
