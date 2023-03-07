@@ -1,7 +1,21 @@
+@use "../abstracts/variables" as v;
+
 .text {
   line-height: 150%;
 }
 
 h1 {
   margin: 0 0 0 0 !important;
+}
+
+.error {
+  font-size: 0.8rem;
+  color: v.$error;
+  height: 1rem;
+}
+
+.success {
+  font-size: 0.8rem;
+  color: v.$success;
+  height: 1rem;
 }

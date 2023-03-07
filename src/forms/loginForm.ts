@@ -12,7 +12,9 @@ export class LoginForm extends Form {
       "Welcome back! Log in and pick up where you left off"
     );
     this.generateFormInputs();
-    this.generateFormButtons("Login", () => console.log("hey"));
+    this.generateFormBody(this.generateFormInputs, () =>
+      this.generateFormButtons("Login", () => console.log("hey"))
+    );
   }
 
   generatePrompt(): HTMLParagraphElement {

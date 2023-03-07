@@ -11,6 +11,8 @@
 
     @include m.breakpoint(large) {
       grid-template-columns: 40% 60%;
+      position: relative;
+      top: -10vh;
     }
 
     figure {
@@ -18,9 +20,6 @@
 
       @include m.breakpoint(large) {
         display: grid;
-        position: relative;
-        top: -10vh;
-        left: 0;
         height: 100vh;
         width: 100%;
         z-index: -1;

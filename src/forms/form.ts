@@ -1,11 +1,54 @@
+import { pattern } from "./pattern";
+
 export class Form {
   formContainer: HTMLElement;
+  emailRes: string;
+  password: string;
 
   constructor(formElement: HTMLElement) {
     this.formContainer = formElement;
+    this.emailRes = "";
+    this.password = "";
   }
 
+  validateEmail = (email: string) => {
+    const results = {
+      errorMessage: "",
+      successMessage: "",
+      isEmailValid: false,
+    };
+
+    //if email is empty
+    if (email === "" || email.length === 0) {
+      return {
+        ...results,
+        errorMessage: "Email is required",
+        successMessage: "",
+        isEmailValid: false,
+      };
+    }
+
+    //if email is not valid
+    else if (email !== "" && !String(email).match(pattern)) {
+      return {
+        ...results,
+        errorMessage: "Email is not valid",
+        successMessage: "",
+        isEmailValid: false,
+      };
+    }
+
+    //if all fields are valid
+    return {
+      ...results,
+      isEmailValid: true,
+      successMessage: "Email is valid ✅",
+    };
+  };
+
   protected generateFormHeader(title: string, paragraph: string) {
+    console.log("header");
+
     const h1 = document.createElement("h1");
     const p = document.createElement("p");
     const header = document.createElement("div");
@@ -22,11 +65,12 @@ export class Form {
   }
 
   protected generateFormInputs() {
-    const form = document.createElement("form");
     const emailInput = document.createElement("input");
     const passwordInput = document.createElement("input");
+    const emailError = document.createElement("p");
+    const inputGroup = document.createElement("div");
 
-    form.classList.add("form");
+    emailError.classList.add("error");
 
     emailInput.type = "email";
     emailInput.placeholder = "Email";
@@ -34,13 +78,42 @@ export class Form {
     passwordInput.type = "password";
     passwordInput.placeholder = "Password";
 
-    form.append(emailInput, passwordInput);
-    this.formContainer.append(form);
+    emailInput.addEventListener("input", () => {
+      const emailValidationResults = this.validateEmail(emailInput.value);
+      const { errorMessage, successMessage, isEmailValid } =
+        emailValidationResults;
+
+      emailError.textContent = isEmailValid ? successMessage : errorMessage;
+      emailError.classList.toggle("success", isEmailValid);
+    });
+
+    inputGroup.append(emailInput, emailError, passwordInput);
+
+    console.log(inputGroup);
+
+    return inputGroup;
+  }
+
+  protected validiatePassword(password: string) {
+    const errors = { passwordError: null, valid: false };
+
+    //if password is less than 6 characters
+    if (password !== "" && password.length < 6) {
+      const message = "Password must be at least 6 characters";
+      return { ...errors, passwordError: message, valid: false };
+    }
+
+    //if password is empty
+    else if (password === "" || password.length === 0)
+      return { ...errors, passwordError: "Password is required", valid: false };
+
+    //if all fields are valid
+    return { ...errors, valid: true };
   }
 
   protected generateFormButtons(
     primaryButtonText: string,
-    onClick: () => void
+    onPrimaryButtonClick: () => void
   ) {
     const primaryButton = document.createElement("button");
     const secondaryButton = document.createElement("button");
@@ -54,15 +127,28 @@ export class Form {
     primaryButton.textContent = primaryButtonText;
     secondaryButton.textContent = "Continue as Guest";
 
-    primaryButton.addEventListener("click", onClick);
+    primaryButton.type = "submit";
 
     buttonContainer.append(primaryButton, secondaryButton, prompt);
-    this.formContainer.append(buttonContainer);
+
+    return buttonContainer;
   }
 
-  public generateCompleteForm() {
-    throw new Error("Must create a subclass and override it");
+  protected generateFormBody(
+    inputCallback: () => HTMLDivElement,
+    buttonCallback: () => HTMLElement
+  ) {
+    const form = document.createElement("form");
+    form.classList.add("form");
+
+    const formInputs = inputCallback();
+    const buttonContainer = buttonCallback();
+
+    form.append(formInputs, buttonContainer);
+    this.formContainer.append(form);
   }
+
+  public generateCompleteForm() {}
 
   generatePrompt() {
     const prompt = document.createElement("p");

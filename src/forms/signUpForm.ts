@@ -7,12 +7,15 @@ export class SignUpForm extends Form {
   }
 
   generateCompleteForm(): void {
-    this.generateFormHeader(
-      "Create Account",
-      "Keep track of the movies you've watched with Movie Memory. Create an account to get started."
+    const title = "Create Account";
+    const headerParagraph =
+      "Keep track of the movies you've watched with Movie Memory. Create an account to get started.";
+
+    this.generateFormHeader(title, headerParagraph);
+
+    this.generateFormBody(this.generateFormInputs.bind(this), () =>
+      this.generateFormButtons(title, () => console.log("hey"))
     );
-    this.generateFormInputs();
-    this.generateFormButtons("Create Account", () => console.log("hey"));
   }
 
   generatePrompt(): HTMLParagraphElement {
