@@ -1,4 +1,4 @@
-import { validateEmail } from "./helpers";
+import { validateEmail, validateInput, validiatePassword } from "./helpers";
 
 export class Form {
   formContainer: HTMLElement;
@@ -8,8 +8,6 @@ export class Form {
   }
 
   protected generateFormHeader(title: string, paragraph: string) {
-    console.log("header");
-
     const h1 = document.createElement("h1");
     const p = document.createElement("p");
     const header = document.createElement("div");
@@ -25,7 +23,12 @@ export class Form {
     this.formContainer.appendChild(header);
   }
 
-  private generateInput(element: string, placeholder?: string, type?: string) {
+  //returns HTMLInputElement with placeholder and type attributes
+  private generateDomElement(
+    element: string,
+    placeholder?: string,
+    type?: string
+  ) {
     const newElement = document.createElement(element) as HTMLInputElement;
 
     placeholder !== undefined ? (newElement.placeholder = placeholder) : null;
@@ -35,14 +38,27 @@ export class Form {
   }
 
   protected generateFormInputs() {
-    const emailInput = this.generateInput("input", "Email", "email");
-    const passwordInput = this.generateInput("input", "Password", "password");
-    const emailError = this.generateInput("p");
-    const inputGroup = this.generateInput("div");
+    const emailInput = this.generateDomElement("input", "Email", "email");
+    const passwordInput = this.generateDomElement(
+      "input",
+      "Password",
+      "password"
+    );
 
-    emailError.classList.add("error");
+    const emailFeedback = this.generateDomElement("p");
+    const passwordFeedback = this.generateDomElement("p");
+    const inputGroup = this.generateDomElement("div");
 
-    inputGroup.append(emailInput, emailError, passwordInput);
+    emailFeedback.classList.add("error");
+    passwordFeedback.classList.add("error");
+
+    // add inputs then validate then
+    inputGroup.append(
+      emailInput,
+      emailFeedback,
+      passwordInput,
+      passwordFeedback
+    );
     this.validateFormInputs(inputGroup);
 
     return inputGroup;
@@ -50,17 +66,12 @@ export class Form {
 
   private validateFormInputs(inputGroup: HTMLDivElement) {
     const emailInput = inputGroup.children[0] as HTMLInputElement;
-    const emailError = inputGroup.children[1] as HTMLParagraphElement;
-    // const passwordInput = inputGroup.children[2] as HTMLInputElement;
+    const emailFeedback = inputGroup.children[1] as HTMLParagraphElement;
+    const passwordInput = inputGroup.children[2] as HTMLInputElement;
+    const passwordFeedback = inputGroup.children[3] as HTMLParagraphElement;
 
-    emailInput.addEventListener("input", () => {
-      const emailValidationResults = validateEmail(emailInput.value);
-      const { errorMessage, successMessage, isEmailValid } =
-        emailValidationResults;
-
-      emailError.textContent = isEmailValid ? successMessage : errorMessage;
-      emailError.classList.toggle("success", isEmailValid);
-    });
+    validateInput(emailInput, validateEmail, emailFeedback);
+    validateInput(passwordInput, validiatePassword, passwordFeedback);
   }
 
   protected generateFormButtons(
@@ -85,12 +96,7 @@ export class Form {
 
     return buttonContainer;
   }
-
-  /**
-   * @param inputCallback creates the form inputs and returns them as a div
-   * @param buttonCallback creates the form buttons and returns them as a div
-   * creates a form element that contains the form inputs and buttons and appends it to the form container
-   */
+  // creates a form element that contains the form inputs and buttons and appends it to the form container
   protected generateFormBody(
     inputCallback: () => HTMLDivElement,
     buttonCallback: () => HTMLElement
@@ -107,14 +113,14 @@ export class Form {
 
   public generateCompleteForm() {}
 
-  generatePrompt() {
+  protected generatePrompt() {
     const prompt = document.createElement("p");
     prompt.classList.add("text");
 
     return prompt;
   }
 
-  resetForm() {
+  protected resetForm() {
     this.formContainer.innerHTML = "";
   }
 }

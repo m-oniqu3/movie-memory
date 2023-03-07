@@ -1,11 +1,17 @@
+interface Validation {
+  errorMessage: string;
+  successMessage: string;
+  isValid: boolean;
+}
+
 export const pattern =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export function validateEmail(email: string) {
+export function validateEmail(email: string): Validation {
   const results = {
     errorMessage: "",
     successMessage: "",
-    isEmailValid: false,
+    isValid: false,
   };
 
   //if email is empty
@@ -14,7 +20,7 @@ export function validateEmail(email: string) {
       ...results,
       errorMessage: "Email is required",
       successMessage: "",
-      isEmailValid: false,
+      isValid: false,
     };
   }
 
@@ -24,31 +30,64 @@ export function validateEmail(email: string) {
       ...results,
       errorMessage: "Email is not valid",
       successMessage: "",
-      isEmailValid: false,
+      isValid: false,
     };
   }
 
   //if all fields are valid
   return {
     ...results,
-    isEmailValid: true,
-    successMessage: "Email is valid ✅",
+    isValid: true,
+    successMessage: "Email is valid",
   };
 }
 
-export function validiatePassword(password: string) {
-  const errors = { passwordError: null, valid: false };
+export function validiatePassword(password: string): Validation {
+  const errors = {
+    errorMessage: "",
+    successMessage: "",
+    isValid: false,
+  };
 
   //if password is less than 6 characters
   if (password !== "" && password.length < 6) {
     const message = "Password must be at least 6 characters";
-    return { ...errors, passwordError: message, valid: false };
+    return {
+      ...errors,
+      errorMessage: message,
+      successMessage: "",
+      isValid: false,
+    };
   }
 
   //if password is empty
   else if (password === "" || password.length === 0)
-    return { ...errors, passwordError: "Password is required", valid: false };
+    return {
+      ...errors,
+      errorMessage: "Password is required",
+      successMessage: "",
+      isValid: false,
+    };
 
   //if all fields are valid
-  return { ...errors, valid: true };
+  return {
+    ...errors,
+    successMessage: "Password is valid",
+    isValid: true,
+  };
+}
+
+export function validateInput(
+  input: HTMLInputElement,
+  validationCallback: (value: string) => Validation,
+  feedbackElement: HTMLParagraphElement
+) {
+  input.addEventListener("input", () => {
+    const { errorMessage, successMessage, isValid } = validationCallback(
+      input.value
+    );
+
+    feedbackElement.textContent = isValid ? successMessage : errorMessage;
+    feedbackElement.classList.toggle("success", isValid);
+  });
 }
