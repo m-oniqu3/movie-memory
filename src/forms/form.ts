@@ -1,4 +1,4 @@
-import { pattern } from "./pattern";
+import { validateEmail } from "./helpers";
 
 export class Form {
   formContainer: HTMLElement;
@@ -10,41 +10,6 @@ export class Form {
     this.emailRes = "";
     this.password = "";
   }
-
-  validateEmail = (email: string) => {
-    const results = {
-      errorMessage: "",
-      successMessage: "",
-      isEmailValid: false,
-    };
-
-    //if email is empty
-    if (email === "" || email.length === 0) {
-      return {
-        ...results,
-        errorMessage: "Email is required",
-        successMessage: "",
-        isEmailValid: false,
-      };
-    }
-
-    //if email is not valid
-    else if (email !== "" && !String(email).match(pattern)) {
-      return {
-        ...results,
-        errorMessage: "Email is not valid",
-        successMessage: "",
-        isEmailValid: false,
-      };
-    }
-
-    //if all fields are valid
-    return {
-      ...results,
-      isEmailValid: true,
-      successMessage: "Email is valid ✅",
-    };
-  };
 
   protected generateFormHeader(title: string, paragraph: string) {
     console.log("header");
@@ -78,37 +43,25 @@ export class Form {
     passwordInput.type = "password";
     passwordInput.placeholder = "Password";
 
+    inputGroup.append(emailInput, emailError, passwordInput);
+    this.validateFormInputs(inputGroup);
+
+    return inputGroup;
+  }
+
+  private validateFormInputs(inputGroup: HTMLDivElement) {
+    const emailInput = inputGroup.children[0] as HTMLInputElement;
+    const emailError = inputGroup.children[1] as HTMLParagraphElement;
+    // const passwordInput = inputGroup.children[2] as HTMLInputElement;
+
     emailInput.addEventListener("input", () => {
-      const emailValidationResults = this.validateEmail(emailInput.value);
+      const emailValidationResults = validateEmail(emailInput.value);
       const { errorMessage, successMessage, isEmailValid } =
         emailValidationResults;
 
       emailError.textContent = isEmailValid ? successMessage : errorMessage;
       emailError.classList.toggle("success", isEmailValid);
     });
-
-    inputGroup.append(emailInput, emailError, passwordInput);
-
-    console.log(inputGroup);
-
-    return inputGroup;
-  }
-
-  protected validiatePassword(password: string) {
-    const errors = { passwordError: null, valid: false };
-
-    //if password is less than 6 characters
-    if (password !== "" && password.length < 6) {
-      const message = "Password must be at least 6 characters";
-      return { ...errors, passwordError: message, valid: false };
-    }
-
-    //if password is empty
-    else if (password === "" || password.length === 0)
-      return { ...errors, passwordError: "Password is required", valid: false };
-
-    //if all fields are valid
-    return { ...errors, valid: true };
   }
 
   protected generateFormButtons(
@@ -134,6 +87,11 @@ export class Form {
     return buttonContainer;
   }
 
+  /**
+   * @param inputCallback creates the form inputs and returns them as a div
+   * @param buttonCallback creates the form buttons and returns them as a div
+   * creates a form element that contains the form inputs and buttons and appends it to the form container
+   */
   protected generateFormBody(
     inputCallback: () => HTMLDivElement,
     buttonCallback: () => HTMLElement
