@@ -23,16 +23,22 @@ export class Form {
     this.formContainer.appendChild(header);
   }
 
-  //returns HTMLInputElement with placeholder and type attributes
   private generateDomElement(
     element: string,
     placeholder?: string,
     type?: string
   ) {
-    const newElement = document.createElement(element) as HTMLInputElement;
+    const newElement = (() => {
+      if (placeholder && type) {
+        const domElement = document.createElement(element) as HTMLInputElement;
+        domElement.placeholder = placeholder;
+        domElement.type = type;
 
-    placeholder !== undefined ? (newElement.placeholder = placeholder) : null;
-    type !== undefined ? (newElement.type = type) : null;
+        return domElement;
+      } else {
+        return document.createElement(element) as HTMLElement;
+      }
+    })();
 
     return newElement;
   }
@@ -59,9 +65,9 @@ export class Form {
       passwordInput,
       passwordFeedback
     );
-    this.validateFormInputs(inputGroup);
+    this.validateFormInputs(inputGroup as HTMLDivElement);
 
-    return inputGroup;
+    return inputGroup as HTMLDivElement;
   }
 
   private validateFormInputs(inputGroup: HTMLDivElement) {
