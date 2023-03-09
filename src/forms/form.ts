@@ -84,6 +84,9 @@ export class Form {
     primaryButtonText: string,
     onPrimaryButtonClick: () => void
   ) {
+    // accept an array of button objects and then loop through them and create the buttons
+    // add an eventlistener on click and then use a switch statement to determine what to do based on the button type
+
     const primaryButton = document.createElement("button");
     const secondaryButton = document.createElement("button");
     const buttonContainer = document.createElement("div");

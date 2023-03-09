@@ -2,24 +2,21 @@
 
 .heading {
   font-family: "Montserrat", sans-serif;
-line-height: 100%;
+  line-height: 100%;
 
   &--small {
     @extend .heading;
-    
+
     font-size: 1.5rem;
     color: v.$primary;
     font-weight: 700;
-   
   }
 
   &--medium {
     @extend .heading;
-    
-    font-size: 2rem;
+
+    font-size: clamp(2rem, 4vw, 8rem);
     color: v.$primary-neutral;
     font-weight: 900;
-    
-    
   }
 }
