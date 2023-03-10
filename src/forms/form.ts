@@ -2,9 +2,13 @@ import { validateEmail, validateInput, validiatePassword } from "./helpers";
 
 export class Form {
   formContainer: HTMLElement;
+  email: any;
+  password: string;
 
   constructor(formElement: HTMLElement) {
     this.formContainer = formElement;
+    this.email = "";
+    this.password = "";
   }
 
   protected generateFormHeader(title: string, paragraph: string) {
@@ -70,14 +74,40 @@ export class Form {
     return inputGroup as HTMLDivElement;
   }
 
+  setEmail(email: string) {
+    console.log("calling email");
+
+    this.email = email;
+  }
+
+  setPassword(password: string) {
+    console.log("calling pwd");
+
+    this.password = password;
+  }
+
   private validateFormInputs(inputGroup: HTMLDivElement) {
     const emailInput = inputGroup.children[0] as HTMLInputElement;
     const emailFeedback = inputGroup.children[1] as HTMLParagraphElement;
     const passwordInput = inputGroup.children[2] as HTMLInputElement;
     const passwordFeedback = inputGroup.children[3] as HTMLParagraphElement;
+    let emailState = false;
+    let passwordState = false;
 
-    validateInput(emailInput, validateEmail, emailFeedback);
-    validateInput(passwordInput, validiatePassword, passwordFeedback);
+    validateInput(emailInput, validateEmail, emailFeedback, emailState);
+    validateInput(
+      passwordInput,
+      validiatePassword,
+      passwordFeedback,
+      passwordState
+    );
+
+    //listen for changes on the email input
+    emailInput.addEventListener("input", () => {
+      if (emailState) {
+        this.setEmail(emailInput.value);
+      }
+    });
   }
 
   protected generateFormButtons(
@@ -100,6 +130,7 @@ export class Form {
     secondaryButton.textContent = "Continue as Guest";
 
     primaryButton.type = "submit";
+    primaryButton.addEventListener("click", onPrimaryButtonClick);
 
     buttonContainer.append(primaryButton, secondaryButton, prompt);
 
@@ -117,6 +148,7 @@ export class Form {
     const buttonContainer = buttonCallback();
 
     form.append(formInputs, buttonContainer);
+    form.addEventListener("submit", (e) => e.preventDefault());
     this.formContainer.append(form);
   }
 

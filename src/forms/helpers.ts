@@ -80,12 +80,15 @@ export function validiatePassword(password: string): Validation {
 export function validateInput(
   input: HTMLInputElement,
   validationCallback: (value: string) => Validation,
-  feedbackElement: HTMLParagraphElement
+  feedbackElement: HTMLParagraphElement,
+  state: boolean
 ) {
   input.addEventListener("input", () => {
     const { errorMessage, successMessage, isValid } = validationCallback(
       input.value
     );
+    state = isValid ? true : false;
+    console.log(isValid);
 
     feedbackElement.textContent = isValid ? successMessage : errorMessage;
     feedbackElement.classList.toggle("success", isValid);

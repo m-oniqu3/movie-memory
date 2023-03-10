@@ -14,7 +14,9 @@ export class SignUpForm extends Form {
     this.generateFormHeader(title, headerParagraph);
 
     this.generateFormBody(this.generateFormInputs.bind(this), () =>
-      this.generateFormButtons(title, () => console.log("hey"))
+      this.generateFormButtons(title, () =>
+        console.log(this.email, this.password, "hey")
+      )
     );
   }
 
