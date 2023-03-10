@@ -1,4 +1,4 @@
-import { validateEmail, validateInput, validiatePassword } from "./helpers";
+import { validateEmail } from "./helpers";
 
 export class Form {
   formContainer: HTMLElement;
@@ -88,23 +88,24 @@ export class Form {
 
   private validateFormInputs(inputGroup: HTMLDivElement) {
     const emailInput = inputGroup.children[0] as HTMLInputElement;
-    const emailFeedback = inputGroup.children[1] as HTMLParagraphElement;
-    const passwordInput = inputGroup.children[2] as HTMLInputElement;
-    const passwordFeedback = inputGroup.children[3] as HTMLParagraphElement;
-    let emailState = false;
-    let passwordState = false;
+    const feedbackElement = inputGroup.children[1] as HTMLParagraphElement;
+    // const passwordInput = inputGroup.children[2] as HTMLInputElement;
 
-    validateInput(emailInput, validateEmail, emailFeedback, emailState);
-    validateInput(
-      passwordInput,
-      validiatePassword,
-      passwordFeedback,
-      passwordState
-    );
-
-    //listen for changes on the email input
+    //if password is empty
     emailInput.addEventListener("input", () => {
-      if (emailState) {
+      const emailValidationResults = validateEmail(emailInput.value);
+      const {
+        errorMessage,
+        successMessage,
+        isValid: isEmailValid,
+      } = emailValidationResults;
+
+      feedbackElement.classList.toggle("success", isEmailValid);
+      feedbackElement.textContent = isEmailValid
+        ? successMessage
+        : errorMessage;
+
+      if (isEmailValid) {
         this.setEmail(emailInput.value);
       }
     });

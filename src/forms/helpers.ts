@@ -93,4 +93,6 @@ export function validateInput(
     feedbackElement.textContent = isValid ? successMessage : errorMessage;
     feedbackElement.classList.toggle("success", isValid);
   });
+
+  return state;
 }
