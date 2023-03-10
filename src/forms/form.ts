@@ -1,4 +1,4 @@
-import { validateEmail } from "./helpers";
+import { validateEmail, validateInput, validiatePassword } from "./helpers";
 
 export class Form {
   formContainer: HTMLElement;
@@ -74,40 +74,33 @@ export class Form {
     return inputGroup as HTMLDivElement;
   }
 
-  setEmail(email: string) {
-    console.log("calling email");
-
+  protected setEmail(email: string) {
     this.email = email;
   }
 
-  setPassword(password: string) {
-    console.log("calling pwd");
-
+  protected setPassword(password: string) {
     this.password = password;
   }
 
   private validateFormInputs(inputGroup: HTMLDivElement) {
     const emailInput = inputGroup.children[0] as HTMLInputElement;
-    const feedbackElement = inputGroup.children[1] as HTMLParagraphElement;
-    // const passwordInput = inputGroup.children[2] as HTMLInputElement;
+    const emailFeedback = inputGroup.children[1] as HTMLParagraphElement;
+    const passwordInput = inputGroup.children[2] as HTMLInputElement;
+    const passwordFeedback = inputGroup.children[3] as HTMLParagraphElement;
 
-    //if password is empty
-    emailInput.addEventListener("input", () => {
-      const emailValidationResults = validateEmail(emailInput.value);
-      const {
-        errorMessage,
-        successMessage,
-        isValid: isEmailValid,
-      } = emailValidationResults;
+    // bind the setGlobalState method to the class because it is a callback function and the this keyword will not be bound to the class
+    validateInput({
+      input: emailInput,
+      validationCallback: () => validateEmail(emailInput.value),
+      feedbackElement: emailFeedback,
+      setGlobalState: this.setEmail.bind(this),
+    });
 
-      feedbackElement.classList.toggle("success", isEmailValid);
-      feedbackElement.textContent = isEmailValid
-        ? successMessage
-        : errorMessage;
-
-      if (isEmailValid) {
-        this.setEmail(emailInput.value);
-      }
+    validateInput({
+      input: passwordInput,
+      validationCallback: () => validiatePassword(passwordInput.value),
+      feedbackElement: passwordFeedback,
+      setGlobalState: this.setPassword.bind(this),
     });
   }
 

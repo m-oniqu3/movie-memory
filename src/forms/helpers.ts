@@ -77,22 +77,28 @@ export function validiatePassword(password: string): Validation {
   };
 }
 
-export function validateInput(
-  input: HTMLInputElement,
-  validationCallback: (value: string) => Validation,
-  feedbackElement: HTMLParagraphElement,
-  state: boolean
-) {
+interface ValidateInput {
+  input: HTMLInputElement;
+  validationCallback: (value: string) => Validation;
+  feedbackElement: HTMLParagraphElement;
+  setGlobalState: (value: string) => void;
+}
+
+// validates the input on change and sets the global state if the input is valid
+
+export function validateInput(props: ValidateInput) {
+  const { input, validationCallback, feedbackElement, setGlobalState } = props;
+
   input.addEventListener("input", () => {
     const { errorMessage, successMessage, isValid } = validationCallback(
       input.value
     );
-    state = isValid ? true : false;
-    console.log(isValid);
 
     feedbackElement.textContent = isValid ? successMessage : errorMessage;
     feedbackElement.classList.toggle("success", isValid);
-  });
 
-  return state;
+    if (isValid) {
+      setGlobalState(input.value);
+    }
+  });
 }
