@@ -1,4 +1,4 @@
-import { Form } from "./form";
+import { Button, Form } from "./form";
 import { LoginForm } from "./loginForm";
 
 export class SignUpForm extends Form {
@@ -11,13 +11,33 @@ export class SignUpForm extends Form {
     const headerParagraph =
       "Keep track of the movies you've watched with Movie Memory. Create an account to get started.";
 
-    this.generateFormHeader(title, headerParagraph);
+    const formInputs = this.generateFormInputs.bind(this);
 
-    this.generateFormBody(this.generateFormInputs.bind(this), () =>
-      this.generateFormButtons(title, () =>
-        console.log(this.email, this.password, "hey")
-      )
-    );
+    const buttons: Button[] = [
+      {
+        classes: ["button", "button__primary--dark"],
+        textContent: "Create Account",
+        type: "submit",
+        disabled: this.email && this.password ? false : true,
+        onClick: () => {
+          console.log(this.email, this.password);
+        },
+      },
+
+      {
+        classes: ["button", "button__secondary--dark"],
+        textContent: "Continue as Guest",
+        type: "submit",
+        onClick: () => {
+          console.log("guest");
+        },
+      },
+    ];
+
+    const formButtons = () => this.generateFormButtons(buttons);
+
+    this.generateFormHeader(title, headerParagraph);
+    this.generateFormBody(formInputs, formButtons);
   }
 
   /**

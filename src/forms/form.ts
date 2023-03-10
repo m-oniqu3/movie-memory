@@ -1,8 +1,16 @@
 import { validateEmail, validateInput, validiatePassword } from "./helpers";
 
+export interface Button {
+  classes: string[];
+  textContent: string;
+  type: string;
+  disabled?: boolean;
+  onClick: () => void;
+}
+
 export class Form {
   formContainer: HTMLElement;
-  email: any;
+  email: string;
   password: string;
 
   constructor(formElement: HTMLElement) {
@@ -104,29 +112,24 @@ export class Form {
     });
   }
 
-  protected generateFormButtons(
-    primaryButtonText: string,
-    onPrimaryButtonClick: () => void
-  ) {
-    // accept an array of button objects and then loop through them and create the buttons
-    // add an eventlistener on click and then use a switch statement to determine what to do based on the button type
+  protected generateFormButtons(buttons: Button[]) {
+    const formButtons = buttons.map((button) => {
+      const buttonElement = document.createElement("button");
+      buttonElement.classList.add(...button.classes);
+      buttonElement.textContent = button.textContent;
+      buttonElement.type = button.type;
+      buttonElement.addEventListener("click", button.onClick);
+      button.disabled &&
+        buttonElement.setAttribute("disabled", button.disabled.toString());
 
-    const primaryButton = document.createElement("button");
-    const secondaryButton = document.createElement("button");
+      return buttonElement;
+    });
     const buttonContainer = document.createElement("div");
     const prompt = this.generatePrompt();
 
-    primaryButton.classList.add("button", "button__primary--dark");
-    secondaryButton.classList.add("button", "button__secondary--dark");
     buttonContainer.classList.add("form__container__buttonContainer");
 
-    primaryButton.textContent = primaryButtonText;
-    secondaryButton.textContent = "Continue as Guest";
-
-    primaryButton.type = "submit";
-    primaryButton.addEventListener("click", onPrimaryButtonClick);
-
-    buttonContainer.append(primaryButton, secondaryButton, prompt);
+    buttonContainer.append(...formButtons, prompt);
 
     return buttonContainer;
   }
