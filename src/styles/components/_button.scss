@@ -23,10 +23,12 @@
       @extend .button;
       background-color: v.$primary;
       color: v.$primary-neutral;
+      border: 1px solid v.$primary;
 
       &:hover {
         background-color: v.$primary-neutral;
         color: v.$primary;
+        border: 1px solid v.$primary;
       }
     }
   }

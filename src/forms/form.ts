@@ -1,10 +1,22 @@
 import { validateEmail, validateInput, validiatePassword } from "./helpers";
 
+export interface Button {
+  classes: string[];
+  textContent: string;
+  type: string;
+  disabled?: boolean;
+  onClick: () => void;
+}
+
 export class Form {
   formContainer: HTMLElement;
+  email: string;
+  password: string;
 
   constructor(formElement: HTMLElement) {
     this.formContainer = formElement;
+    this.email = "";
+    this.password = "";
   }
 
   protected generateFormHeader(title: string, paragraph: string) {
@@ -70,38 +82,54 @@ export class Form {
     return inputGroup as HTMLDivElement;
   }
 
+  protected setEmail(email: string) {
+    this.email = email;
+  }
+
+  protected setPassword(password: string) {
+    this.password = password;
+  }
+
   private validateFormInputs(inputGroup: HTMLDivElement) {
     const emailInput = inputGroup.children[0] as HTMLInputElement;
     const emailFeedback = inputGroup.children[1] as HTMLParagraphElement;
     const passwordInput = inputGroup.children[2] as HTMLInputElement;
     const passwordFeedback = inputGroup.children[3] as HTMLParagraphElement;
 
-    validateInput(emailInput, validateEmail, emailFeedback);
-    validateInput(passwordInput, validiatePassword, passwordFeedback);
+    // bind the setGlobalState method to the class because it is a callback function and the this keyword will not be bound to the class
+    validateInput({
+      input: emailInput,
+      validationCallback: () => validateEmail(emailInput.value),
+      feedbackElement: emailFeedback,
+      setGlobalState: this.setEmail.bind(this),
+    });
+
+    validateInput({
+      input: passwordInput,
+      validationCallback: () => validiatePassword(passwordInput.value),
+      feedbackElement: passwordFeedback,
+      setGlobalState: this.setPassword.bind(this),
+    });
   }
 
-  protected generateFormButtons(
-    primaryButtonText: string,
-    onPrimaryButtonClick: () => void
-  ) {
-    // accept an array of button objects and then loop through them and create the buttons
-    // add an eventlistener on click and then use a switch statement to determine what to do based on the button type
+  protected generateFormButtons(buttons: Button[]) {
+    const formButtons = buttons.map((button) => {
+      const buttonElement = document.createElement("button");
+      buttonElement.classList.add(...button.classes);
+      buttonElement.textContent = button.textContent;
+      buttonElement.type = button.type;
+      buttonElement.addEventListener("click", button.onClick);
+      button.disabled &&
+        buttonElement.setAttribute("disabled", button.disabled.toString());
 
-    const primaryButton = document.createElement("button");
-    const secondaryButton = document.createElement("button");
+      return buttonElement;
+    });
     const buttonContainer = document.createElement("div");
     const prompt = this.generatePrompt();
 
-    primaryButton.classList.add("button", "button__primary--dark");
-    secondaryButton.classList.add("button", "button__secondary--dark");
     buttonContainer.classList.add("form__container__buttonContainer");
 
-    primaryButton.textContent = primaryButtonText;
-    secondaryButton.textContent = "Continue as Guest";
-
-    primaryButton.type = "submit";
-
-    buttonContainer.append(primaryButton, secondaryButton, prompt);
+    buttonContainer.append(...formButtons, prompt);
 
     return buttonContainer;
   }
@@ -117,6 +145,7 @@ export class Form {
     const buttonContainer = buttonCallback();
 
     form.append(formInputs, buttonContainer);
+    form.addEventListener("submit", (e) => e.preventDefault());
     this.formContainer.append(form);
   }
 
