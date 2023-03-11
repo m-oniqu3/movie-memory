@@ -1,8 +1,6 @@
 @use "../abstracts/variables" as v;
 .content {
-  background: url(#{v.$assetsPath}/movies.png);
-  background-position: 80%;
-  background-repeat: no-repeat;
+  background: rgb(145, 53, 68);
   height: 100vh;
   width: 100%;
 }
