@@ -1,13 +1,115 @@
+@use "../abstracts/mixins" as m;
+@use "../abstracts/variables" as v;
+
 .nav {
   display: flex;
   align-items: center;
   height: 10vh;
 
-  &__logo {
-    width: 120px;
+  &--active {
+    background-color: v.$primary-dark;
 
-    img {
+    @include m.breakpoint(medium) {
+      background-color: transparent;
+    }
+  }
+
+  .nav__container {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    place-items: center;
+
+    @include m.breakpoint(medium) {
+      grid-template-columns: 120px auto 50px;
+    }
+
+    &__logo {
       width: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &__links {
+      display: none;
+
+      &--active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 10vh;
+        left: 0;
+        background-color: v.$primary-dark;
+        width: 100%;
+        text-align: center;
+
+        @include m.breakpoint(medium) {
+          display: flex;
+          flex-direction: row;
+          position: relative;
+          top: 0;
+          left: 0;
+          background-color: transparent;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+        }
+
+        li {
+          border-top: 1px solid v.$primary-line;
+          height: 10vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        a {
+          color: v.$primary-neutral;
+          font-size: 1rem;
+          text-decoration: none;
+          transition: all 0.3s ease;
+
+          &:hover {
+            color: v.$primary-light;
+          }
+        }
+      }
+
+      @include m.breakpoint(medium) {
+        display: flex;
+        gap: 2rem;
+      }
+
+      li {
+        list-style: none;
+      }
+
+      a {
+        color: v.$primary-neutral;
+        font-size: 1rem;
+
+        text-decoration: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: v.$primary-light;
+        }
+      }
+    }
+
+    &__icons {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: end;
+      width: 100%;
+
+      #menu {
+        @include m.breakpoint(medium) {
+          display: none;
+        }
+      }
     }
   }
 }

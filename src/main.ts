@@ -1,4 +1,4 @@
-import { BaseNav } from "./header";
+import { BaseNav } from "./nav/BaseNav";
 
 // generate navbar
 const baseNav = new BaseNav();

@@ -1,19 +1,6 @@
-import DarkLogo from "./assets/dark_logo.png";
-import Logo from "./assets/logo.png";
-export class BaseNav {
-  generateNavbar() {
-    const nav = document.querySelector(".nav") as HTMLElement;
-
-    nav.classList.add("nav");
-    nav.innerHTML = `
-      <figure class="nav__logo">
-        <img src=${Logo} alt="logo" />
-        </figure>
-        `;
-
-    return nav;
-  }
-}
+import DarkLogo from "../assets/dark_logo.png";
+import Logo from "../assets/logo.png";
+import { BaseNav } from "../nav/BaseNav";
 
 export class DarkBaseNav extends BaseNav {
   windowWidth: number;
@@ -29,17 +16,15 @@ export class DarkBaseNav extends BaseNav {
 
   // override
   generateNavbar() {
-    const nav = document.querySelector(".nav") as HTMLElement;
-    nav.classList.add("nav");
     const imageSrc = this.windowWidth > 900 ? Logo : DarkLogo;
 
-    nav.innerHTML = `
-      <figure class="nav__logo">
+    this.navContainer.innerHTML = `
+      <figure class="nav__container__logo">
         <img src=${imageSrc} alt="logo" />
         </figure>
         `;
 
-    return nav;
+    return this.nav;
   }
 
   generateNavOnResize() {
