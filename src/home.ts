@@ -1,4 +1,4 @@
-import { FullNav } from "./header";
+import { FullNav } from "./nav/FullNav";
 
 const nav = new FullNav();
 nav.generateNavbar();
