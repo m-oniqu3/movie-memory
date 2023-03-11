@@ -52,10 +52,13 @@ export class FullNav extends BaseNav {
             <a href="#" class="nav__link">Home</a>
           </li>
           <li class="nav__item">
-            <a href="#" class="nav__link">About</a>
+            <a href="#" class="nav__link">Memories</a>
           </li>
           <li class="nav__item">
-            <a href="#" class="nav__link">Contact</a>
+            <a href="#" class="nav__link">TV Shows</a>
+          </li>
+            <li class="nav__item">
+            <a href="#" class="nav__link">Movies</a>
           </li>
         </ul>
 
