@@ -1,7 +1,16 @@
+@use "../abstracts/mixins" as m;
+@use "../abstracts/variables" as v;
+
 .nav {
   display: flex;
   align-items: center;
   height: 10vh;
+  justify-content: space-between;
+
+  &--active {
+    background-color: v.$primary;
+    color: v.$primary-neutral;
+  }
 
   &__logo {
     width: 120px;
@@ -9,5 +18,35 @@
     img {
       width: 100%;
     }
+  }
+
+  &__links {
+    display: none;
+
+    &--active {
+      display: flex;
+    }
+
+    @include m.breakpoint(medium) {
+    }
+
+    a {
+      // color: v.$primary-neutral;
+      // font-size: 1.2rem;
+      // font-weight: 500;
+      // text-transform: uppercase;
+      // text-decoration: none;
+      // transition: all 0.3s ease;
+
+      // &:hover {
+      //   color: v.$primary;
+      // }
+    }
+  }
+
+  &__icons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
   }
 }
