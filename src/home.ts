@@ -21,13 +21,49 @@ menu.addEventListener("click", () => {
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;
 
 const heroMovies = [
-  { src: Inception },
-  { src: Interstellar },
-  { src: InfinityWar },
-  { src: BigHeroSix },
-  { src: DarkKnight },
-  { src: GodFather },
-  { src: DCLegends },
+  {
+    src: Inception,
+    title: "Inception",
+
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+  },
+  {
+    src: Interstellar,
+    title: "Inception",
+
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+  },
+  {
+    src: InfinityWar,
+    title: "Inception",
+
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+  },
+  {
+    src: BigHeroSix,
+    title: "Inception",
+
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+  },
+
+  {
+    src: DarkKnight,
+    title: "Inception",
+
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+  },
+  {
+    src: GodFather,
+    title: "Inception",
+
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+  },
+  {
+    src: DCLegends,
+    title: "Inception",
+
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+  },
 ];
 
 swiperWrapper.innerHTML = heroMovies
@@ -35,7 +71,16 @@ swiperWrapper.innerHTML = heroMovies
     return `
     <div class="swiper-slide">
       <img src="${movie.src}" alt="movie" />
+
+      <div class="movie-container">
+        <div class="movie">
+          <h3>${movie.title}</h3>
+          <p>${movie.desc}</p>
+        </div>
+      </div>
+     
     </div>
+
 
   `;
   })

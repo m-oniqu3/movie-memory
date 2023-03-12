@@ -23,4 +23,20 @@
     //   color: var(--swiper-navigation-color);
     // }
   }
+
+  .swiper-wrapper {
+    // position: relative;
+    .movie {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 90vh;
+      display: grid;
+      place-items: end start;
+      place-content: end;
+      margin: 1rem;
+
+      z-index: 100;
+    }
+  }
 }
