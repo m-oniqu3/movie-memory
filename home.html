@@ -15,20 +15,20 @@
   <body>
     <section>
       <div class="swiper">
-        <!-- <nav class="nav">
+        <nav class="nav">
           <div class="container"></div>
-        </nav> -->
+        </nav>
 
         <div class="swiper-wrapper"></div>
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
       </div>
 
-      <div class="container">
+      <!-- <div class="container">
         <section class="content__info">
           <p>Home</p>
         </section>
-      </div>
+      </div> -->
     </section>
 
     <script src="/src/home.ts" type="module"></script>
@@ -39,7 +39,10 @@
         // Optional parameters
         direction: "horizontal",
         loop: true,
-        autoplay: true,
+        autoplay: {
+          delay: 5000,
+        },
+        speed: 1000,
 
         // If we need pagination
         pagination: {

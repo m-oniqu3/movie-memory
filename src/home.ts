@@ -5,15 +5,16 @@ import Inception from "../src/assets/inception_286e_2880x1800.jpg";
 import Interstellar from "../src/assets/interstellar_d112_2880x1800.jpg";
 import DarkKnight from "../src/assets/the-dark-knight_0ee9_2880x1800.jpg";
 import GodFather from "../src/assets/the-godfather_4acf_2880x1800.jpg";
+import { FullNav } from "./nav/FullNav";
 
-// const nav = new FullNav();
-// nav.generateNavbar();
+const nav = new FullNav();
+nav.generateNavbar();
 
-// const menu = document.getElementById("menu") as HTMLElement;
+const menu = document.getElementById("menu") as HTMLElement;
 
-// menu.addEventListener("click", () => {
-//   nav.showNavLink();
-// });
+menu.addEventListener("click", () => {
+  nav.showNavLink();
+});
 
 // get movies
 
@@ -40,17 +41,16 @@ swiperWrapper.innerHTML = heroMovies
   })
   .join("");
 
-const apiKey = import.meta.env.VITE_API_KEY;
-const content = document.querySelector(".content") as HTMLElement;
+//const apiKey = import.meta.env.VITE_API_KEY;
 
-const getMovies = async () => {
-  //omdb url
-  const url = `https://www.omdbapi.com/?apikey=${apiKey}&s=love&type=movie`;
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log(data);
+// const getMovies = async () => {
+//   //omdb url
+//   const url = `https://www.omdbapi.com/?apikey=${apiKey}&s=love&type=movie`;
+//   const response = await fetch(url);
+//   const data = await response.json();
+//   console.log(data);
 
-  // content.style.background = `url(${data.Search[0].Poster})`;
-};
+//   // content.style.background = `url(${data.Search[0].Poster})`;
+// };
 
-getMovies();
+// getMovies();
