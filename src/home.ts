@@ -20,12 +20,15 @@ swiperWrapper.innerHTML = movies
     <div class="swiper-slide">
       <img src="${movie.src}" alt="movie" />
 
-      <div class="movie-container">
-        <div class="movie">
-          <h3>${movie.title}</h3>
-          <p>${movie.desc}</p>
-        </div>
-      </div>
+      <div class="overlay"></div>
+
+      <article class="movie-container">
+      <div class="container">
+         <h3 class="heading heading--medium">${movie.title}</h3>
+         <p class="text">${movie.desc}</p>
+         </div>
+      </article>
+   
      
     </div>
 

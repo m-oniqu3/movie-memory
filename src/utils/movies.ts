@@ -17,43 +17,43 @@ export const movies: Movie[] = [
     src: Inception,
     title: "Inception",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
   },
   {
     src: Interstellar,
     title: "Inception",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
   },
   {
     src: Avengers,
     title: "The Avengers",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
   },
   {
     src: BigHeroSix,
     title: "Big Hero 6",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
   },
 
   {
     src: DarkKnight,
     title: "The Dark Knight",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
   },
   {
     src: BladeRunner,
     title: "Blade Runner 2049",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
   },
   {
     src: DCLegends,
     title: "DC Legends of Tomorrow",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Iure ab modi quibusdam cumque! Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
   },
 ];
