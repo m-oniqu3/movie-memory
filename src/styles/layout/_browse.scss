@@ -54,13 +54,14 @@
       }
 
       h3 {
-        max-width: 480px;
+        max-width: 550px;
       }
 
       p {
         margin-top: 1rem;
         color: v.$primary-neutral;
-        max-width: 400px;
+        max-width: 450px;
+        font-size: clamp(1rem, 3vw, 1.1rem);
       }
     }
   }

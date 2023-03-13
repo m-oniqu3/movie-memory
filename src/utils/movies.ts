@@ -17,43 +17,43 @@ export const movies: Movie[] = [
     src: Inception,
     title: "Inception",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: "Cobb steals information from his targets by entering their dreams. Saito offers to wipe clean Cobb's criminal history as payment for performing an inception on his sick competitor's son.",
   },
   {
     src: Interstellar,
-    title: "Inception",
+    title: "Interstellar",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: "When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.",
   },
   {
     src: Avengers,
     title: "The Avengers",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: "Nick Fury is compelled to launch the Avengers Initiative when Loki poses a threat to planet Earth. His squad of superheroes put their minds together to accomplish the task.",
   },
   {
     src: BigHeroSix,
     title: "Big Hero 6",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: "Hiro, a robotics prodigy, joins hands with Baymax in order to avenge his brother's death. They then team up with Hiro's friends to form a team of high-tech heroes.",
   },
 
   {
     src: DarkKnight,
     title: "The Dark Knight",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: "After Gordon, Dent and Batman begin an assault on Gotham's organised crime, the mobs hire the Joker, a psychopathic criminal mastermind who offers to kill Batman and bring the city to its knees.",
   },
   {
     src: BladeRunner,
     title: "Blade Runner 2049",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: "K, an officer with the Los Angeles Police Department, unearths a secret that could create chaos. He goes in search of a former blade runner who has been missing for over three decades.",
   },
   {
     src: DCLegends,
     title: "DC Legends of Tomorrow",
 
-    desc: " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum, doloremque. Ut earum praesentium repellat, veritatis fugiat eveniet cumque voluptatibus expedita porro, enim hic ullam aliquid!",
+    desc: "Rip Hunter, a time traveller, comes to know of Vandal Savage's plan to cause an apocalypse to destroy Earth and time. However, he assembles superheroes to thwart Savage's evil plan and save the world.",
   },
 ];
