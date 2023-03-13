@@ -2,22 +2,27 @@
 @use "../abstracts/mixins" as m;
 
 .content {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100vh;
+  background: v.$primary-dark;
+  height: 100%;
   width: 100%;
+
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+    grid-gap: 1rem;
+
+    img {
+      height: 10.8rem;
+      width: 6.5rem;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
 }
 
 .swiper {
   width: 100vw;
   height: 100vh;
-  // z-index: 10;
-  // background: linear-gradient(
-  //   71.17deg,
-  //   rgba(0, 0, 0, 0.6106) 16.95%,
-  //   rgba(19, 19, 19, 0.1032) 99.64%
-  // );
 
   .swiper-slide {
     img {
@@ -45,12 +50,12 @@
     .movie-container {
       position: absolute;
       left: 0;
-      bottom: 30px;
+      bottom: 80px;
       z-index: 100;
       width: 100%;
 
       @include m.breakpoint(medium) {
-        bottom: 80px;
+        bottom: 100px;
       }
 
       h3 {

@@ -1,3 +1,4 @@
+import { BrowseMovies } from "./movies/Movies";
 import { FullNav } from "./nav/FullNav";
 import { movies } from "./utils/movies";
 
@@ -10,10 +11,8 @@ menu.addEventListener("click", () => {
   nav.showNavLink();
 });
 
-// get movies
-
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;
-
+// movies for swiper
 swiperWrapper.innerHTML = movies
   .map((movie) => {
     return `
@@ -36,6 +35,11 @@ swiperWrapper.innerHTML = movies
   `;
   })
   .join("");
+
+const moviesSection = document.querySelector(".movies-section") as HTMLElement;
+
+const browsemovies = new BrowseMovies(moviesSection);
+browsemovies.generateMoviesContent();
 
 //const apiKey = import.meta.env.VITE_API_KEY;
 
