@@ -9,7 +9,7 @@ export class Movies {
 
   generateHeading(text: string) {
     const heading = document.createElement("h1");
-    heading.classList.add("heading", "heading--small");
+    heading.classList.add("heading", "heading__small--white");
     heading.innerText = text;
     return heading;
   }

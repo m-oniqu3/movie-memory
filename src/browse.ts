@@ -23,7 +23,7 @@ swiperWrapper.innerHTML = movies
 
       <article class="movie-container">
       <div class="container">
-         <h3 class="heading heading--medium">${movie.title}</h3>
+         <h3 class="heading heading__medium">${movie.title}</h3>
          <p class="text">${movie.desc}</p>
          </div>
       </article>
