@@ -1,4 +1,4 @@
-import { BrowseMovies } from "./movies/Movies";
+import { BrowseMovies } from "./movies/BrowseMovies";
 import { FullNav } from "./nav/FullNav";
 import { movies } from "./utils/movies";
 
@@ -12,6 +12,7 @@ menu.addEventListener("click", () => {
 });
 
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;
+
 // movies for swiper
 swiperWrapper.innerHTML = movies
   .map((movie) => {
@@ -40,17 +41,3 @@ const moviesSection = document.querySelector(".movies-section") as HTMLElement;
 
 const browsemovies = new BrowseMovies(moviesSection);
 browsemovies.generateMoviesContent();
-
-//const apiKey = import.meta.env.VITE_API_KEY;
-
-// const getMovies = async () => {
-//   //omdb url
-//   const url = `https://www.omdbapi.com/?apikey=${apiKey}&s=love&type=movie`;
-//   const response = await fetch(url);
-//   const data = await response.json();
-//   console.log(data);
-
-//   // content.style.background = `url(${data.Search[0].Poster})`;
-// };
-
-// getMovies();

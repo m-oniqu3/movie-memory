@@ -1,10 +1,12 @@
 export class Movies {
   container: HTMLElement;
   apiKey: any;
+  openModal: boolean;
 
   constructor(container: HTMLElement) {
     this.container = container;
     this.apiKey = import.meta.env.VITE_API_KEY;
+    this.openModal = false;
   }
 
   generateHeading(text: string) {
@@ -21,6 +23,9 @@ export class Movies {
       const data = localStorage.getItem(key);
 
       if (data) {
+        console.log("getting from local storage");
+        console.log(JSON.parse(data));
+
         return JSON.parse(data);
       } else {
         const response = await fetch(url);
@@ -36,6 +41,44 @@ export class Movies {
     }
   }
 
+  //fetch movie by id
+  async fetchMovieById(id: string) {
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}&language=en-US`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    console.log(data);
+
+    return data;
+  }
+
+  showMovieDetailsModal() {
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    const modalContent = document.createElement("article");
+    modalContent.classList.add("modal__content");
+
+    // close modal and allow scrolling
+    window.onclick = function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+
+        //remove modal from dom
+        modal.remove();
+      }
+    };
+    //
+
+    modal.append(modalContent);
+
+    //add modal to body
+    this.container.append(modal);
+  }
+
   generateMovieGrid(movies: any[]) {
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
@@ -45,6 +88,11 @@ export class Movies {
       movieImage.classList.add("movie-image");
       movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
+      movieImage.addEventListener("click", () => {
+        this.showMovieDetailsModal();
+        // this.fetchMovieById(movie.id);
+      });
+
       movieGrid.append(movieImage);
     });
 
@@ -52,51 +100,4 @@ export class Movies {
   }
 
   generateMoviesContent() {}
-}
-
-export class BrowseMovies extends Movies {
-  constructor(container: HTMLElement) {
-    super(container);
-  }
-
-  generatePopularMovies() {
-    const article = document.createElement("article");
-    const heading = this.generateHeading("Popular Movies");
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=1`;
-    const popularMovies = this.fetchMovies(url, "popularMovies");
-
-    popularMovies.then((movies) => {
-      const movieGrid = this.generateMovieGrid(movies);
-      article.append(movieGrid);
-    });
-
-    console.log(popularMovies);
-
-    article.append(heading);
-    this.container.append(article);
-  }
-
-  generatePopularShows() {
-    const article = document.createElement("article");
-    const heading = this.generateHeading("Popular Shows");
-    const url = `https://api.themoviedb.org/3/tv/top_rated?api_key=${this.apiKey}&language=en-US&page=1`;
-    const popularShows = this.fetchMovies(url, "popularShows");
-
-    popularShows.then((movies) => {
-      const movieGrid = this.generateMovieGrid(movies);
-      article.append(movieGrid);
-    });
-
-    console.log(popularShows);
-
-    article.append(heading);
-    this.container.append(article);
-  }
-
-  generateBanner() {}
-
-  generateMoviesContent() {
-    this.generatePopularMovies();
-    this.generatePopularShows();
-  }
 }
