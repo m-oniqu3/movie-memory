@@ -15,12 +15,25 @@ export class Movies {
   }
 
   //async resuable function that accepts a url and returns a promise
-  async fetchMovies(url: string) {
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data);
+  async fetchMovies(url: string, key: string) {
+    try {
+      //check if data is in local storage
+      const data = localStorage.getItem(key);
 
-    return data.results;
+      if (data) {
+        return JSON.parse(data);
+      } else {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        //save to local storage
+        localStorage.setItem(key, JSON.stringify(data.results.slice(0, 18)));
+        return data.results.slice(0, 18);
+      }
+    } catch (error) {
+      console.log(error);
+      //select a div and display error message
+    }
   }
 
   generateMovieGrid(movies: any[]) {
@@ -50,7 +63,7 @@ export class BrowseMovies extends Movies {
     const article = document.createElement("article");
     const heading = this.generateHeading("Popular Movies");
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=1`;
-    const popularMovies = this.fetchMovies(url);
+    const popularMovies = this.fetchMovies(url, "popularMovies");
 
     popularMovies.then((movies) => {
       const movieGrid = this.generateMovieGrid(movies);
@@ -63,7 +76,24 @@ export class BrowseMovies extends Movies {
     this.container.append(article);
   }
 
-  generatePopularShows() {}
+  generatePopularShows() {
+    const article = document.createElement("article");
+    const heading = this.generateHeading("Popular Shows");
+    const url = `https://api.themoviedb.org/3/tv/top_rated?api_key=${this.apiKey}&language=en-US&page=1`;
+    const popularShows = this.fetchMovies(url, "popularShows");
+
+    popularShows.then((movies) => {
+      const movieGrid = this.generateMovieGrid(movies);
+      article.append(movieGrid);
+    });
+
+    console.log(popularShows);
+
+    article.append(heading);
+    this.container.append(article);
+  }
+
+  generateBanner() {}
 
   generateMoviesContent() {
     this.generatePopularMovies();
