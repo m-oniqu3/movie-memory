@@ -23,17 +23,12 @@ swiperWrapper.innerHTML = movies
       <div class="overlay"></div>
 
       <article class="movie-container">
-      <div class="container">
-         <h3 class="heading heading__medium">${movie.title}</h3>
-         <p class="text">${movie.desc}</p>
-         </div>
-      </article>
-   
-     
-    </div>
-
-
-  `;
+        <div class="container">
+          <h3 class="heading heading__medium">${movie.title}</h3>
+          <p class="text">${movie.desc}</p>
+          </div>
+        </article>
+    </div> `;
   })
   .join("");
 

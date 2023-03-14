@@ -43,13 +43,17 @@ export class Movies {
 
   //fetch movie by id
   async fetchMovieById(id: string) {
-    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}&language=en-US`;
-    const response = await fetch(url);
-    const data = await response.json();
+    try {
+      const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}&language=en-US`;
+      const response = await fetch(url);
+      const data = await response.json();
 
-    console.log(data);
+      console.log(data);
 
-    return data;
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   showMovieDetailsModal() {
