@@ -1,12 +1,10 @@
 export class Movies {
   container: HTMLElement;
   apiKey: any;
-  openModal: boolean;
 
   constructor(container: HTMLElement) {
     this.container = container;
     this.apiKey = import.meta.env.VITE_API_KEY;
-    this.openModal = false;
   }
 
   generateHeading(text: string) {
