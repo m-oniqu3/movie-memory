@@ -13,7 +13,6 @@
     @include m.breakpoint(large) {
       grid-template-columns: 40% 60%;
       position: relative;
-      top: -10vh;
       width: 100%;
       margin: none;
     }

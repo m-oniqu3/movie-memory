@@ -1,6 +1,6 @@
-import { BrowseMovies } from "./movies/BrowseMovies";
-import { FullNav } from "./nav/FullNav";
-import { movies } from "./utils/movies";
+import { BrowseMovies } from "../movies/BrowseMovies";
+import { FullNav } from "../nav/FullNav";
+import { movies } from "../utils/movies";
 
 const nav = new FullNav();
 nav.generateNavbar();

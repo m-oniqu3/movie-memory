@@ -1,5 +1,5 @@
-import { SignUpForm } from "./forms/signUpForm";
-import { DarkBaseNav } from "./nav/DarkNav";
+import { SignUpForm } from "../forms/signUpForm";
+import { DarkBaseNav } from "../nav/DarkNav";
 
 const darkNav = new DarkBaseNav();
 darkNav.generateNavOnResize();
