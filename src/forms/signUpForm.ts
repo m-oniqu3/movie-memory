@@ -29,7 +29,7 @@ export class SignUpForm extends Form {
         textContent: "Continue as Guest",
         type: "submit",
         onClick: () => {
-          console.log("guest");
+          console.log("continue as guest");
         },
       },
     ];
