@@ -1,5 +1,18 @@
 import Icons from "../assets/icons.svg";
 
+interface FilmSummary {
+  image: HTMLElement;
+  details: HTMLDivElement;
+}
+
+interface Summary {
+  posterPath: string;
+  title: string;
+  genres: { id: number; name: string }[];
+  releaseDate: string;
+  description: string;
+}
+
 export class Movies {
   container: HTMLElement;
   apiKey: any;
@@ -56,66 +69,120 @@ export class Movies {
     }
   }
 
-  getMovieDetails(movieId: string) {
-    const results = this.fetchMovieById(movieId);
-    console.log("movie", results);
+  async fetchShowById(id: string) {
+    try {
+      const url = ` https://api.themoviedb.org/3/tv/${id}?api_key=${this.apiKey}&language=en-US`;
+      const response = await fetch(url);
+      const data = await response.json();
 
-    const movieImage = document.createElement("figure");
-    movieImage.classList.add("modal__content--image");
-    // set movieImage to placeholder image
-    movieImage.innerHTML = `
+      console.log(data);
+
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  generatePlaceHolderSummary(): FilmSummary {
+    const image = document.createElement("figure");
+    image.classList.add("modal__content--image");
+
+    // set image to placeholder image
+    image.innerHTML = `
     <div class="placeholder__image"></div>
     `;
 
-    const movieDetails = document.createElement("div");
-    movieDetails.classList.add("modal__content--details");
-    movieDetails.innerHTML = `
-    <div class=" placeholder__group">
-      <div class="placeholder placeholder__title"></div>
-      <div class="placeholder placeholder__text"></div>
-      <div class="placeholder placeholder__text"></div>
-      <div class="placeholder placeholder__desc"></div>
-      <div class="placeholder placeholder__icons"></div>
-    </div>`;
+    const details = document.createElement("div");
+    details.classList.add("modal__content--details");
+    details.innerHTML = `
+      <div class=" placeholder__group">
+        <div class="placeholder placeholder__title"></div>
+        <div class="placeholder placeholder__text"></div>
+        <div class="placeholder placeholder__text"></div>
+        <div class="placeholder placeholder__desc"></div>
+        <div class="placeholder placeholder__icons"></div>
+      </div>`;
+
+    return { image, details };
+  }
+
+  getMovieDetails(movieId: string): FilmSummary {
+    const results = this.fetchMovieById(movieId);
+    console.log("movie", results);
+
+    const { image: placeholderImage, details: placeholderDetails } =
+      this.generatePlaceHolderSummary();
+
+    const image = document.createElement("figure");
+    image.classList.add("modal__content--image");
+
+    // set image to placeholder image
+    image.innerHTML = placeholderImage.innerHTML;
+
+    const details = document.createElement("div");
+    details.classList.add("modal__content--details");
+    details.innerHTML = placeholderDetails.innerHTML;
 
     results.then((data) => {
-      movieImage.innerHTML = `
-       <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="movie image" class="movie-image"/>
-      `;
-      movieDetails.innerHTML = `
-        <p class="heading heading__small--dark">${data.title}</p>
-        <p class="text cast">${data.genres
-          .map((genre: any) => genre.name)
-          .join(", ")}</p>
-        <p class="text">${new Date(data.release_date)
-          .getFullYear()
-          .toString()}</p>
-        <p class="text description">${
-          data.overview || "No description available"
-        }</p>
+      const args = {
+        posterPath: data.poster_path,
+        title: data.title,
+        genres: data.genres,
+        releaseDate: data.release_date,
+        description: data.overview,
+      };
+      const summary = this.generateSummary(args);
 
-        <div class="icons">
-          <img src=${Icons} alt="icons" class="icons"/>
-        </div>
-
-      `;
+      image.innerHTML = summary.image;
+      details.innerHTML = summary.details;
     });
 
-    return { movieImage, movieDetails };
+    return { image, details };
   }
 
-  getShowDetails(showId: string): {
-    movieImage: HTMLElement;
-    movieDetails: HTMLDivElement;
-  } {
-    const movieImage = document.createElement("figure");
-    const movieDetails = document.createElement("div");
-    console.log(showId);
+  generateSummary(data: Summary): { image: string; details: string } {
+    const image = `
+      <img src="https://image.tmdb.org/t/p/w500${data.posterPath}" alt="movie image" class="movie-image"/>
+    `;
 
-    return { movieDetails, movieImage };
+    const details = `
+      <p class="heading heading__small--dark">${data.title}</p>
+      <p class="text cast">${data.genres
+        .map((genre) => genre.name)
+        .join(", ")}</p>
+      <p class="text">${new Date(data.releaseDate).getFullYear().toString()}</p>
+      <p class="text description">${data.description}</p>
+
+      <div class="icons">
+        <img src=${Icons} alt="icons" class="icons"/>
+      </div>
+
+    `;
+
+    return { image, details };
   }
 
-  showMovieDetailsModal(movieId: string, type: string) {
+  getShowDetails(showId: string): FilmSummary {
+    const results = this.fetchShowById(showId);
+    console.log("show", results);
+
+    const { image: placeholderImage, details: placeholderDetails } =
+      this.generatePlaceHolderSummary();
+
+    const image = document.createElement("figure");
+    image.classList.add("modal__content--image");
+
+    // set image to placeholder image
+    image.innerHTML = placeholderImage.innerHTML;
+
+    const details = document.createElement("div");
+    details.classList.add("modal__content--details");
+    details.innerHTML = placeholderDetails.innerHTML;
+
+    return { image, details };
+  }
+
+  showDetailsModal(movieId: string, type: string) {
     const modal = document.createElement("div");
     modal.classList.add("modal");
     modal.style.display = "flex";
@@ -124,7 +191,7 @@ export class Movies {
     const modalContent = document.createElement("article");
     modalContent.classList.add("modal__content");
 
-    const { movieImage, movieDetails } = (() => {
+    const { image, details } = (() => {
       switch (type) {
         case "movie":
           return this.getMovieDetails(movieId);
@@ -135,7 +202,7 @@ export class Movies {
       }
     })();
 
-    modalContent.append(movieImage, movieDetails);
+    modalContent.append(image, details);
 
     // close modal and allow scrolling
     const closeModal = function () {
@@ -176,7 +243,7 @@ export class Movies {
       movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
       movieImage.addEventListener("click", () => {
-        this.showMovieDetailsModal(movie.id, type);
+        this.showDetailsModal(movie.id, type);
       });
 
       movieGrid.append(movieImage);
