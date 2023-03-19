@@ -104,7 +104,18 @@ export class Movies {
     return { movieImage, movieDetails };
   }
 
-  showMovieDetailsModal(movieId: string) {
+  getShowDetails(showId: string): {
+    movieImage: HTMLElement;
+    movieDetails: HTMLDivElement;
+  } {
+    const movieImage = document.createElement("figure");
+    const movieDetails = document.createElement("div");
+    console.log(showId);
+
+    return { movieDetails, movieImage };
+  }
+
+  showMovieDetailsModal(movieId: string, type: string) {
     const modal = document.createElement("div");
     modal.classList.add("modal");
     modal.style.display = "flex";
@@ -113,7 +124,16 @@ export class Movies {
     const modalContent = document.createElement("article");
     modalContent.classList.add("modal__content");
 
-    const { movieImage, movieDetails } = this.getMovieDetails(movieId);
+    const { movieImage, movieDetails } = (() => {
+      switch (type) {
+        case "movie":
+          return this.getMovieDetails(movieId);
+        case "tv":
+          return this.getShowDetails(movieId);
+        default:
+          return this.getMovieDetails(movieId);
+      }
+    })();
 
     modalContent.append(movieImage, movieDetails);
 
@@ -146,7 +166,7 @@ export class Movies {
     this.container.append(modal);
   }
 
-  generateMovieGrid(movies: any[]) {
+  generateMovieGrid(movies: any[], type: string) {
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
 
@@ -156,7 +176,7 @@ export class Movies {
       movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
       movieImage.addEventListener("click", () => {
-        this.showMovieDetailsModal(movie.id);
+        this.showMovieDetailsModal(movie.id, type);
       });
 
       movieGrid.append(movieImage);
