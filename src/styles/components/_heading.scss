@@ -8,12 +8,16 @@
   &__small {
     @extend .heading;
     font-size: clamp(1.5rem, 4vw, 1.7rem);
-    color: v.$primary;
     font-weight: 700;
 
     &--white {
       @extend .heading__small;
       color: v.$primary-neutral;
+    }
+
+    &--dark {
+      @extend .heading__small;
+      color: v.$primary-dark;
     }
   }
 

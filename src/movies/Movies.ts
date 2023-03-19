@@ -54,6 +54,19 @@ export class Movies {
     }
   }
 
+  getMovieDetails() {
+    const movieImage = document.createElement("figure");
+    movieImage.classList.add("modal__content--image");
+
+    const movieDetails = document.createElement("div");
+    movieDetails.classList.add("modal__content--details");
+
+    const movieTitle = document.createElement("h1");
+    movieTitle.classList.add("heading", "heading__small--dark");
+
+    return { movieImage, movieDetails };
+  }
+
   showMovieDetailsModal() {
     const modal = document.createElement("div");
     modal.classList.add("modal");
@@ -62,6 +75,10 @@ export class Movies {
 
     const modalContent = document.createElement("article");
     modalContent.classList.add("modal__content");
+
+    const { movieImage, movieDetails } = this.getMovieDetails();
+
+    modalContent.append(movieImage, movieDetails);
 
     // close modal and allow scrolling
     window.onclick = function (event) {
