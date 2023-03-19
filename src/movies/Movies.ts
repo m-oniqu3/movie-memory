@@ -56,7 +56,10 @@ export class Movies {
     }
   }
 
-  getMovieDetails() {
+  getMovieDetails(movieId: string) {
+    const results = this.fetchMovieById(movieId);
+    console.log("movie", results);
+
     const movieImage = document.createElement("figure");
     movieImage.classList.add("modal__content--image");
 
@@ -65,24 +68,36 @@ export class Movies {
 
     const movieTitle = document.createElement("h1");
     movieTitle.classList.add("heading", "heading__small--dark");
-    movieTitle.innerText = "Movie Title";
 
     const movieCast = document.createElement("p");
     movieCast.classList.add("text", "cast");
-    movieCast.innerText = "John Doe, Joe Dane, Laura Micheals";
 
     const movieDate = document.createElement("p");
     movieDate.classList.add("text");
-    movieDate.innerText = "2018";
 
     const movieDescription = document.createElement("p");
     movieDescription.classList.add("text", "description");
-    movieDescription.innerText = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,consequuntur. Vel est laboriosam, consequuntur totam rem iure ipsa architecto porro aut esse voluptas vero recusandae soluta. Debitis,reiciendis fugit.`;
 
     const movieIcons = document.createElement("div");
-    movieIcons.innerHTML = `
+    if (!results) {
+    }
+
+    results.then((data) => {
+      movieTitle.innerText = data.title;
+      movieImage.innerHTML = `
+      <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="movie image" class="movie-image"/>
+      `;
+      movieCast.innerText = data.genres
+        .map((genre: any) => genre.name)
+        .join(", ");
+      movieDate.innerText = new Date(data.release_date)
+        .getFullYear()
+        .toString();
+      movieDescription.innerText = data.overview || "No description available";
+      movieIcons.innerHTML = `
     <img src=${Icons} alt="icons" class="icons"/>
     `;
+    });
 
     movieDetails.append(
       movieTitle,
@@ -95,7 +110,7 @@ export class Movies {
     return { movieImage, movieDetails };
   }
 
-  showMovieDetailsModal() {
+  showMovieDetailsModal(movieId: string) {
     const modal = document.createElement("div");
     modal.classList.add("modal");
     modal.style.display = "flex";
@@ -104,7 +119,7 @@ export class Movies {
     const modalContent = document.createElement("article");
     modalContent.classList.add("modal__content");
 
-    const { movieImage, movieDetails } = this.getMovieDetails();
+    const { movieImage, movieDetails } = this.getMovieDetails(movieId);
 
     modalContent.append(movieImage, movieDetails);
 
@@ -136,8 +151,7 @@ export class Movies {
       movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
       movieImage.addEventListener("click", () => {
-        this.showMovieDetailsModal();
-        // this.fetchMovieById(movie.id);
+        this.showMovieDetailsModal(movie.id);
       });
 
       movieGrid.append(movieImage);

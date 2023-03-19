@@ -67,10 +67,27 @@
     padding: 1rem;
 
     &--image {
-      background-color: red;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+      }
     }
 
     &--details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .heading {
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+
       .cast {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -84,8 +101,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 4;
-        line-clamp: 4;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
         -webkit-box-orient: vertical;
       }
 
