@@ -148,7 +148,7 @@ export class Movies {
     const details = `
       <article>
         <p class="heading heading__small--dark">${data.title}</p>
-        <p class="text cast">${data.genres
+        <p class="text genres">${data.genres
           .map((genre) => genre.name)
           .join(", ")}</p>
         <p class="text">${new Date(data.releaseDate)

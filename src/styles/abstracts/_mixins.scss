@@ -11,3 +11,14 @@ $breakpoints: (
     @content;
   }
 }
+
+// Mixin for line clamp
+
+@mixin line-clamp($lines) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  line-clamp: $lines;
+  -webkit-box-orient: vertical;
+}
