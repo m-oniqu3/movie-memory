@@ -11,6 +11,8 @@ export class BrowseMovies extends Movies {
     const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=1`;
     const popularMovies = this.fetchMovies(url, "popularMovies");
 
+    // let movieGrid = this.generatePlaceHolderMovieGrid();
+
     popularMovies.then((movies) => {
       const movieGrid = this.generateMovieGrid(movies);
       article.append(movieGrid);

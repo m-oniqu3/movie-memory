@@ -1,3 +1,5 @@
+import Icons from "../assets/icons.svg";
+
 export class Movies {
   container: HTMLElement;
   apiKey: any;
@@ -62,7 +64,7 @@ export class Movies {
     movieImage.classList.add("modal__content--image");
     // set movieImage to placeholder image
     movieImage.innerHTML = `
-    <div class="placeholder placeholder__image"></div>
+    <div class="placeholder__image"></div>
     `;
 
     const movieDetails = document.createElement("div");
@@ -74,33 +76,30 @@ export class Movies {
       <div class="placeholder placeholder__text"></div>
       <div class="placeholder placeholder__desc"></div>
       <div class="placeholder placeholder__icons"></div>
-    </div>
+    </div>`;
 
+    results.then((data) => {
+      movieImage.innerHTML = `
+       <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="movie image" class="movie-image"/>
+      `;
+      movieDetails.innerHTML = `
+        <p class="heading heading__small--dark">${data.title}</p>
+        <p class="text cast">${data.genres
+          .map((genre: any) => genre.name)
+          .join(", ")}</p>
+        <p class="text">${new Date(data.release_date)
+          .getFullYear()
+          .toString()}</p>
+        <p class="text description">${
+          data.overview || "No description available"
+        }</p>
 
-    `;
+        <div class="icons">
+          <img src=${Icons} alt="icons" class="icons"/>
+        </div>
 
-    // results.then((data) => {
-    //   movieImage.innerHTML = `
-    //    <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="movie image" class="movie-image"/>
-    //   `;
-    //   movieDetails.innerHTML = `
-    //     <p class="heading heading__small--dark">${data.title}</p>
-    //     <p class="text cast">${data.genres
-    //       .map((genre: any) => genre.name)
-    //       .join(", ")}</p>
-    //     <p class="text">${new Date(data.release_date)
-    //       .getFullYear()
-    //       .toString()}</p>
-    //     <p class="text description">${
-    //       data.overview || "No description available"
-    //     }</p>
-
-    //     <div class="icons">
-    //       <img src=${Icons} alt="icons" class="icons"/>
-    //     </div>
-
-    //   `;
-    // });
+      `;
+    });
 
     return { movieImage, movieDetails };
   }
@@ -119,16 +118,27 @@ export class Movies {
     modalContent.append(movieImage, movieDetails);
 
     // close modal and allow scrolling
-    window.onclick = function (event) {
-      if (event.target === modal) {
-        modal.style.display = "none";
-        document.body.style.overflow = "auto";
+    const closeModal = function () {
+      modal.style.display = "none";
+      document.body.style.overflow = "auto";
 
-        //remove modal from dom
-        modal.remove();
+      //remove modal from dom
+      modal.remove();
+    };
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        closeModal();
       }
     };
-    //
+
+    window.addEventListener("touchend", function (event) {
+      if (event.target == modal) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeModal();
+      }
+    });
 
     modal.append(modalContent);
 
