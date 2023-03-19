@@ -146,18 +146,20 @@ export class Movies {
     `;
 
     const details = `
-    <article>
-      <p class="heading heading__small--dark">${data.title}</p>
-      <p class="text cast">${data.genres
-        .map((genre) => genre.name)
-        .join(", ")}</p>
-      <p class="text">${new Date(data.releaseDate).getFullYear().toString()}</p>
-      <p class="text description">${data.description}</p>
-</article>
+      <article>
+        <p class="heading heading__small--dark">${data.title}</p>
+        <p class="text cast">${data.genres
+          .map((genre) => genre.name)
+          .join(", ")}</p>
+        <p class="text">${new Date(data.releaseDate)
+          .getFullYear()
+          .toString()}</p>
+        <p class="text description">${data.description}</p>
+      </article>
+
       <figure class="icons">
         <img src=${Icons} alt="icons" class="icons"/>
       </figure>
-
     `;
 
     return { image, details };
@@ -179,6 +181,20 @@ export class Movies {
     const details = document.createElement("div");
     details.classList.add("modal__content--details");
     details.innerHTML = placeholderDetails.innerHTML;
+
+    results.then((data) => {
+      const args = {
+        posterPath: data.poster_path,
+        title: data.name,
+        genres: data.genres,
+        releaseDate: data.first_air_date,
+        description: data.overview,
+      };
+      const summary = this.generateSummary(args);
+
+      image.innerHTML = summary.image;
+      details.innerHTML = summary.details;
+    });
 
     return { image, details };
   }
