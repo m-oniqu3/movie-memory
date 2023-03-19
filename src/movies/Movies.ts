@@ -1,3 +1,5 @@
+import Icons from "../assets/icons.svg";
+
 export class Movies {
   container: HTMLElement;
   apiKey: any;
@@ -63,6 +65,32 @@ export class Movies {
 
     const movieTitle = document.createElement("h1");
     movieTitle.classList.add("heading", "heading__small--dark");
+    movieTitle.innerText = "Movie Title";
+
+    const movieCast = document.createElement("p");
+    movieCast.classList.add("text", "cast");
+    movieCast.innerText = "John Doe, Joe Dane, Laura Micheals";
+
+    const movieDate = document.createElement("p");
+    movieDate.classList.add("text");
+    movieDate.innerText = "2018";
+
+    const movieDescription = document.createElement("p");
+    movieDescription.classList.add("text", "description");
+    movieDescription.innerText = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,consequuntur. Vel est laboriosam, consequuntur totam rem iure ipsa architecto porro aut esse voluptas vero recusandae soluta. Debitis,reiciendis fugit.`;
+
+    const movieIcons = document.createElement("div");
+    movieIcons.innerHTML = `
+    <img src=${Icons} alt="icons" class="icons"/>
+    `;
+
+    movieDetails.append(
+      movieTitle,
+      movieCast,
+      movieDate,
+      movieDescription,
+      movieIcons
+    );
 
     return { movieImage, movieDetails };
   }

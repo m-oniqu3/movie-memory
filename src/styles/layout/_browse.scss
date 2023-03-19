@@ -58,12 +58,11 @@
   &__content {
     background-color: v.$primary-neutral;
     width: 95%;
-    height: 200px;
     border-radius: 5px;
-    max-width: 500px;
+    max-width: 550px;
 
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 150px 1fr;
     grid-gap: 1rem;
     padding: 1rem;
 
@@ -72,7 +71,27 @@
     }
 
     &--details {
-      background-color: aquamarine;
+      .cast {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+
+      .description {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+      }
+
+      .icons {
+        padding-top: 0.5rem;
+      }
     }
   }
 }
