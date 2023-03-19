@@ -1,5 +1,3 @@
-import Icons from "../assets/icons.svg";
-
 export class Movies {
   container: HTMLElement;
   apiKey: any;
@@ -62,50 +60,47 @@ export class Movies {
 
     const movieImage = document.createElement("figure");
     movieImage.classList.add("modal__content--image");
+    // set movieImage to placeholder image
+    movieImage.innerHTML = `
+    <div class="placeholder placeholder__image"></div>
+    `;
 
     const movieDetails = document.createElement("div");
     movieDetails.classList.add("modal__content--details");
+    movieDetails.innerHTML = `
+    <div class=" placeholder__group">
+      <div class="placeholder placeholder__title"></div>
+      <div class="placeholder placeholder__text"></div>
+      <div class="placeholder placeholder__text"></div>
+      <div class="placeholder placeholder__desc"></div>
+      <div class="placeholder placeholder__icons"></div>
+    </div>
 
-    const movieTitle = document.createElement("h1");
-    movieTitle.classList.add("heading", "heading__small--dark");
 
-    const movieCast = document.createElement("p");
-    movieCast.classList.add("text", "cast");
-
-    const movieDate = document.createElement("p");
-    movieDate.classList.add("text");
-
-    const movieDescription = document.createElement("p");
-    movieDescription.classList.add("text", "description");
-
-    const movieIcons = document.createElement("div");
-    if (!results) {
-    }
-
-    results.then((data) => {
-      movieTitle.innerText = data.title;
-      movieImage.innerHTML = `
-      <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="movie image" class="movie-image"/>
-      `;
-      movieCast.innerText = data.genres
-        .map((genre: any) => genre.name)
-        .join(", ");
-      movieDate.innerText = new Date(data.release_date)
-        .getFullYear()
-        .toString();
-      movieDescription.innerText = data.overview || "No description available";
-      movieIcons.innerHTML = `
-    <img src=${Icons} alt="icons" class="icons"/>
     `;
-    });
 
-    movieDetails.append(
-      movieTitle,
-      movieCast,
-      movieDate,
-      movieDescription,
-      movieIcons
-    );
+    // results.then((data) => {
+    //   movieImage.innerHTML = `
+    //    <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="movie image" class="movie-image"/>
+    //   `;
+    //   movieDetails.innerHTML = `
+    //     <p class="heading heading__small--dark">${data.title}</p>
+    //     <p class="text cast">${data.genres
+    //       .map((genre: any) => genre.name)
+    //       .join(", ")}</p>
+    //     <p class="text">${new Date(data.release_date)
+    //       .getFullYear()
+    //       .toString()}</p>
+    //     <p class="text description">${
+    //       data.overview || "No description available"
+    //     }</p>
+
+    //     <div class="icons">
+    //       <img src=${Icons} alt="icons" class="icons"/>
+    //     </div>
+
+    //   `;
+    // });
 
     return { movieImage, movieDetails };
   }

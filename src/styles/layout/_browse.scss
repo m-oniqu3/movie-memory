@@ -110,6 +110,43 @@
         padding-top: 0.5rem;
       }
     }
+
+    .placeholder {
+      background-color: gainsboro;
+      border-radius: 5px;
+
+      &__image {
+        @extend .placeholder;
+        height: 100%;
+        width: 100%;
+      }
+
+      &__title {
+        @extend .placeholder;
+        height: 1.8rem;
+      }
+
+      &__group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      &__text {
+        @extend .placeholder;
+        height: 1.2rem;
+      }
+
+      &__desc {
+        @extend .placeholder;
+        height: 6rem;
+      }
+
+      &__icons {
+        @extend .placeholder;
+        height: 2rem;
+      }
+    }
   }
 }
 
