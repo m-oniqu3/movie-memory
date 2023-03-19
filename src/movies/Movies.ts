@@ -146,16 +146,17 @@ export class Movies {
     `;
 
     const details = `
+    <article>
       <p class="heading heading__small--dark">${data.title}</p>
       <p class="text cast">${data.genres
         .map((genre) => genre.name)
         .join(", ")}</p>
       <p class="text">${new Date(data.releaseDate).getFullYear().toString()}</p>
       <p class="text description">${data.description}</p>
-
-      <div class="icons">
+</article>
+      <figure class="icons">
         <img src=${Icons} alt="icons" class="icons"/>
-      </div>
+      </figure>
 
     `;
 

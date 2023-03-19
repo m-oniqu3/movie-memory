@@ -7,7 +7,7 @@
 
   &__small {
     @extend .heading;
-    font-size: clamp(1.5rem, 4vw, 1.7rem);
+    font-size: clamp(1.3rem, 4vw, 1.7rem);
     font-weight: 700;
 
     &--white {
