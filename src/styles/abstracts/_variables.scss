@@ -1,3 +1,8 @@
+:root {
+  //   --swiper-theme-color: #fff;
+  --swiper-navigation-color: #dceddd;
+}
+
 $primary-neutral: #fff;
 $primary: #3b5249;
 $primary-light: #dceddd;
@@ -10,9 +15,5 @@ $success: #049904;
 
 $assetsPath: "/src/assets";
 
+// fonts
 $font-heading: "Montserrat", sans-serif;
-
-:root {
-  //   --swiper-theme-color: #fff;
-  --swiper-navigation-color: #dceddd;
-}
