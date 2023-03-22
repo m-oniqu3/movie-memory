@@ -110,6 +110,7 @@
       align-items: center;
       justify-content: end;
       width: 100%;
+      cursor: pointer;
 
       #menu {
         @include m.breakpoint(medium) {

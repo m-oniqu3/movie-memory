@@ -42,7 +42,7 @@ export class FullNav extends BaseNav {
 
 
         <div class="nav__container__icons">
-         <figure class="nav__container__icon">
+         <figure class="nav__container__icon" onclick={window.location.href="search.html"}>
             <img src=${SearchIcon} alt="search icon" />
           </figure>
 
