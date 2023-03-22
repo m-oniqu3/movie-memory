@@ -1,4 +1,4 @@
-import Icons from "../assets/icons.svg";
+import AddIcon from "../assets/icon_add.svg";
 
 interface FilmSummary {
   image: HTMLElement;
@@ -158,7 +158,7 @@ export class Movies {
       </article>
 
       <figure class="icons">
-        <img src=${Icons} alt="icons" class="icons"/>
+        <img src=${AddIcon} alt="icons" class="icons"/>
       </figure>
     `;
 
