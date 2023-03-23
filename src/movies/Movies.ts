@@ -252,7 +252,7 @@ export class Movies {
     this.container.append(modal);
   }
 
-  generateMovieGrid(movies: any[], type: string) {
+  generateMovieGrid(movies: any[], type?: string) {
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
 
@@ -262,7 +262,11 @@ export class Movies {
       movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
       movieImage.addEventListener("click", () => {
-        this.showDetailsModal(movie.id, movie.media_type ?? type);
+        if (!type) {
+          this.showDetailsModal(movie.id, movie.media_type);
+        } else {
+          this.showDetailsModal(movie.id, type);
+        }
       });
 
       movieGrid.append(movieImage);
