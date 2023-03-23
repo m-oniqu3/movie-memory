@@ -27,7 +27,7 @@ export class FullNav extends BaseNav {
 
         <ul class="nav__container__links">
           <li class="nav__container__item">
-            <a href="#" class="nav__container__link">Home</a>
+            <a href="browse.html" class="nav__container__link">Home</a>
           </li>
           <li class="nav__container__item">
             <a href="#" class="nav__container__link">Memories</a>

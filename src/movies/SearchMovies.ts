@@ -17,7 +17,7 @@ export class SearchMovies extends Movies {
     trendingFilms.then((film) => {
       console.log(film);
 
-      const movieGrid = this.generateMovieGrid(film, film.media_type);
+      const movieGrid = this.generateMovieGrid(film);
       article.append(movieGrid);
     });
 

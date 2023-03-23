@@ -13,15 +13,16 @@
 
   &__group {
     padding: 1rem 0;
+
     form {
       width: 100%;
 
       input {
         border-radius: 5px;
-        border: 2px solid v.$primary-light;
+        border: 1px solid v.$primary-light;
         background: none;
         width: 100%;
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 1rem;
         color: v.$primary-light-transparent;
 
         &::placeholder {
@@ -36,7 +37,7 @@
   }
 
   &__results {
-    padding: 1.5rem 0;
+    padding: 3rem 0;
 
     .movie-grid {
       display: grid;
