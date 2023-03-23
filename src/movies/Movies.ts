@@ -200,6 +200,8 @@ export class Movies {
   }
 
   showDetailsModal(movieId: string, type: string) {
+    console.log(type, movieId);
+
     const modal = document.createElement("div");
     modal.classList.add("modal");
     modal.style.display = "flex";
@@ -250,7 +252,7 @@ export class Movies {
     this.container.append(modal);
   }
 
-  generateMovieGrid(movies: any[], type: string) {
+  generateMovieGrid(movies: any[]) {
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
 
@@ -260,7 +262,7 @@ export class Movies {
       movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
       movieImage.addEventListener("click", () => {
-        this.showDetailsModal(movie.id, type);
+        this.showDetailsModal(movie.id, movie.media_type);
       });
 
       movieGrid.append(movieImage);

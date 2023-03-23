@@ -1,4 +1,5 @@
 @use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
 
 .search {
   background: v.$primary-dark;
@@ -36,5 +37,32 @@
 
   &__results {
     padding: 1.5rem 0;
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+      grid-gap: 1rem;
+      place-items: center;
+      place-content: center;
+      padding: 2rem 0;
+
+      @include m.breakpoint(medium) {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-gap: 2rem;
+      }
+
+      img {
+        height: 10.8rem;
+        width: 6.5rem;
+        object-fit: cover;
+        border-radius: 5px;
+        cursor: pointer;
+
+        @include m.breakpoint(medium) {
+          height: 17rem;
+          width: 11.5rem;
+        }
+      }
+    }
   }
 }
