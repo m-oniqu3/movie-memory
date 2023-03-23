@@ -4,18 +4,33 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/dist/main.css" />
     <title>Search</title>
   </head>
   <body>
-    <nav class="nav">
-      <div class="container"></div>
-    </nav>
+    <section class="search">
+      <nav class="nav">
+        <div class="container"></div>
+      </nav>
 
-    <form>
-      <input type="text" placeholder="Search for a movie or a tv show" />
-    </form>
+      <section class="search__group">
+        <div class="container">
+            <form>
+          <input type="text" placeholder="Search for a movie or a tv show" />
+        </form>
 
-    <section class="search__results"></section>
+        <section class="search__results">
+          <h1 class="heading heading__small heading__small--white">
+            Frequently searched for
+          </h1>
+
+          
+
+        </section>
+        </div>
+      
+      </div>
+    </section>
     <script type="module" src="src/scripts/search.ts"></script>
   </body>
 </html>

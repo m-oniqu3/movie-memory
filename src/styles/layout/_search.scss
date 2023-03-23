@@ -1,0 +1,40 @@
+@use "../abstracts/variables" as v;
+
+.search {
+  background: v.$primary-dark;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+
+  .nav {
+    position: relative;
+  }
+
+  &__group {
+    padding: 1rem 0;
+    form {
+      width: 100%;
+
+      input {
+        border-radius: 5px;
+        border: 2px solid v.$primary-light;
+        background: none;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        color: v.$primary-light-transparent;
+
+        &::placeholder {
+          color: v.$primary-light-transparent;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  &__results {
+    padding: 1.5rem 0;
+  }
+}
