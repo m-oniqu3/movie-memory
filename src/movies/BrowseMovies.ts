@@ -14,7 +14,7 @@ export class BrowseMovies extends Movies {
     // let movieGrid = this.generatePlaceHolderMovieGrid();
 
     popularMovies.then((movies) => {
-      const movieGrid = this.generateMovieGrid(movies);
+      const movieGrid = this.generateMovieGrid(movies, "movie");
       article.append(movieGrid);
     });
 
@@ -29,7 +29,7 @@ export class BrowseMovies extends Movies {
     const popularShows = this.fetchMovies(url, "popularShows");
 
     popularShows.then((movies) => {
-      const movieGrid = this.generateMovieGrid(movies);
+      const movieGrid = this.generateMovieGrid(movies, "tv");
       article.append(movieGrid);
     });
 
