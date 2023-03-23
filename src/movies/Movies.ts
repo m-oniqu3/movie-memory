@@ -46,7 +46,7 @@ export class Movies {
 
         //save to local storage
         localStorage.setItem(key, JSON.stringify(data.results.slice(0, 18)));
-        return data.results.slice(0, 18);
+        return data.results;
       }
     } catch (error) {
       console.log(error);
@@ -256,21 +256,23 @@ export class Movies {
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
 
-    movies.forEach((movie) => {
-      const movieImage = document.createElement("img");
-      movieImage.classList.add("movie-image");
-      movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    movies
+      .filter((movie) => movie.poster_path)
+      .forEach((movie) => {
+        const movieImage = document.createElement("img");
+        movieImage.classList.add("movie-image");
+        movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
-      movieImage.addEventListener("click", () => {
-        if (!type) {
-          this.showDetailsModal(movie.id, movie.media_type);
-        } else {
-          this.showDetailsModal(movie.id, type);
-        }
+        movieImage.addEventListener("click", () => {
+          if (!type) {
+            this.showDetailsModal(movie.id, movie.media_type);
+          } else {
+            this.showDetailsModal(movie.id, type);
+          }
+        });
+
+        movieGrid.append(movieImage);
       });
-
-      movieGrid.append(movieImage);
-    });
 
     return movieGrid;
   }
