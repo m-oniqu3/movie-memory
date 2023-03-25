@@ -256,6 +256,7 @@ export class Movies {
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
 
+    // filter out movies without poster
     movies
       .filter((movie) => movie.poster_path)
       .forEach((movie) => {

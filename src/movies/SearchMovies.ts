@@ -6,7 +6,7 @@ export class SearchMovies extends Movies {
   }
 
   async generateSearchResults(input: string) {
-    let heading = this.generateHeading(`Getting results for ${input}`);
+    let heading = this.generateHeading(`Results for ${input.toLowerCase()}`);
     const article = document.createElement("article");
 
     const url = `https://api.themoviedb.org/3/search/multi?api_key=${this.apiKey}&language=en-US&query=${input}&page=1&include_adult=false`;
@@ -17,12 +17,15 @@ export class SearchMovies extends Movies {
 
       const movieGrid = this.generateMovieGrid(searchResults);
 
+      article.innerHTML = "";
+
       article.append(heading, movieGrid);
       this.container.innerHTML = "";
-      this.container.append(article);
     } catch (error) {
       console.log(error);
     }
+
+    this.container.append(article);
   }
 
   async generateFrequentlySearchedFor() {
