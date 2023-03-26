@@ -17,6 +17,17 @@ import Blacklist from "../assets/the-blacklist_a9d0_2880x1800.jpg";
 import TVD from "../assets/the-vampire-diaries_0156_2880x1800.jpg";
 import TAAHM from "../assets/two-and-a-half-men_f51c_2880x1800.jpg";
 
+import Avatar from "../assets/avatar_d7bc_2880x1800.jpg";
+import Deadpool from "../assets/deadpool_7c01_2880x1800.jpg";
+import DrStrange from "../assets/doctor-strange_ea77_2880x1800.jpg";
+import JohnWick from "../assets/john-wick_84be_2880x1800.jpg";
+import SpiderMan from "../assets/spider-man-homecoming_f8ff_2880x1800.jpg";
+import SpiritedAway from "../assets/spirited-away_45c3_2880x1800.jpg";
+import Fate from "../assets/the-fate-of-the-furious_cd30_2880x1800.jpg";
+import MazeRunner from "../assets/the-maze-runner_8cae_2880x1800.jpg";
+import Thor from "../assets/thor-ragnarok_c5ef_2880x1800.jpg";
+import WW from "../assets/wonder-woman_b232_2880x1800.jpg";
+
 interface Film {
   src: string;
   title: string;
@@ -121,5 +132,58 @@ export const tvShows: Film[] = [
     src: TAAHM,
     title: "Two and a Half Men",
     desc: "Charlie Harper is a jingle writer who leads a hedonistic, carefree life. Everything changes when his good-for-nothing brother, Alan, and 10-year-old nephew, Jake, move into his Malibu beach house.",
+  },
+];
+
+export const popularMovies: Film[] = [
+  {
+    src: Avatar,
+    title: "Avatar",
+    desc: "Jake Sully, a paraplegic former Marine, replaces his brother on the Na'vi inhabited Pandora for a corporate mission. He is accepted by the natives as one of their own.",
+  },
+  {
+    src: Deadpool,
+    title: "Deadpool",
+    desc: "A former Special Forces operative turned mercenary is subjected to a rogue experiment that leaves him with accelerated healing powers, adopting the alter ego Deadpool.",
+  },
+  {
+    src: DrStrange,
+    title: "Doctor Strange",
+    desc: "After a car accident, a talented neurosurgeon is forced to look for healing and hope in a world of despair. He then learns the hidden truth of the mystic arts from an ancient sorcerer.",
+  },
+  {
+    src: JohnWick,
+    title: "John Wick",
+    desc: "After the sudden death of his beloved wife, John Wick receives one last gift from her, a beagle puppy named Daisy, and a note imploring him not to forget how to love. But John's mourning is interrupted when his 1969 Boss Mustang catches the eye of sadistic thug Iosef Tarasov who breaks into his house and steals it, beating John unconscious in the process. Unwittingly, he has just reawakened one of the most brutal assassins the underworld has ever known.",
+  },
+  {
+    src: SpiderMan,
+    title: "Spider-Man : Homecoming",
+    desc: "Peter Parker tries to stop the Vulture from selling weapons made with advanced Chitauri technology while trying to balance his life as an ordinary high school student.",
+  },
+  {
+    src: Thor,
+    title: "Thor Ragnarok",
+    desc: "Deprived of his mighty hammer Mjolnir, Thor must escape the other side of the universe to save his home, Asgard, from Hela, the goddess of death.",
+  },
+  {
+    src: WW,
+    title: "Wonder Woman",
+    desc: "When a pilot crashes and tells of conflict in the outside world, Diana, an Amazonian warrior in training, leaves home to fight a war, discovering her full powers and true destiny.",
+  },
+  {
+    src: SpiritedAway,
+    title: "Spirited Away",
+    desc: "After her mother and father are turned into giant pigs, Chihiro meets the mysterious Haku, who explains that the park is a resort for supernatural beings who need a break from their time spent in the earthly realm, and that she must work there to free herself and her parents.",
+  },
+  {
+    src: Fate,
+    title: "The Fate of the Furious",
+    desc: "Dom encounters a mysterious woman, Cipher, who gets him involved in the world of terrorism. The crew has to reunite to stop Cipher and save the man who brought them together as a family.",
+  },
+  {
+    src: MazeRunner,
+    title: "The Maze Runner",
+    desc: "Thomas loses his memory and finds himself trapped in a massive maze called the Glade. He and his friends try to escape from the maze and eventually learn that they are subjects of an experiment.",
   },
 ];
