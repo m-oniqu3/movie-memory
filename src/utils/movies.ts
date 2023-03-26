@@ -1,10 +1,13 @@
 import BigHeroSix from "../assets/big-hero-6_29fe_2880x1800.jpg";
 import BladeRunner from "../assets/blade-runner-2049_5256_2880x1800.jpg";
 import DCLegends from "../assets/dcs-legends-of-tomorrow_bec9_2880x1800.jpg";
+import GOT from "../assets/game-of-thrones_c8d2_2880x1800.jpg";
 import Inception from "../assets/inception_286e_2880x1800.jpg";
 import Interstellar from "../assets/interstellar_d112_2880x1800.jpg";
+import MrRobot from "../assets/mr-robot_6529_2880x1800.jpg";
 import Avengers from "../assets/the-avengers_3057_2880x1800.jpg";
 import DarkKnight from "../assets/the-dark-knight_7918_2880x1800.jpg";
+import Hitman from "../assets/the-hitmans-bodyguard_fd51_2880x1800.jpg";
 
 import BreakingBad from "../assets/breaking-bad_008b_2880x1800.jpg";
 import Brooklyn99 from "../assets/brooklyn-nine-nine_7b2b_2880x1800.jpg";
@@ -36,6 +39,24 @@ interface Film {
 }
 
 export const movies: Film[] = [
+  {
+    src: GOT,
+    title: "Game of Thrones",
+    desc: "Nine noble families fight for control over the mythical lands of Westeros, while an ancient enemy returns after being dormant for thousands of years.",
+    genre: ["Action", "Adventure", "Drama", "Fantasy"],
+  },
+  {
+    src: MrRobot,
+    title: "Mr. Robot",
+    desc: "Elliot, a cyber-security engineer suffering from anxiety, works for a corporation and hacks felons by night. Panic strikes him after Mr Robot, a cryptic anarchist, recruits him to ruin his company.",
+    genre: ["Crime", "Drama", "Thriller"],
+  },
+  {
+    src: Hitman,
+    title: "The Hitman's Bodyguard",
+    desc: "Michael Bryce, a protection agent, is tasked with protecting Darius Kincaid, one of the world's most famous assassins. The two must then set aside their differences to tackle several dangerous events.",
+    genre: ["Action", "Comedy", "Crime"],
+  },
   {
     src: Inception,
     title: "Inception",
