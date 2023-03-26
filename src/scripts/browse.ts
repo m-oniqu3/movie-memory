@@ -26,6 +26,9 @@ swiperWrapper.innerHTML = movies
         <div class="container">
           <h3 class="heading heading__medium">${movie.title}</h3>
           <p class="text">${movie.desc}</p>
+           <div class="genres">${movie.genre?.map((genre) => {
+             return `<p class="genre">${genre}</p>`;
+           })}</div>
           </div>
         </article>
     </div> `;
