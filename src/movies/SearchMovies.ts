@@ -13,6 +13,7 @@ export class SearchMovies extends Movies {
 
     try {
       const searchResults = await this.fetchMovies(url, input);
+
       console.log({ searchResults });
 
       const movieGrid = this.generateMovieGrid(searchResults);
