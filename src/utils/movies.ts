@@ -84,7 +84,7 @@ export const tvShows: Film[] = [
   {
     src: Futurama,
     title: "Futurama",
-    desc: "",
+    desc: "Accidentally frozen, pizza-deliverer Fry wakes up 1,000 years in the future. He is taken in by his sole descendant, an elderly and addled scientist who owns a small cargo delivery service.",
   },
   {
     src: HTGAWM,
