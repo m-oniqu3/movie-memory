@@ -24,7 +24,7 @@ export class Form {
     const p = document.createElement("p");
     const header = document.createElement("div");
 
-    h1.classList.add("heading", "heading--small");
+    h1.classList.add("heading", "heading__small--dark");
     p.classList.add("text");
     header.classList.add("form__container__header");
 

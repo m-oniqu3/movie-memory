@@ -1,5 +1,3 @@
-import AddIcon from "../assets/icon_add.svg";
-
 interface FilmSummary {
   image: HTMLElement;
   details: HTMLDivElement;
@@ -157,9 +155,10 @@ export class Movies {
         <p class="text description">${data.description}</p>
       </article>
 
-      <figure class="icons">
-        <img src=${AddIcon} alt="icons" class="icons"/>
-      </figure>
+      
+      <button class="button button__primary--dark">
+          Add to Memories
+       </button>
     `;
 
     return { image, details };

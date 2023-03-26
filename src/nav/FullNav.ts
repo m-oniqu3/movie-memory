@@ -33,10 +33,10 @@ export class FullNav extends BaseNav {
             <a href="#" class="nav__container__link">Memories</a>
           </li>
           <li class="nav__container__item">
-            <a href="#" class="nav__container__link">TV Shows</a>
+            <a href="tvshows.html" class="nav__container__link">TV Shows</a>
           </li>
             <li class="nav__container__item">
-            <a href="#" class="nav__container__link">Movies</a>
+            <a href="movies.html" class="nav__container__link">Movies</a>
           </li>
         </ul>
 

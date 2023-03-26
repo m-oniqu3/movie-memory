@@ -23,7 +23,7 @@
     place-items: center start;
     place-content: center start;
     gap: 0.8rem;
-    height: 90vh;
+    height: 100vh;
 
     @include m.breakpoint(medium) {
       grid-column: 1/6;

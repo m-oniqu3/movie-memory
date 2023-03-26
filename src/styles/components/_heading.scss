@@ -24,7 +24,7 @@
   &__medium {
     @extend .heading;
 
-    font-size: clamp(2rem, 4vw, 8rem);
+    font-size: clamp(1.8rem, 4vw, 8rem);
     color: v.$primary-neutral;
     font-weight: 900;
   }

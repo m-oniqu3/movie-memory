@@ -1,6 +1,5 @@
-import { BrowseMovies } from "../movies/BrowseMovies";
 import { FullNav } from "../nav/FullNav";
-import { movies } from "../utils/movies";
+import { popularMovies } from "../utils/movies";
 
 const nav = new FullNav();
 nav.generateNavbar();
@@ -14,7 +13,7 @@ menu.addEventListener("click", () => {
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;
 
 // movies for swiper
-swiperWrapper.innerHTML = movies
+swiperWrapper.innerHTML = popularMovies
   .map((movie) => {
     return `
     <div class="swiper-slide">
@@ -26,16 +25,11 @@ swiperWrapper.innerHTML = movies
         <div class="container">
           <h3 class="heading heading__medium">${movie.title}</h3>
           <p class="text">${movie.desc}</p>
-           <div class="genres">${movie.genre?.map((genre) => {
-             return `<p class="genre">${genre}</p>`;
-           })}</div>
+          <div class="genres">${movie.genre?.map((genre) => {
+            return `<p class="genre">${genre}</p>`;
+          })}</div>
           </div>
         </article>
     </div> `;
   })
   .join("");
-
-const moviesSection = document.querySelector(".movies-section") as HTMLElement;
-
-const browsemovies = new BrowseMovies(moviesSection);
-browsemovies.generateMoviesContent();
