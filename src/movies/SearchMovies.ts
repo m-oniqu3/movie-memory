@@ -11,6 +11,7 @@ export class SearchMovies extends Movies {
 
     const url = `https://api.themoviedb.org/3/search/multi?api_key=${this.apiKey}&language=en-US&query=${input}&page=1&include_adult=false`;
 
+    //todo add placeholders for loading state
     try {
       const searchResults = await this.fetchMovies(url, input);
 
