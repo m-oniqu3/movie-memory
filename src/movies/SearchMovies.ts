@@ -5,29 +5,66 @@ export class SearchMovies extends Movies {
     super(container);
   }
 
-  async generateSearchResults(input: string) {
-    let heading = this.generateHeading(`Results for ${input.toLowerCase()}`);
-    const article = document.createElement("article");
+  generateSearchPlaceholder(): HTMLDivElement {
+    const div = document.createElement("div");
+    div.classList.add("search__placeholder");
 
+    //movie grid with 20 placeholders
+    const movieGrid = document.createElement("div");
+    movieGrid.classList.add("movie-grid");
+
+    for (let i = 0; i < 20; i++) {
+      const movie = document.createElement("div");
+      movie.classList.add("movie-grid__item");
+      movie.innerHTML = `<div class="movie-grid__item__placeholder"></div>`;
+      movieGrid.append(movie);
+    }
+
+    div.append(movieGrid);
+
+    return div;
+  }
+
+  async generateSearchResults(input: string) {
     const url = `https://api.themoviedb.org/3/search/multi?api_key=${this.apiKey}&language=en-US&query=${input}&page=1&include_adult=false`;
 
-    //todo add placeholders for loading state
+    this.container.innerHTML = "";
+
+    const load = document.querySelector(".search__placeholder") as HTMLDivElement;
+    load.innerHTML = this.generateSearchPlaceholder().innerHTML;
+    load.style.padding = "3rem 0";
+
+    let heading = this.generateHeading(`Results for ${input.toLowerCase()}`);
+    let article = document.createElement("article");
+
     try {
+      // todo handle case for no results
+      // todo : create method to empty load
       const searchResults = await this.fetchMovies(url, input);
 
-      console.log({ searchResults });
+      if (searchResults.length === 0) {
+        heading = this.generateHeading("No results found");
 
-      const movieGrid = this.generateMovieGrid(searchResults);
+        article.innerHTML = "";
+        article = heading;
 
-      article.innerHTML = "";
+        load.innerHTML = "";
+        load.style.padding = "0";
+      } else {
+        console.log({ searchResults });
 
-      article.append(heading, movieGrid);
-      this.container.innerHTML = "";
+        const movieGrid = this.generateMovieGrid(searchResults);
+
+        article.innerHTML = "";
+        article.append(heading, movieGrid);
+        load.innerHTML = "";
+        load.style.padding = "0";
+      }
+
+      this.container.append(article);
     } catch (error) {
       console.log(error);
     }
-
-    this.container.append(article);
   }
 
   async generateFrequentlySearchedFor() {
