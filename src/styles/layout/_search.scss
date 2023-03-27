@@ -36,6 +36,35 @@
     }
   }
 
+  &__placeholder {
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+      grid-gap: 1rem;
+      place-items: center;
+      place-content: center;
+      padding: 2rem 0;
+
+      @include m.breakpoint(medium) {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-gap: 2rem;
+      }
+
+      &__item__placeholder {
+        height: 10.8rem;
+        width: 6.5rem;
+        background-color: v.$placeholder-search;
+        cursor: pointer;
+        border-radius: 5px;
+
+        @include m.breakpoint(medium) {
+          height: 17rem;
+          width: 11.5rem;
+        }
+      }
+    }
+  }
+
   &__results {
     padding: 3rem 0;
 

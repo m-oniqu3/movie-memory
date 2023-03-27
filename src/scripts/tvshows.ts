@@ -1,6 +1,5 @@
-import { BrowseMovies } from "../movies/BrowseMovies";
 import { FullNav } from "../nav/FullNav";
-import { movies } from "../utils/movies";
+import { tvShows } from "../utils/movies";
 
 const nav = new FullNav();
 nav.generateNavbar();
@@ -14,7 +13,7 @@ menu.addEventListener("click", () => {
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;
 
 // movies for swiper
-swiperWrapper.innerHTML = movies
+swiperWrapper.innerHTML = tvShows
   .map((movie) => {
     return `
     <div class="swiper-slide">
@@ -34,8 +33,3 @@ swiperWrapper.innerHTML = movies
     </div> `;
   })
   .join("");
-
-const moviesSection = document.querySelector(".movies-section") as HTMLElement;
-
-const browsemovies = new BrowseMovies(moviesSection);
-browsemovies.generateMoviesContent();

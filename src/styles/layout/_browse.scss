@@ -85,7 +85,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 1rem;
 
       article {
         display: flex;
@@ -111,11 +111,6 @@
             @include m.line-clamp(4);
           }
         }
-      }
-
-      .icons {
-        display: flex;
-        align-items: end;
       }
     }
 
@@ -192,23 +187,50 @@
     .movie-container {
       position: absolute;
       left: 0;
-      bottom: 80px;
+      bottom: 30px;
       z-index: 100;
       width: 100%;
 
       @include m.breakpoint(medium) {
-        bottom: 100px;
+        bottom: 70px;
       }
 
       h3 {
-        max-width: 550px;
+        max-width: 570px;
       }
 
       p {
-        margin-top: 1rem;
+        margin-top: 0.5rem;
         color: v.$primary-neutral;
-        max-width: 450px;
+        max-width: 520px;
         font-size: clamp(1rem, 3vw, 1.1rem);
+
+        @include m.breakpoint(medium) {
+          margin-top: 1rem;
+        }
+      }
+
+      .genres {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 0.2rem;
+
+        .genre {
+          background-color: v.$primary-neutral;
+          color: v.$primary;
+          padding: 0.3rem 1rem;
+          border-radius: 5px;
+          font-size: 1rem;
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            background-color: v.$primary-light;
+          }
+
+          @include m.breakpoint(medium) {
+            padding: 0.5rem 1rem;
+          }
+        }
       }
     }
   }
