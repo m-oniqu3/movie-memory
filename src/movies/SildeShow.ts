@@ -1,0 +1,3 @@
+class SlideShow {
+  constructor() {}
+}
