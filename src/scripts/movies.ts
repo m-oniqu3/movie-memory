@@ -1,5 +1,6 @@
+import { SlideShow } from "../classes/SildeShow";
 import { FullNav } from "../nav/FullNav";
-import { popularMovies } from "../utils/movies";
+import { popularMovies as movies } from "../utils/movies";
 
 const nav = new FullNav();
 nav.generateNavbar();
@@ -10,26 +11,7 @@ menu.addEventListener("click", () => {
   nav.showNavLink();
 });
 
+// create slideshow
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;
-
-// movies for swiper
-swiperWrapper.innerHTML = popularMovies
-  .map((movie) => {
-    return `
-    <div class="swiper-slide">
-      <img src="${movie.src}" alt="movie" />
-
-      <div class="overlay"></div>
-
-      <article class="movie-container">
-        <div class="container">
-          <h3 class="heading heading__medium">${movie.title}</h3>
-          <p class="text">${movie.desc}</p>
-          <div class="genres">${movie.genre?.map((genre) => {
-            return `<p class="genre">${genre}</p>`;
-          })}</div>
-          </div>
-        </article>
-    </div> `;
-  })
-  .join("");
+const slideshow = new SlideShow(swiperWrapper, movies);
+slideshow.generateSlideShow();

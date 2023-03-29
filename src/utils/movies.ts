@@ -31,7 +31,7 @@ import Thor from "../assets/thor-ragnarok_c5ef_2880x1800.jpg";
 import Transformers from "../assets/transformers-the-last-knight_f616_2880x1800.jpg";
 import WW from "../assets/wonder-woman_b232_2880x1800.jpg";
 
-interface Film {
+export interface Film {
   src: string;
   title: string;
   desc: string;
