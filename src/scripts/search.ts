@@ -1,4 +1,4 @@
-import { SearchMovies } from "../movies/SearchMovies";
+import { SearchMovies } from "../classes/SearchMovies";
 import { FullNav } from "../nav/FullNav";
 
 // generate navbar
@@ -13,9 +13,7 @@ menu.addEventListener("click", () => {
 
 const form = document.querySelector("form") as HTMLFormElement;
 const formInput = document.querySelector(" input") as HTMLInputElement;
-const searchResultsSection = document.querySelector(
-  ".search__results"
-) as HTMLElement;
+const searchResultsSection = document.querySelector(".search__results") as HTMLElement;
 
 // generate the movies on the search page
 const searchMovies = new SearchMovies(searchResultsSection);

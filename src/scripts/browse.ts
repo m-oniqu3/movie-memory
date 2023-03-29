@@ -1,4 +1,4 @@
-import { BrowseMovies } from "../movies/BrowseMovies";
+import { BrowseMovies } from "../classes/BrowseMovies";
 import { FullNav } from "../nav/FullNav";
 import { movies } from "../utils/movies";
 
