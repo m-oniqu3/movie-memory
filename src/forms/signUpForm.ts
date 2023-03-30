@@ -8,8 +8,7 @@ export class SignUpForm extends Form {
 
   generateCompleteForm(): void {
     const title = "Create Account";
-    const headerParagraph =
-      "Keep track of the movies you've watched with Movie Memory. Create an account to get started.";
+    const greeting = "Keep track of the movies you've watched with Movie Memory. Create an account to get started.";
 
     const formInputs = this.generateFormInputs.bind(this);
 
@@ -36,7 +35,7 @@ export class SignUpForm extends Form {
 
     const formButtons = () => this.generateFormButtons(buttons);
 
-    this.generateFormHeader(title, headerParagraph);
+    this.generateFormHeader(title, greeting);
     this.generateFormBody(formInputs, formButtons);
   }
 
