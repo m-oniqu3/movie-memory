@@ -1,7 +1,13 @@
+@use "../abstracts/variables" as v;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Didact Gothic", sans-serif;
   font-size: 1rem;
+}
+
+html {
+  background: v.$primary-dark;
 }

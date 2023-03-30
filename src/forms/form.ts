@@ -74,30 +74,22 @@ export class Form {
   }
 
   private validateFormInputs(inputGroup: HTMLDivElement) {
-    const emailInput = inputGroup.querySelector<HTMLInputElement>('input[type="email"]');
-    const emailFeedback = inputGroup.querySelector<HTMLParagraphElement>(".error-email");
-    const passwordInput = inputGroup.querySelector<HTMLInputElement>('input[type="password"]');
-    const passwordFeedback = inputGroup.querySelector<HTMLParagraphElement>(".error-password");
+    const emailInput = inputGroup.children[0] as HTMLInputElement;
+    const emailFeedback = inputGroup.children[1] as HTMLParagraphElement;
+    const passwordInput = inputGroup.children[2] as HTMLInputElement;
+    const passwordFeedback = inputGroup.children[3] as HTMLParagraphElement;
 
-    if (!emailInput || !emailFeedback || !passwordInput || !passwordFeedback) {
-      throw new Error("Invalid input group");
-    }
-
-    const emailValidationCallback = () => validateEmail(emailInput.value);
-    const passwordValidationCallback = () => validatePassword(passwordInput.value);
-
-    // Bind the setGlobalState method to the class because it is a callback function
-    // and the `this` keyword will not be bound to the class otherwise
+    // bind the setGlobalState method to the class because it is a callback function and the this keyword will not be bound to the class
     validateInput({
       input: emailInput,
-      validationCallback: emailValidationCallback,
+      validationCallback: () => validateEmail(emailInput.value),
       feedbackElement: emailFeedback,
       setGlobalState: this.setEmail.bind(this),
     });
 
     validateInput({
       input: passwordInput,
-      validationCallback: passwordValidationCallback,
+      validationCallback: () => validatePassword(passwordInput.value),
       feedbackElement: passwordFeedback,
       setGlobalState: this.setPassword.bind(this),
     });

@@ -1,4 +1,5 @@
 import { BrowseMovies } from "../classes/BrowseMovies";
+import { Footer } from "../classes/Footer";
 import { SlideShow } from "../classes/SildeShow";
 import { FullNav } from "../nav/FullNav";
 import { movies } from "../utils/movies";
@@ -21,3 +22,7 @@ browsemovies.generateContent();
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;
 const slideshow = new SlideShow(swiperWrapper, movies);
 slideshow.generateSlideShow();
+
+const footer = document.querySelector("footer") as HTMLElement;
+const footerClass = new Footer(footer);
+footerClass.generateFooter();
