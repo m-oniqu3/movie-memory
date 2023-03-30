@@ -111,6 +111,12 @@ export const movies: Film[] = [
 
 export const tvShows: Film[] = [
   {
+    src: Sherlock,
+    title: "Sherlock",
+    desc: "Dr Watson, a former army doctor, finds himself sharing a flat with Sherlock Holmes, an eccentric individual with a knack for solving crimes. Together, they take on the most unusual cases.",
+    genre: ["Mystery", "Drama", "Thriller", "Adventure", "Comedy"],
+  },
+  {
     src: BreakingBad,
     title: "Breaking Bad",
     desc: "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine in order to secure his family's future.",
@@ -142,12 +148,7 @@ export const tvShows: Film[] = [
     desc: "An ex-CIA agent and a mysterious billionaire prevent violent crimes with the help of an all-seeing machine that can predict events before they happen.",
     genre: ["Drama", "Action", "Science fiction", "Mystery", "Thriller"],
   },
-  {
-    src: Sherlock,
-    title: "Sherlock",
-    desc: "Dr Watson, a former army doctor, finds himself sharing a flat with Sherlock Holmes, an eccentric individual with a knack for solving crimes. Together, they take on the most unusual cases.",
-    genre: ["Mystery", "Drama", "Thriller", "Adventure", "Comedy"],
-  },
+
   {
     src: StrangerThings,
     title: "Stranger Things",

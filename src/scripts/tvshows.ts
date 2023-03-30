@@ -1,4 +1,5 @@
 import { SlideShow } from "../classes/SildeShow";
+import { TvShows } from "../classes/TvShows";
 import { FullNav } from "../nav/FullNav";
 import { tvShows } from "../utils/movies";
 
@@ -15,3 +16,8 @@ menu.addEventListener("click", () => {
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;
 const slideshow = new SlideShow(swiperWrapper, tvShows);
 slideshow.generateSlideShow();
+
+const moviesSection = document.querySelector(".movies-section") as HTMLElement;
+
+const tvSeries = new TvShows(moviesSection);
+tvSeries.generateContent();

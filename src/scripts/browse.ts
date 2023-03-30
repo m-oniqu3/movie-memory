@@ -15,7 +15,7 @@ menu.addEventListener("click", () => {
 const moviesSection = document.querySelector(".movies-section") as HTMLElement;
 
 const browsemovies = new BrowseMovies(moviesSection);
-browsemovies.generateMoviesContent();
+browsemovies.generateContent();
 
 // create slideshow
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;

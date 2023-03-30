@@ -5,14 +5,14 @@ export class BrowseMovies extends Movies {
     super(container);
   }
 
-  async generatePopularMovies() {
+  private async generatePopularMovies() {
     const article = document.createElement("article");
-    const heading = this.generateHeading("Popular Movies");
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=1`;
+    const heading = this.generateHeading("Upcoming Movies");
+    const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${this.apiKey}&language=en-US&page=1`;
 
     try {
-      const popularMovies = await this.fetchMovies(url, "popularMovies");
-      const movieGrid = this.generateMovieGrid(popularMovies, "movie");
+      const upcomingMovies = await this.fetchMovies(url, "upcomingMovies");
+      const movieGrid = this.generateMovieGrid(upcomingMovies, "movie");
 
       article.append(heading, movieGrid);
       this.container.append(article);
@@ -20,27 +20,7 @@ export class BrowseMovies extends Movies {
       console.log(error);
     }
   }
-
-  async generatePopularShows() {
-    const article = document.createElement("article");
-    const heading = this.generateHeading("Popular Shows");
-    const url = `https://api.themoviedb.org/3/tv/top_rated?api_key=${this.apiKey}&language=en-US&page=1`;
-
-    try {
-      const popularShows = await this.fetchMovies(url, "popularShows");
-      const movieGrid = this.generateMovieGrid(popularShows, "tv");
-
-      article.append(heading, movieGrid);
-      this.container.append(article);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  generateBanner() {}
-
-  generateMoviesContent() {
+  generateContent() {
     this.generatePopularMovies();
-    this.generatePopularShows();
   }
 }
