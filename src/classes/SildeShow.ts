@@ -9,7 +9,7 @@ export class SlideShow {
     this.film = film;
   }
 
-  generateSlideShow() {
+  public generateSlideShow() {
     this.swiperWrapper.innerHTML = this.film
       .map((film) => {
         return `
