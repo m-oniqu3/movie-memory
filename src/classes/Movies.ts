@@ -1,3 +1,5 @@
+import AddIcon from "../assets/icon_add.svg";
+
 interface FilmSummary {
   image: HTMLElement;
   details: HTMLDivElement;
@@ -108,8 +110,7 @@ export class Movies {
     const results = this.fetchMovieById(movieId);
     console.log("movie", results);
 
-    const { image: placeholderImage, details: placeholderDetails } =
-      this.generatePlaceHolderSummary();
+    const { image: placeholderImage, details: placeholderDetails } = this.generatePlaceHolderSummary();
 
     const image = document.createElement("figure");
     image.classList.add("modal__content--image");
@@ -146,17 +147,17 @@ export class Movies {
     const details = `
       <article>
         <p class="heading heading__small--dark">${data.title}</p>
-        <p class="text genres">${data.genres
-          .map((genre) => genre.name)
-          .join(", ")}</p>
-        <p class="text">${new Date(data.releaseDate)
-          .getFullYear()
-          .toString()}</p>
+        <p class="text genres">${data.genres.map((genre) => genre.name).join(", ")}</p>
+        <p class="text">${new Date(data.releaseDate).getFullYear().toString()}</p>
         <p class="text description">${data.description}</p>
       </article>
 
       
-      <button class="button button__primary--dark">
+      <button class="button button__primary--dark icon__btn">
+          <figure>
+            <img src=${AddIcon} alt ="add icon"/>
+          </figure>
+
           Add to Memories
        </button>
     `;
@@ -168,8 +169,7 @@ export class Movies {
     const results = this.fetchShowById(showId);
     console.log("show", results);
 
-    const { image: placeholderImage, details: placeholderDetails } =
-      this.generatePlaceHolderSummary();
+    const { image: placeholderImage, details: placeholderDetails } = this.generatePlaceHolderSummary();
 
     const image = document.createElement("figure");
     image.classList.add("modal__content--image");

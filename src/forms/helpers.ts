@@ -42,7 +42,7 @@ export function validateEmail(email: string): Validation {
   };
 }
 
-export function validiatePassword(password: string): Validation {
+export function validatePassword(password: string): Validation {
   const errors = {
     errorMessage: "",
     successMessage: "",
@@ -90,9 +90,7 @@ export function validateInput(props: ValidateInput) {
   const { input, validationCallback, feedbackElement, setGlobalState } = props;
 
   input.addEventListener("input", () => {
-    const { errorMessage, successMessage, isValid } = validationCallback(
-      input.value
-    );
+    const { errorMessage, successMessage, isValid } = validationCallback(input.value);
 
     feedbackElement.textContent = isValid ? successMessage : errorMessage;
     feedbackElement.classList.toggle("success", isValid);

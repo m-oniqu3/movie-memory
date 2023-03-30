@@ -112,6 +112,31 @@
           }
         }
       }
+
+      button {
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        place-items: center;
+        gap: 0.5rem;
+        width: fit-content;
+
+        figure {
+          width: 15px;
+
+          img {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+
+        &:hover {
+          background-color: rgb(6, 35, 6);
+          color: v.$primary-neutral;
+        }
+      }
     }
 
     .placeholder {
@@ -171,11 +196,7 @@
 
   .swiper-wrapper {
     .overlay {
-      background: linear-gradient(
-        71.17deg,
-        rgba(0, 0, 0, 0.6106) 16.95%,
-        rgba(19, 19, 19, 0.1032) 99.64%
-      );
+      background: linear-gradient(71.17deg, rgba(0, 0, 0, 0.6106) 16.95%, rgba(19, 19, 19, 0.1032) 99.64%);
       height: 100%;
       width: 100%;
       position: absolute;
