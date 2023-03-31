@@ -1,4 +1,6 @@
 @use "../abstracts/variables" as v;
+@use "../abstracts/mixins" as m;
+
 footer {
   color: v.$primary-neutral;
   padding-bottom: 2rem;
@@ -7,14 +9,28 @@ footer {
   ul {
     list-style: none;
 
+    @include m.breakpoint(medium) {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      border-bottom: 1px solid v.$primary-line;
+    }
+
     li {
       padding: 1rem 0;
       text-align: center;
       border-bottom: 1px solid v.$primary-line;
+      @include m.breakpoint(medium) {
+        border: none;
+      }
 
       a {
         text-decoration: none;
         color: inherit;
+
+        &:hover {
+          color: v.$primary;
+        }
       }
     }
   }
@@ -22,5 +38,14 @@ footer {
   p {
     text-align: center;
     padding: 1rem 0;
+    border-bottom: 1px solid v.$primary-line;
+  }
+
+  .icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+    gap: 1rem;
   }
 }
