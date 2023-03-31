@@ -177,6 +177,12 @@ export const tvShows: Film[] = [
 
 export const popularMovies: Film[] = [
   {
+    src: JohnWick,
+    title: "John Wick : Chapter 1",
+    desc: "John Wick, a retired hitman, is forced to return to his old ways after a group of Russian gangsters steal his car and kill a puppy gifted to him by his late wife.",
+    genre: ["Action", "Crime", "Thriller", "Mystery"],
+  },
+  {
     src: Avatar,
     title: "Avatar",
     desc: "Jake Sully, a paraplegic former Marine, replaces his brother on the Na'vi inhabited Pandora for a corporate mission. He is accepted by the natives as one of their own.",
@@ -194,12 +200,7 @@ export const popularMovies: Film[] = [
     desc: "After a car accident, a talented neurosurgeon is forced to look for healing and hope in a world of despair. He then learns the hidden truth of the mystic arts from an ancient sorcerer.",
     genre: ["Action", "Adventure", "Fantasy", "Sci-Fi"],
   },
-  {
-    src: JohnWick,
-    title: "John Wick : Chapter 1",
-    desc: "John Wick, a retired hitman, is forced to return to his old ways after a group of Russian gangsters steal his car and kill a puppy gifted to him by his late wife.",
-    genre: ["Action", "Crime", "Thriller", "Mystery"],
-  },
+
   {
     src: SpiderMan,
     title: "Spider-Man : Homecoming",

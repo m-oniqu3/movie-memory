@@ -11,9 +11,7 @@ export class FullNav extends BaseNav {
   }
 
   showNavLink(): void {
-    const navLinks = document.querySelector(
-      ".nav__container__links"
-    ) as HTMLElement;
+    const navLinks = document.querySelector(".nav__container__links") as HTMLElement;
 
     navLinks.classList.toggle("nav__container__links--active");
     this.nav.classList.toggle("nav--active");
@@ -37,6 +35,9 @@ export class FullNav extends BaseNav {
           </li>
             <li class="nav__container__item">
             <a href="movies.html" class="nav__container__link">Movies</a>
+          </li>
+          <li class="nav__container__item">
+            <a href="#contact" class="nav__container__link">Contact</a>
           </li>
         </ul>
 
