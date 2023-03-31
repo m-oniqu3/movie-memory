@@ -1,0 +1,26 @@
+@use "../abstracts/variables" as v;
+footer {
+  color: v.$primary-neutral;
+  padding-bottom: 2rem;
+  border-top: 1px solid v.$primary-line;
+
+  ul {
+    list-style: none;
+
+    li {
+      padding: 1rem 0;
+      text-align: center;
+      border-bottom: 1px solid v.$primary-line;
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+  }
+
+  p {
+    text-align: center;
+    padding: 1rem 0;
+  }
+}

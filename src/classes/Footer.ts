@@ -7,7 +7,7 @@ export class Footer {
   public generateFooter() {
     this.footer.innerHTML = `
         
-            <div class="container">
+      
                 <ul>
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Memories</a></li>
@@ -18,7 +18,7 @@ export class Footer {
                 <p class="text"> 
                     Designed and Developed by Monique
                 </p>
-            </div>
+        
        
         `;
   }
