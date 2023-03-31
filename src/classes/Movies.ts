@@ -24,7 +24,7 @@ export class Movies {
 
   generateHeading(text: string) {
     const heading = document.createElement("h1");
-    heading.classList.add("heading", "heading__small--white");
+    heading.classList.add("heading", "heading__small--white--styled");
     heading.innerText = text;
     return heading;
   }
