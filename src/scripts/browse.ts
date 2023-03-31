@@ -15,14 +15,15 @@ menu.addEventListener("click", () => {
 
 const moviesSection = document.querySelector(".movies-section") as HTMLElement;
 
-const browsemovies = new BrowseMovies(moviesSection);
-browsemovies.generateContent();
-
 // create slideshow
 const swiperWrapper = document.querySelector(".swiper-wrapper") as HTMLElement;
 const slideshow = new SlideShow(swiperWrapper, movies);
 slideshow.generateSlideShow();
 
+// display upcoming movies
+const browsemovies = new BrowseMovies(moviesSection);
+browsemovies.generateContent();
+
 const footer = document.querySelector("footer") as HTMLElement;
-const footerClass = new Footer(footer);
-footerClass.generateFooter();
+const footerSection = new Footer(footer);
+footerSection.generateFooter();
