@@ -54,16 +54,30 @@
     align-items: center;
   }
 
+  &__close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    img {
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+  }
+
   &__content {
     background-color: v.$primary-neutral;
     width: 95%;
     border-radius: 5px;
-    max-width: 580px;
+    max-width: 610px;
 
     display: grid;
     grid-template-columns: 110px 1fr;
     grid-gap: 0.5rem;
     padding: 0.5rem;
+
+    position: relative;
 
     @include m.breakpoint(medium) {
       grid-template-columns: 150px 1fr;
@@ -107,7 +121,7 @@
           @include m.line-clamp(2);
 
           @include m.breakpoint(medium) {
-            @include m.line-clamp(4);
+            @include m.line-clamp(5);
           }
         }
       }

@@ -1,3 +1,4 @@
+import CloseIcon from "../assets/close-icon.svg";
 import AddIcon from "../assets/icon_add.svg";
 
 interface FilmSummary {
@@ -165,6 +166,27 @@ export class Movies {
     return { image, details };
   }
 
+  showCloseIcon(modal: HTMLElement): HTMLElement {
+    const close = document.createElement("figure");
+    close.classList.add("modal__close");
+    close.innerHTML = ` <img src=${CloseIcon} alt ="close icon" /> `;
+
+    close.addEventListener("click", () => {
+      this.closeModal(modal);
+    });
+
+    return close;
+  }
+
+  closeModal(modal: HTMLElement) {
+    // close modal and allow scrolling
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+
+    //remove modal from dom
+    modal.remove();
+  }
+
   getShowDetails(showId: string): FilmSummary {
     const results = this.fetchShowById(showId);
     console.log("show", results);
@@ -199,8 +221,6 @@ export class Movies {
   }
 
   showDetailsModal(movieId: string, type: string) {
-    console.log(type, movieId);
-
     const modal = document.createElement("div");
     modal.classList.add("modal");
     modal.style.display = "flex";
@@ -209,46 +229,51 @@ export class Movies {
     const modalContent = document.createElement("article");
     modalContent.classList.add("modal__content");
 
+    const closeIcon = this.showCloseIcon(modal);
+
+    // call appropriate function to get details
     const { image, details } = (() => {
-      switch (type) {
-        case "movie":
-          return this.getMovieDetails(movieId);
-        case "tv":
-          return this.getShowDetails(movieId);
-        default:
-          return this.getMovieDetails(movieId);
-      }
+      return this.getDetails(type, movieId);
     })();
 
-    modalContent.append(image, details);
+    // close the modal when its clicked outside
+    if (modal) {
+      this.listenToWindow(modal);
+    }
 
-    // close modal and allow scrolling
-    const closeModal = function () {
-      modal.style.display = "none";
-      document.body.style.overflow = "auto";
+    //add modal to body
+    modalContent.append(image, details, closeIcon);
+    modal.append(modalContent);
+    this.container.append(modal);
+  }
 
-      //remove modal from dom
-      modal.remove();
-    };
+  getDetails(type: string, movieId: string): FilmSummary {
+    switch (type) {
+      case "movie":
+        return this.getMovieDetails(movieId);
+      case "tv":
+        return this.getShowDetails(movieId);
+      default:
+        return this.getMovieDetails(movieId);
+    }
+  }
+
+  listenToWindow(modal: HTMLElement) {
+    const closeModal = this.closeModal;
 
     window.onclick = function (event) {
-      if (event.target == modal) {
-        closeModal();
+      if (event.target === modal) {
+        closeModal(modal);
       }
     };
 
     window.addEventListener("touchend", function (event) {
-      if (event.target == modal) {
+      if (event.target === modal) {
         event.preventDefault();
         event.stopPropagation();
-        closeModal();
+        closeModal(modal);
       }
     });
-
-    modal.append(modalContent);
-
-    //add modal to body
-    this.container.append(modal);
   }
 
   generateMovieGrid(movies: any[], type?: string) {
