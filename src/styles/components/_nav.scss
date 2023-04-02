@@ -97,10 +97,21 @@
 
         text-decoration: none;
         transition: all 0.3s ease;
+        padding-bottom: 5px;
 
         &:hover {
           color: v.$primary-light;
         }
+      }
+    }
+
+    &__link {
+      border-bottom: 2px solid transparent;
+      transition: border-bottom-width 0.3s ease-in-out;
+
+      &--active {
+        border-bottom-color: v.$primary-light;
+        border-bottom-width: 2px;
       }
     }
 

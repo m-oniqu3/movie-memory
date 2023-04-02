@@ -36,9 +36,6 @@ export class FullNav extends BaseNav {
             <li class="nav__container__item">
             <a href="movies.html" class="nav__container__link">Movies</a>
           </li>
-          <li class="nav__container__item">
-            <a href="#contact" class="nav__container__link">Contact</a>
-          </li>
         </ul>
 
 
@@ -59,6 +56,21 @@ export class FullNav extends BaseNav {
         </div>
         `;
 
+    window.addEventListener("load", this.showActiveLink);
+
     return this.nav;
+  }
+
+  showActiveLink() {
+    const allLinks = document.querySelectorAll(".nav__container__link") as NodeListOf<HTMLAnchorElement>;
+    const currentPath = window.location.pathname.replace("/", "");
+
+    allLinks.forEach((link: HTMLAnchorElement) => {
+      if (link.getAttribute("href") === currentPath) {
+        link.classList.add("nav__container__link--active");
+      } else {
+        link.classList.remove("nav__container__link--active");
+      }
+    });
   }
 }

@@ -6,9 +6,7 @@ export class BaseNav {
 
   constructor() {
     this.nav = document.querySelector(".nav") as HTMLElement;
-    this.navContainer = document.querySelector(
-      ".nav .container"
-    ) as HTMLElement;
+    this.navContainer = document.querySelector(".nav .container") as HTMLElement;
 
     this.nav.classList.add("nav");
     this.navContainer.classList.add("nav__container");
@@ -23,6 +21,4 @@ export class BaseNav {
 
     return this.nav;
   }
-
-  showNavLink() {}
 }
