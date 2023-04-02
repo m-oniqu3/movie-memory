@@ -108,8 +108,7 @@ export class Movies {
   }
 
   getMovieDetails(movieId: string): FilmSummary {
-    const results = this.fetchMovieById(movieId);
-    console.log("movie", results);
+    const movieDetails = this.fetchMovieById(movieId);
 
     const { image: placeholderImage, details: placeholderDetails } = this.generatePlaceHolderSummary();
 
@@ -121,9 +120,11 @@ export class Movies {
 
     const details = document.createElement("div");
     details.classList.add("modal__content--details");
+
+    // set details to placeholder details
     details.innerHTML = placeholderDetails.innerHTML;
 
-    results.then((data) => {
+    movieDetails.then((data) => {
       const args = {
         posterPath: data.poster_path,
         title: data.title,
@@ -135,6 +136,9 @@ export class Movies {
 
       image.innerHTML = summary.image;
       details.innerHTML = summary.details;
+
+      // add event listener to close modal
+      details.children[0].addEventListener("click", this.closeModal);
     });
 
     return { image, details };
@@ -145,10 +149,13 @@ export class Movies {
       <img src="https://image.tmdb.org/t/p/w500${data.posterPath}" alt="movie image" class="movie-image"/>
     `;
 
-    const closeIcon = this.showCloseIcon();
+    const closeModal = this.closeModal;
+    console.log(closeModal);
 
     const details = `
-      ${closeIcon.outerHTML}
+     <figure class="close">
+      <img src=${CloseIcon} alt ="close icon" />
+     </figure>
 
       <article>
         <p class="heading heading__small--dark">${data.title}</p>
@@ -168,20 +175,6 @@ export class Movies {
     `;
 
     return { image, details };
-  }
-
-  showCloseIcon(): HTMLElement {
-    const close = document.createElement("figure");
-    close.classList.add("close");
-    close.innerHTML = ` <img src=${CloseIcon} alt ="close icon" /> `;
-
-    function cancel() {
-      console.log("close");
-    }
-
-    close.addEventListener("click", cancel);
-
-    return close;
   }
 
   closeModal() {
