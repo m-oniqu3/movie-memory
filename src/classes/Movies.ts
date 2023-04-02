@@ -108,8 +108,7 @@ export class Movies {
   }
 
   getMovieDetails(movieId: string): FilmSummary {
-    const results = this.fetchMovieById(movieId);
-    console.log("movie", results);
+    const movieDetails = this.fetchMovieById(movieId);
 
     const { image: placeholderImage, details: placeholderDetails } = this.generatePlaceHolderSummary();
 
@@ -121,9 +120,11 @@ export class Movies {
 
     const details = document.createElement("div");
     details.classList.add("modal__content--details");
+
+    // set details to placeholder details
     details.innerHTML = placeholderDetails.innerHTML;
 
-    results.then((data) => {
+    movieDetails.then((data) => {
       const args = {
         posterPath: data.poster_path,
         title: data.title,
@@ -135,6 +136,9 @@ export class Movies {
 
       image.innerHTML = summary.image;
       details.innerHTML = summary.details;
+
+      // add event listener to close modal
+      details.children[0].addEventListener("click", this.closeModal);
     });
 
     return { image, details };
@@ -145,7 +149,14 @@ export class Movies {
       <img src="https://image.tmdb.org/t/p/w500${data.posterPath}" alt="movie image" class="movie-image"/>
     `;
 
+    const closeModal = this.closeModal;
+    console.log(closeModal);
+
     const details = `
+     <figure class="close">
+      <img src=${CloseIcon} alt ="close icon" />
+     </figure>
+
       <article>
         <p class="heading heading__small--dark">${data.title}</p>
         <p class="text genres">${data.genres.map((genre) => genre.name).join(", ")}</p>
@@ -166,19 +177,10 @@ export class Movies {
     return { image, details };
   }
 
-  showCloseIcon(modal: HTMLElement): HTMLElement {
-    const close = document.createElement("figure");
-    close.classList.add("modal__close");
-    close.innerHTML = ` <img src=${CloseIcon} alt ="close icon" /> `;
+  closeModal() {
+    const modal = document.querySelector(".modal") as HTMLElement;
+    console.log(modal);
 
-    close.addEventListener("click", () => {
-      this.closeModal(modal);
-    });
-
-    return close;
-  }
-
-  closeModal(modal: HTMLElement) {
     // close modal and allow scrolling
     modal.style.display = "none";
     document.body.style.overflow = "auto";
@@ -229,8 +231,6 @@ export class Movies {
     const modalContent = document.createElement("article");
     modalContent.classList.add("modal__content");
 
-    const closeIcon = this.showCloseIcon(modal);
-
     // call appropriate function to get details
     const { image, details } = (() => {
       return this.getDetails(type, movieId);
@@ -242,7 +242,7 @@ export class Movies {
     }
 
     //add modal to body
-    modalContent.append(image, details, closeIcon);
+    modalContent.append(image, details);
     modal.append(modalContent);
     this.container.append(modal);
   }
@@ -263,7 +263,7 @@ export class Movies {
 
     window.onclick = function (event) {
       if (event.target === modal) {
-        closeModal(modal);
+        closeModal();
       }
     };
 
@@ -271,7 +271,7 @@ export class Movies {
       if (event.target === modal) {
         event.preventDefault();
         event.stopPropagation();
-        closeModal(modal);
+        closeModal();
       }
     });
   }

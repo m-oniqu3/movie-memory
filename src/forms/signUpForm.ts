@@ -6,7 +6,7 @@ export class SignUpForm extends Form {
     super(formElement);
   }
 
-  generateCompleteForm(): void {
+  public generateCompleteForm(): void {
     const title = "Create Account";
     const greeting = "Keep track of the movies you've watched with Movie Memory. Create an account to get started.";
 
@@ -43,7 +43,7 @@ export class SignUpForm extends Form {
    * override the generateFormButtons method from the Form class
    * create text to toggle between login and sign up forms
    */
-  generatePrompt(): HTMLParagraphElement {
+  protected generatePrompt(): HTMLParagraphElement {
     const prompt = document.createElement("p");
     prompt.classList.add("text");
 
