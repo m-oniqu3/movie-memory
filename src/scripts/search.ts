@@ -1,3 +1,4 @@
+import { Footer } from "../classes/Footer";
 import { SearchMovies } from "../classes/SearchMovies";
 import { FullNav } from "../nav/FullNav";
 
@@ -40,3 +41,8 @@ form.addEventListener("keypress", (e) => {
     searchMovies.generateSearchResults(formInput.value);
   }
 });
+
+// create footer
+const footer = document.querySelector("footer") as HTMLElement;
+const footerSection = new Footer(footer);
+footerSection.generateFooter();
