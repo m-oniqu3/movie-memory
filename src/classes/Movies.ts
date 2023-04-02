@@ -145,7 +145,11 @@ export class Movies {
       <img src="https://image.tmdb.org/t/p/w500${data.posterPath}" alt="movie image" class="movie-image"/>
     `;
 
+    const closeIcon = this.showCloseIcon();
+
     const details = `
+      ${closeIcon.outerHTML}
+
       <article>
         <p class="heading heading__small--dark">${data.title}</p>
         <p class="text genres">${data.genres.map((genre) => genre.name).join(", ")}</p>
@@ -166,19 +170,24 @@ export class Movies {
     return { image, details };
   }
 
-  showCloseIcon(modal: HTMLElement): HTMLElement {
+  showCloseIcon(): HTMLElement {
     const close = document.createElement("figure");
-    close.classList.add("modal__close");
+    close.classList.add("close");
     close.innerHTML = ` <img src=${CloseIcon} alt ="close icon" /> `;
 
-    close.addEventListener("click", () => {
-      this.closeModal(modal);
-    });
+    function cancel() {
+      console.log("close");
+    }
+
+    close.addEventListener("click", cancel);
 
     return close;
   }
 
-  closeModal(modal: HTMLElement) {
+  closeModal() {
+    const modal = document.querySelector(".modal") as HTMLElement;
+    console.log(modal);
+
     // close modal and allow scrolling
     modal.style.display = "none";
     document.body.style.overflow = "auto";
@@ -229,8 +238,6 @@ export class Movies {
     const modalContent = document.createElement("article");
     modalContent.classList.add("modal__content");
 
-    const closeIcon = this.showCloseIcon(modal);
-
     // call appropriate function to get details
     const { image, details } = (() => {
       return this.getDetails(type, movieId);
@@ -242,7 +249,7 @@ export class Movies {
     }
 
     //add modal to body
-    modalContent.append(image, details, closeIcon);
+    modalContent.append(image, details);
     modal.append(modalContent);
     this.container.append(modal);
   }
@@ -263,7 +270,7 @@ export class Movies {
 
     window.onclick = function (event) {
       if (event.target === modal) {
-        closeModal(modal);
+        closeModal();
       }
     };
 
@@ -271,7 +278,7 @@ export class Movies {
       if (event.target === modal) {
         event.preventDefault();
         event.stopPropagation();
-        closeModal(modal);
+        closeModal();
       }
     });
   }

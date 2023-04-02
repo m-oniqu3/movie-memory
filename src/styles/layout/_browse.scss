@@ -54,18 +54,6 @@
     align-items: center;
   }
 
-  &__close {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-
-    img {
-      width: 25px;
-      height: 25px;
-      cursor: pointer;
-    }
-  }
-
   &__content {
     background-color: v.$primary-neutral;
     width: 95%;
@@ -149,6 +137,21 @@
         &:hover {
           background-color: rgb(6, 35, 6);
           color: v.$primary-neutral;
+        }
+      }
+
+      .close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 100;
+        background: red;
+
+        img {
+          width: 25px;
+          height: 25px;
+          cursor: pointer;
+          z-index: 100;
         }
       }
     }
