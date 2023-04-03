@@ -23,7 +23,7 @@ export class Movies {
     this.apiKey = import.meta.env.VITE_API_KEY;
   }
 
-  generateHeading(text: string) {
+  protected generateHeading(text: string) {
     const heading = document.createElement("h1");
     heading.classList.add("heading", "heading__small--white--styled");
     heading.innerText = text;
@@ -31,7 +31,7 @@ export class Movies {
   }
 
   //async resuable function that accepts a url and returns a promise
-  async fetchMovies(url: string, key: string) {
+  protected async fetchMovies(url: string, key: string) {
     try {
       //check if data is in local storage
       const data = localStorage.getItem(key);
@@ -56,7 +56,7 @@ export class Movies {
   }
 
   //fetch movie by id
-  async fetchMovieById(id: string) {
+  private async fetchMovieById(id: string) {
     try {
       const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}&language=en-US`;
       const response = await fetch(url);
@@ -70,7 +70,7 @@ export class Movies {
     }
   }
 
-  async fetchShowById(id: string) {
+  private async fetchShowById(id: string) {
     try {
       const url = ` https://api.themoviedb.org/3/tv/${id}?api_key=${this.apiKey}&language=en-US`;
       const response = await fetch(url);
@@ -84,7 +84,7 @@ export class Movies {
     }
   }
 
-  generatePlaceHolderSummary(): FilmSummary {
+  private generatePlaceHolderSummary(): FilmSummary {
     const image = document.createElement("figure");
     image.classList.add("modal__content--image");
 
@@ -127,7 +127,15 @@ export class Movies {
     return div;
   }
 
-  getMovieDetails(movieId: string): FilmSummary {
+  protected populateLoadingPlaceholder(elementClass: string) {
+    const placeholder = document.querySelector(`.${elementClass}`) as HTMLElement;
+    placeholder.innerHTML = this.generateMoviesPlaceholder().innerHTML;
+    placeholder.style.padding = "3rem 0";
+
+    return placeholder;
+  }
+
+  protected getMovieDetails(movieId: string): FilmSummary {
     const movieDetails = this.fetchMovieById(movieId);
 
     const { image: placeholderImage, details: placeholderDetails } = this.generatePlaceHolderSummary();
@@ -171,7 +179,7 @@ export class Movies {
     return { image, details };
   }
 
-  generateSummary(data: Summary): { image: string; details: string } {
+  protected generateSummary(data: Summary): { image: string; details: string } {
     const image = `
       <img src="https://image.tmdb.org/t/p/w500${data.posterPath}" alt="movie image" class="movie-image"/>
     `;
@@ -201,7 +209,7 @@ export class Movies {
     return { image, details };
   }
 
-  closeModal() {
+  private closeModal() {
     const modal = document.querySelector(".modal") as HTMLElement;
     console.log(modal);
 
@@ -213,7 +221,7 @@ export class Movies {
     modal.remove();
   }
 
-  getShowDetails(showId: string): FilmSummary {
+  private getShowDetails(showId: string): FilmSummary {
     const results = this.fetchShowById(showId);
     console.log("show", results);
 
@@ -246,7 +254,7 @@ export class Movies {
     return { image, details };
   }
 
-  showDetailsModal(movieId: string, type: string) {
+  private showDetailsModal(movieId: string, type: string) {
     const modal = document.createElement("div");
     modal.classList.add("modal");
     modal.style.display = "flex";
@@ -271,7 +279,7 @@ export class Movies {
     this.container.append(modal);
   }
 
-  getDetails(type: string, movieId: string): FilmSummary {
+  private getDetails(type: string, movieId: string): FilmSummary {
     switch (type) {
       case "movie":
         return this.getMovieDetails(movieId);
@@ -282,7 +290,7 @@ export class Movies {
     }
   }
 
-  listenToWindow(modal: HTMLElement) {
+  private listenToWindow(modal: HTMLElement) {
     const closeModal = this.closeModal;
 
     window.onclick = function (event) {
@@ -300,7 +308,7 @@ export class Movies {
     });
   }
 
-  generateMovieGrid(movies: any[], type?: string) {
+  protected generateMovieGrid(movies: any[], type?: string) {
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
 
@@ -325,6 +333,4 @@ export class Movies {
 
     return movieGrid;
   }
-
-  generateMoviesContent() {}
 }
