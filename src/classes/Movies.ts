@@ -107,6 +107,26 @@ export class Movies {
     return { image, details };
   }
 
+  protected generateMoviesPlaceholder(): HTMLDivElement {
+    const div = document.createElement("div");
+    div.classList.add("browse__placeholder");
+
+    //movie grid with 20 placeholders
+    const movieGrid = document.createElement("div");
+    movieGrid.classList.add("movie-grid");
+
+    for (let i = 0; i < 20; i++) {
+      const movie = document.createElement("div");
+      movie.classList.add("movie-grid__item");
+      movie.innerHTML = `<div class="movie-grid__item__placeholder"></div>`;
+      movieGrid.append(movie);
+    }
+
+    div.append(movieGrid);
+
+    return div;
+  }
+
   getMovieDetails(movieId: string): FilmSummary {
     const movieDetails = this.fetchMovieById(movieId);
 

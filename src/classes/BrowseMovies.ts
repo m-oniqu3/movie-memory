@@ -5,62 +5,45 @@ export class BrowseMovies extends Movies {
     super(container);
   }
 
-  private generateMoviesPlacheholder(): HTMLDivElement {
-    const div = document.createElement("div");
-    div.classList.add("browse__placeholder");
+  private populateLoadingPlaceholder(elementClass: string) {
+    const load = document.querySelector(`.${elementClass}`) as HTMLElement;
+    load.innerHTML = this.generateMoviesPlaceholder().innerHTML;
+    load.style.padding = "3rem 0";
 
-    //movie grid with 20 placeholders
-    const movieGrid = document.createElement("div");
-    movieGrid.classList.add("movie-grid");
+    return load;
+  }
 
-    for (let i = 0; i < 20; i++) {
-      const movie = document.createElement("div");
-      movie.classList.add("movie-grid__item");
-      movie.innerHTML = `<div class="movie-grid__item__placeholder"></div>`;
-      movieGrid.append(movie);
-    }
-
-    div.append(movieGrid);
-
-    return div;
+  clearPlaceholderElement(element: HTMLElement) {
+    element.innerHTML = "";
+    element.style.padding = "0";
   }
 
   private async generatePopularMovies() {
     let article = document.createElement("article");
-    const heading = this.generateHeading("Upcoming Movies");
+    let heading: HTMLHeadingElement;
     const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${this.apiKey}&language=en-US&page=1`;
 
     this.container.innerHTML = "";
-
-    const load = document.querySelector(".browse__placeholder") as HTMLDivElement;
-    load.innerHTML = this.generateMoviesPlacheholder().innerHTML;
-    load.style.padding = "3rem 0";
+    const load = this.populateLoadingPlaceholder("browse__placeholder");
 
     try {
       const upcomingMovies = await this.fetchMovies(url, "upcomingMovies");
 
       if (upcomingMovies.length === 0) {
-        // heading = this.generateHeading("No results found");
+        heading = this.generateHeading("No results found");
 
         article.innerHTML = "";
         article = heading;
-
-        load.innerHTML = "";
-        load.style.padding = "0";
+        this.clearPlaceholderElement(load);
       } else {
-        console.log({ upcomingMovies });
-
+        heading = this.generateHeading("Upcoming Movies");
         const movieGrid = this.generateMovieGrid(upcomingMovies, "movie");
 
         article.innerHTML = "";
         article.append(heading, movieGrid);
-        load.innerHTML = "";
-        load.style.padding = "0";
+        this.clearPlaceholderElement(load);
       }
 
-      // const movieGrid = this.generateMovieGrid(upcomingMovies, "movie");
-
-      // article.append(heading, movieGrid);
       this.container.append(article);
     } catch (error) {
       console.log(error);
