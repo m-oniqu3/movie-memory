@@ -5,7 +5,7 @@ export class SearchMovies extends Movies {
     super(container);
   }
 
-  generateSearchPlaceholder(): HTMLDivElement {
+  private generateSearchPlaceholder(): HTMLDivElement {
     const div = document.createElement("div");
     div.classList.add("search__placeholder");
 

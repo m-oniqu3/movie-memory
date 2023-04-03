@@ -46,7 +46,7 @@ export class Movies {
         const data = await response.json();
 
         //save to local storage
-        localStorage.setItem(key, JSON.stringify(data.results.slice(0, 18)));
+        localStorage.setItem(key, JSON.stringify(data.results));
         return data.results;
       }
     } catch (error) {
@@ -124,22 +124,29 @@ export class Movies {
     // set details to placeholder details
     details.innerHTML = placeholderDetails.innerHTML;
 
-    movieDetails.then((data) => {
-      const args = {
-        posterPath: data.poster_path,
-        title: data.title,
-        genres: data.genres,
-        releaseDate: data.release_date,
-        description: data.overview,
-      };
-      const summary = this.generateSummary(args);
+    movieDetails
+      .then((data) => {
+        const args = {
+          posterPath: data.poster_path,
+          title: data.title,
+          genres: data.genres,
+          releaseDate: data.release_date,
+          description: data.overview,
+        };
+        const summary = this.generateSummary(args);
 
-      image.innerHTML = summary.image;
-      details.innerHTML = summary.details;
+        image.innerHTML = summary.image;
+        details.innerHTML = summary.details;
 
-      // add event listener to close modal
-      details.children[0].addEventListener("click", this.closeModal);
-    });
+        // add event listener to close modal
+        console.log(details.children[0]);
+        console.log(details);
+
+        details.children[0].addEventListener("click", this.closeModal);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     return { image, details };
   }
@@ -148,9 +155,6 @@ export class Movies {
     const image = `
       <img src="https://image.tmdb.org/t/p/w500${data.posterPath}" alt="movie image" class="movie-image"/>
     `;
-
-    const closeModal = this.closeModal;
-    console.log(closeModal);
 
     const details = `
      <figure class="close">
