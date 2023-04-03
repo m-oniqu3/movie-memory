@@ -5,11 +5,6 @@ export class BrowseMovies extends Movies {
     super(container);
   }
 
-  clearPlaceholderElement(element: HTMLElement) {
-    element.innerHTML = "";
-    element.style.padding = "0";
-  }
-
   private async generatePopularMovies() {
     let article = document.createElement("article");
     let heading: HTMLHeadingElement;

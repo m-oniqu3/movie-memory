@@ -107,9 +107,9 @@ export class Movies {
     return { image, details };
   }
 
-  protected generateMoviesPlaceholder(): HTMLDivElement {
+  protected generateMoviesPlaceholder(className: string): HTMLDivElement {
     const div = document.createElement("div");
-    div.classList.add("browse__placeholder");
+    div.classList.add(className);
 
     //movie grid with 20 placeholders
     const movieGrid = document.createElement("div");
@@ -127,12 +127,21 @@ export class Movies {
     return div;
   }
 
-  protected populateLoadingPlaceholder(elementClass: string) {
-    const placeholder = document.querySelector(`.${elementClass}`) as HTMLElement;
-    placeholder.innerHTML = this.generateMoviesPlaceholder().innerHTML;
+  protected populateLoadingPlaceholder(className: string) {
+    console.log(className);
+
+    const placeholder = document.querySelector(`.${className}`) as HTMLElement;
+    placeholder.innerHTML = this.generateMoviesPlaceholder(className).innerHTML;
     placeholder.style.padding = "3rem 0";
 
+    console.log({ placeholder });
+
     return placeholder;
+  }
+
+  protected clearPlaceholderElement(element: HTMLElement) {
+    element.innerHTML = "";
+    element.style.padding = "0";
   }
 
   protected getMovieDetails(movieId: string): FilmSummary {

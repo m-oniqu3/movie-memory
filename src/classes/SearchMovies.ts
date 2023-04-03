@@ -5,41 +5,15 @@ export class SearchMovies extends Movies {
     super(container);
   }
 
-  private generateSearchPlaceholder(): HTMLDivElement {
-    const div = document.createElement("div");
-    div.classList.add("search__placeholder");
-
-    //movie grid with 20 placeholders
-    const movieGrid = document.createElement("div");
-    movieGrid.classList.add("movie-grid");
-
-    for (let i = 0; i < 20; i++) {
-      const movie = document.createElement("div");
-      movie.classList.add("movie-grid__item");
-      movie.innerHTML = `<div class="movie-grid__item__placeholder"></div>`;
-      movieGrid.append(movie);
-    }
-
-    div.append(movieGrid);
-
-    return div;
-  }
-
   async generateSearchResults(input: string) {
+    let heading = this.generateHeading(`Results for ${input.toLowerCase()}`);
+    let article = document.createElement("article");
     const url = `https://api.themoviedb.org/3/search/multi?api_key=${this.apiKey}&language=en-US&query=${input}&page=1&include_adult=false`;
 
     this.container.innerHTML = "";
-
-    const load = document.querySelector(".search__placeholder") as HTMLDivElement;
-    load.innerHTML = this.generateSearchPlaceholder().innerHTML;
-    load.style.padding = "3rem 0";
-
-    let heading = this.generateHeading(`Results for ${input.toLowerCase()}`);
-    let article = document.createElement("article");
+    const placeholder = this.populateLoadingPlaceholder("search__placeholder");
 
     try {
-      // todo handle case for no results
-      // todo : create method to empty load
       const searchResults = await this.fetchMovies(url, input);
 
       if (searchResults.length === 0) {
@@ -48,8 +22,7 @@ export class SearchMovies extends Movies {
         article.innerHTML = "";
         article = heading;
 
-        load.innerHTML = "";
-        load.style.padding = "0";
+        this.clearPlaceholderElement(placeholder);
       } else {
         console.log({ searchResults });
 
@@ -57,8 +30,7 @@ export class SearchMovies extends Movies {
 
         article.innerHTML = "";
         article.append(heading, movieGrid);
-        load.innerHTML = "";
-        load.style.padding = "0";
+        this.clearPlaceholderElement(placeholder);
       }
 
       this.container.append(article);
