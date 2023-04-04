@@ -11,14 +11,14 @@ export class BrowseMovies extends Movies {
     const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${this.apiKey}&language=en-US&page=1`;
 
     this.container.innerHTML = "";
-    const placeholder = this.populateLoadingPlaceholder("browse__placeholder");
+    const placeholder = this.populateLoadingPlaceholder("movies__placeholder");
 
     try {
       const upcomingMovies = await this.fetchMovies(url, "upcomingMovies");
 
       if (upcomingMovies.length === 0) {
-        heading = this.generateHeading("No results found");
-
+        heading = this.generateHeading("No Upcoming Movies");
+        //todo: show some error image here
         article.innerHTML = "";
         article = heading;
         this.clearPlaceholderElement(placeholder);

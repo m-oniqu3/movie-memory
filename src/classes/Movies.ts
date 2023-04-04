@@ -176,9 +176,6 @@ export class Movies {
         details.innerHTML = summary.details;
 
         // add event listener to close modal
-        console.log(details.children[0]);
-        console.log(details);
-
         details.children[0].addEventListener("click", this.closeModal);
       })
       .catch((error) => {
@@ -258,6 +255,9 @@ export class Movies {
 
       image.innerHTML = summary.image;
       details.innerHTML = summary.details;
+
+      // add event listener to close modal
+      details.children[0].addEventListener("click", this.closeModal);
     });
 
     return { image, details };
