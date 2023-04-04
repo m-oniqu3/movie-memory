@@ -41,15 +41,27 @@ export class SearchMovies extends Movies {
 
   async generateFrequentlySearchedFor() {
     const heading = this.generateHeading("Frequently searched for");
-    const article = document.createElement("article");
+    let article = document.createElement("article");
     const url = `https://api.themoviedb.org/3/trending/all/day?api_key=${this.apiKey}`;
+
+    this.container.innerHTML = "";
+    const placeholder = this.populateLoadingPlaceholder("search__placeholder");
 
     try {
       const trendingFilms = await this.fetchMovies(url, "trends");
-      const movieGrid = this.generateMovieGrid(trendingFilms);
 
-      article.append(heading, movieGrid);
-      this.container.innerHTML = "";
+      if (trendingFilms.length === 0) {
+        article.innerHTML = "";
+        article = heading;
+        this.clearPlaceholderElement(placeholder);
+      } else {
+        const movieGrid = this.generateMovieGrid(trendingFilms);
+        article.innerHTML = "";
+        article.append(heading, movieGrid);
+
+        this.clearPlaceholderElement(placeholder);
+      }
+
       this.container.append(article);
     } catch (error) {
       console.log(error);
