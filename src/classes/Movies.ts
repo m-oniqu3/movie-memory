@@ -199,7 +199,7 @@ export class Movies {
         <p class="heading heading__small--dark">${data.title}</p>
         <p class="text genres">${data.genres.map((genre) => genre.name).join(", ")}</p>
         <p class="text">${new Date(data.releaseDate).getFullYear().toString()}</p>
-        <p class="text description">${data.description}</p>
+        <p class="text description">${data.description ? data.description : "No description available."}</p>
       </article>
 
       
