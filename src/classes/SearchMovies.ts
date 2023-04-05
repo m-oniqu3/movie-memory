@@ -2,7 +2,6 @@ import { Movies } from "./Movies";
 
 type SearchResultsProps = {
   fetchedData: any;
-  article: HTMLElement;
   placeholder: HTMLElement;
   heading: HTMLHeadingElement;
 };
@@ -11,19 +10,18 @@ export class SearchMovies extends Movies {
     super(container);
   }
 
-  private showSearchResults(info: SearchResultsProps) {
-    let { fetchedData, article, placeholder, heading } = info;
+  private renderContent(info: SearchResultsProps) {
+    let { fetchedData, placeholder, heading: headingProp } = info;
+    let heading = headingProp;
+    let article = document.createElement("article");
 
     if (fetchedData.length === 0) {
       heading = this.generateHeading("No results found");
-
       article.innerHTML = "";
       article = heading;
-
       this.clearPlaceholderElement(placeholder);
     } else {
       const movieGrid = this.generateMovieGrid(fetchedData);
-
       article.innerHTML = "";
       article.append(heading, movieGrid);
       this.clearPlaceholderElement(placeholder);
@@ -33,50 +31,37 @@ export class SearchMovies extends Movies {
   }
 
   public async generateSearchResults(input: string) {
-    let heading = this.generateHeading(`Results for ${input.toLowerCase()}`);
-    let article = document.createElement("article");
     const url = `https://api.themoviedb.org/3/search/multi?api_key=${this.apiKey}&language=en-US&query=${input}&page=1&include_adult=false`;
 
-    this.container.innerHTML = "";
     const placeholder = this.populateLoadingPlaceholder("search__placeholder");
+    const heading = this.generateHeading(`Results for ${input.toLowerCase()}`);
+
+    this.container.innerHTML = "";
 
     try {
       const searchResults = await this.fetchMovies(url, input);
-
-      this.showSearchResults({
-        fetchedData: searchResults,
-        article,
-        placeholder,
-        heading,
-      });
+      this.renderContent({ fetchedData: searchResults, placeholder, heading });
     } catch (error) {
       console.log(error);
     }
   }
 
-  async generateFrequentlySearchedFor() {
+  public async generateFrequentlySearchedFor() {
     const heading = this.generateHeading("Frequently searched for");
-    let article = document.createElement("article");
+    const placeholder = this.populateLoadingPlaceholder("search__placeholder");
     const url = `https://api.themoviedb.org/3/trending/all/day?api_key=${this.apiKey}`;
 
     this.container.innerHTML = "";
-    const placeholder = this.populateLoadingPlaceholder("search__placeholder");
 
     try {
       const trendingFilms = await this.fetchMovies(url, "trends");
-
-      this.showSearchResults({
-        fetchedData: trendingFilms,
-        article,
-        placeholder,
-        heading,
-      });
+      this.renderContent({ fetchedData: trendingFilms, placeholder, heading });
     } catch (error) {
       console.log(error);
     }
   }
 
-  generateMoviesContent(): void {
+  public generateMoviesContent(): void {
     this.generateFrequentlySearchedFor();
   }
 }
