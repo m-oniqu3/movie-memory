@@ -36,15 +36,14 @@ export class Form {
   }
 
   private generateDomElement(element: string, placeholder?: string, type?: string) {
-    if (placeholder && type) {
-      const domElement = document.createElement(element) as HTMLInputElement;
-      domElement.placeholder = placeholder;
-      domElement.type = type;
-
-      return domElement;
-    } else {
+    if (!placeholder || !type) {
       return document.createElement(element) as HTMLElement;
     }
+    const domElement = document.createElement(element) as HTMLInputElement;
+    domElement.placeholder = placeholder;
+    domElement.type = type;
+
+    return domElement;
   }
 
   protected generateFormInputs() {

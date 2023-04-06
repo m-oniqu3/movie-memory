@@ -66,11 +66,12 @@ export class FullNav extends BaseNav {
     const currentPath = window.location.pathname.replace("/", "");
 
     allLinks.forEach((link: HTMLAnchorElement) => {
-      if (link.getAttribute("href") === currentPath) {
-        link.classList.add("nav__container__link--active");
-      } else {
+      if (link.getAttribute("href") !== currentPath) {
         link.classList.remove("nav__container__link--active");
+        return;
       }
+
+      link.classList.add("nav__container__link--active");
     });
   }
 }
