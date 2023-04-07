@@ -1,6 +1,8 @@
 import CloseIcon from "../assets/close-icon.svg";
 import AddIcon from "../assets/icon_add.svg";
 
+// todo, replace interface with type
+// todo, turn into abstract class
 interface FilmSummary {
   image: HTMLElement;
   details: HTMLDivElement;
