@@ -2,7 +2,7 @@ import CloseIcon from "../assets/close-icon.svg";
 import AddIcon from "../assets/icon_add.svg";
 
 // todo, replace interface with type
-// todo, turn into abstract class
+// todo, turn into abstract class and extend
 interface FilmSummary {
   image: HTMLElement;
   details: HTMLDivElement;
