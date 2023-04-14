@@ -3,7 +3,7 @@ import AddIcon from "../assets/icon_add.svg";
 
 // todo, replace interface with type
 // todo, turn into abstract class and extend
-// todo, change protected modifiers to static access modifiers
+// todo, change protected access modifiers to static access modifiers
 interface FilmSummary {
   image: HTMLElement;
   details: HTMLDivElement;
