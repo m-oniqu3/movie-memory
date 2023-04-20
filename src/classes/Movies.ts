@@ -4,7 +4,7 @@ import AddIcon from "../assets/icon_add.svg";
 // todo, replace interface with type
 // todo, turn into abstract class and extend
 // todo, change protected access modifiers to static access modifier
-// todo, research inversion of control for statements
+// todo, research inversion of control for control statements
 interface FilmSummary {
   image: HTMLElement;
   details: HTMLDivElement;
