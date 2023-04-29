@@ -44,8 +44,8 @@ export class BrowseMovies extends Movies {
           <img src="${ErrorImage}" alt="Error loading upcoming movies" class="movies__error--image">
         </figure>
 
-        <h1 class="heading heading__small--white">Error loading upcoming movies</h1>
-        <p class="text">There was an error fetching the upcoming movies. Try searching for a movie or show.</p>
+        <h1 class="heading heading__small--white">Error Loading Upcoming Movies</h1>
+        <p class="text">There was an error fetching the data. Try searching for a movie or show.</p>
 
         <a href="/search.html" class="button button__primary">Search Movies</a>
       </div>

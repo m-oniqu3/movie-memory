@@ -1,3 +1,4 @@
+import ErrorImage from "./../assets/undraw_home_cinema_l7yl.svg";
 import { Movies } from "./Movies";
 
 export class TvShows extends Movies {
@@ -26,8 +27,32 @@ export class TvShows extends Movies {
     this.container.append(article);
   }
 
+  private renderErrorContent() {
+    let article = document.createElement("article");
+    let heading: HTMLHeadingElement;
+
+    heading = this.generateHeading("Popular Tv Shows");
+
+    article.innerHTML = `
+      ${heading.outerHTML}
+
+      <div class="movies__error">
+        <figure>
+          <img src="${ErrorImage}" alt="Error loading popular tv shows" class="movies__error--image">
+        </figure>
+
+        <h1 class="heading heading__small--white">Error Loading Popular Tv Shows</h1>
+        <p class="text">There was an error fetching the data. Try searching for a movie or show.</p>
+
+        <a href="/search.html" class="button button__primary">Search Movies</a>
+      </div>
+
+    `;
+    this.container.append(article);
+  }
+
   private async getPopularTvShows() {
-    const url = `https://api.themoviedb.org/3/tv/top_rated?api_key=${this.apiKey}&language=en-US&page=1`;
+    const url = `https://api.themovie.org/3/tv/top_rated?api_key=${this.apiKey}&language=en-US&page=1`;
 
     const placeholder = this.populateLoadingPlaceholder("movies__placeholder");
     this.container.innerHTML = "";
@@ -36,6 +61,8 @@ export class TvShows extends Movies {
       const topRatedTvShows = await this.fetchMovies(url, "popularTvShows");
       this.renderContent(topRatedTvShows, placeholder);
     } catch (error) {
+      this.clearPlaceholderElement(placeholder);
+      this.renderErrorContent();
       console.log(error);
     }
   }
