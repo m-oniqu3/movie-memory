@@ -306,4 +306,27 @@
       }
     }
   }
+
+  &__error {
+    padding: 3rem 0;
+    display: grid;
+    place-items: center;
+    place-content: center;
+    text-align: center;
+    gap: 1rem;
+    height: 100vh;
+    max-width: 500px;
+    margin: 0 auto;
+
+    .text {
+      color: v.$primary-neutral;
+      max-width: 400px;
+    }
+
+    &--image {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
 }
