@@ -94,4 +94,31 @@
       }
     }
   }
+
+  &__error {
+    color: v.$primary-neutral;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem 0;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+
+    .text {
+      max-width: 300px;
+    }
+
+    &--image {
+      height: 100%;
+      width: 70%;
+      object-fit: cover;
+
+      @include m.breakpoint(medium) {
+        width: 60%;
+      }
+    }
+  }
 }
