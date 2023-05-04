@@ -17,7 +17,7 @@ export class SignUpForm extends Form {
         classes: ["button", "button__primary--dark"],
         textContent: "Create Account",
         type: "submit",
-        disabled: this.email && this.password ? false : true,
+        disableButton: true,
         onClick: () => {
           console.log(this.email, this.password);
         },

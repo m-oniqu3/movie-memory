@@ -17,7 +17,7 @@ export class LoginForm extends Form {
         classes: ["button", "button__primary--dark"],
         textContent: "Login",
         type: "submit",
-        disabled: this.email && this.password ? false : true,
+        disableButton: true,
         onClick: () => {
           console.log(this.email, this.password);
         },

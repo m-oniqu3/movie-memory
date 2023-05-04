@@ -4,19 +4,19 @@ export interface Button {
   classes: string[];
   textContent: string;
   type: string;
-  disabled?: boolean;
+  disableButton?: boolean;
   onClick: () => void;
 }
 
 export class Form {
   formContainer: HTMLElement;
-  email: string;
-  password: string;
+  email: { value: string; isValid: boolean };
+  password: { value: string; isValid: boolean };
 
   constructor(formElement: HTMLElement) {
     this.formContainer = formElement;
-    this.email = "";
-    this.password = "";
+    this.email = { value: "", isValid: false };
+    this.password = { value: "", isValid: false };
   }
 
   protected generateFormHeader(title: string, paragraph: string) {
@@ -64,12 +64,12 @@ export class Form {
     return inputGroup as HTMLDivElement;
   }
 
-  protected setEmail(email: string) {
-    this.email = email;
+  protected setEmail(value: string, isValid: boolean) {
+    this.email = { value, isValid };
   }
 
-  protected setPassword(password: string) {
-    this.password = password;
+  protected setPassword(value: string, isValid: boolean) {
+    this.password = { value, isValid };
   }
 
   private validateFormInputs(inputGroup: HTMLDivElement) {
@@ -100,8 +100,28 @@ export class Form {
       buttonElement.classList.add(...button.classes);
       buttonElement.textContent = button.textContent;
       buttonElement.type = button.type;
-      buttonElement.addEventListener("click", button.onClick);
-      button.disabled && buttonElement.setAttribute("disabled", button.disabled.toString());
+      buttonElement.addEventListener("click", () => {
+        if (this.email.isValid && this.password.isValid) {
+          button.onClick();
+          buttonElement.disabled = true;
+
+          //redirect to browse page and prevent the user from going back to the login page
+          //redirect to browse page and update browser history
+          window.history.pushState({}, "Browse Page", "/browse.html");
+          window.location.href = "/browse.html";
+        }
+      });
+
+      button.disableButton &&
+        this.formContainer.addEventListener("input", () => {
+          if (!this.email.isValid || !this.password.isValid) {
+            buttonElement.disabled = true;
+            buttonElement.classList.add("button__primary--dark--disabled");
+          } else {
+            buttonElement.disabled = false;
+            buttonElement.classList.remove("button__primary--dark--disabled");
+          }
+        });
 
       return buttonElement;
     });
@@ -114,6 +134,7 @@ export class Form {
 
     return buttonContainer;
   }
+
   // creates a form element that contains the form inputs and buttons and appends it to the form container
   protected generateFormBody(inputCallback: () => HTMLDivElement, buttonCallback: () => HTMLElement) {
     const form = document.createElement("form");

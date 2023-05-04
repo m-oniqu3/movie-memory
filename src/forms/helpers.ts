@@ -1,8 +1,15 @@
-interface Validation {
+type Validation = {
   errorMessage: string;
   successMessage: string;
   isValid: boolean;
-}
+};
+
+type ValidateInput = {
+  input: HTMLInputElement;
+  validationCallback: (value: string) => Validation;
+  feedbackElement: HTMLParagraphElement;
+  setGlobalState: (value: string, isValid: boolean) => void;
+};
 
 export const pattern =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -35,6 +42,7 @@ export function validateEmail(email: string): Validation {
   }
 
   //if all fields are valid
+
   return {
     ...results,
     isValid: true,
@@ -77,14 +85,7 @@ export function validatePassword(password: string): Validation {
   };
 }
 
-interface ValidateInput {
-  input: HTMLInputElement;
-  validationCallback: (value: string) => Validation;
-  feedbackElement: HTMLParagraphElement;
-  setGlobalState: (value: string) => void;
-}
-
-// validates the input on change and sets the global state if the input is valid
+// validates the input on change and sets the global state
 
 export function validateInput(props: ValidateInput) {
   const { input, validationCallback, feedbackElement, setGlobalState } = props;
@@ -96,7 +97,9 @@ export function validateInput(props: ValidateInput) {
     feedbackElement.classList.toggle("success", isValid);
 
     if (isValid) {
-      setGlobalState(input.value);
+      setGlobalState(input.value, true);
+    } else {
+      setGlobalState(input.value, false);
     }
   });
 }
