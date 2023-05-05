@@ -58,8 +58,8 @@
       border: 1px solid v.$primary;
 
       &:hover {
-        background-color: v.$primary;
-        color: v.$primary-neutral;
+        background-color: v.$primary-neutral-dark;
+        color: v.$primary;
       }
     }
   }

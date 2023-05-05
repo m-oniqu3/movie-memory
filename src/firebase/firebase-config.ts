@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -41,3 +41,13 @@ auth.onAuthStateChanged(function (user) {
     localStorage.removeItem("user");
   }
 });
+
+export const logOutUser = async () => {
+  try {
+    await signOut(auth);
+    window.location.href = "/index.html";
+  } catch (error) {
+    console.log(error);
+    alert("Error logging out. Please try again.");
+  }
+};

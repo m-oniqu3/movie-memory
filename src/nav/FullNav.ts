@@ -3,6 +3,7 @@ import Logo from "../assets/logo.png";
 import MenuIcon from "../assets/menu_icon.svg";
 import SearchIcon from "../assets/search_icon.svg";
 import UserIcon from "../assets/user_icon.svg";
+import { logOutUser } from "../firebase/firebase-config";
 
 import { BaseNav } from "./BaseNav";
 
@@ -75,7 +76,22 @@ export class FullNav extends BaseNav {
 
     if (this.logoutModal.children.length > 0) {
       this.closeLogoutModal();
+      this.handleButtonActions();
     }
+  }
+
+  handleButtonActions() {
+    const cancelButton = document.querySelector(".logout-modal__buttons .button__secondary--dark") as HTMLButtonElement;
+    const logoutButton = document.querySelector(".logout-modal__buttons .button__primary--dark") as HTMLButtonElement;
+
+    cancelButton.addEventListener("click", () => {
+      this.logoutModal.style.display = "none";
+      document.body.style.overflow = "auto";
+    });
+
+    logoutButton.addEventListener("click", async () => {
+      await logOutUser();
+    });
   }
 
   generateLogoutModal(modalElement: HTMLElement) {
