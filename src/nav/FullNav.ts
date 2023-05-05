@@ -109,6 +109,7 @@ export class FullNav extends BaseNav {
       //close modal if user clicks outside of modal
       if (target.classList.contains("logout-modal")) {
         this.logoutModal.style.display = "none";
+        document.body.style.overflow = "auto";
       }
     });
 
@@ -117,12 +118,14 @@ export class FullNav extends BaseNav {
 
       closeIcon.addEventListener("click", () => {
         this.logoutModal.style.display = "none";
+        document.body.style.overflow = "auto";
       });
     }
   }
 
   showLogoutModal() {
     this.logoutModal.style.display = "grid";
+    document.body.style.overflow = "hidden";
   }
 
   showActiveLink() {

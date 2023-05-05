@@ -5,7 +5,8 @@ import { FullNav } from "../nav/FullNav";
 import { popularMovies as movies } from "../utils/movies";
 
 // generate navbar
-const nav = new FullNav();
+const logoutModal = document.querySelector(".logout-modal") as HTMLElement;
+const nav = new FullNav(logoutModal);
 nav.generateNavbar();
 
 // show mobile navbar

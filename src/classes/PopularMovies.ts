@@ -53,7 +53,7 @@ export class PopularMovies extends Movies {
   }
 
   private async getPopularMovies() {
-    const url = `https://api.themovie.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=1`;
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=1`;
 
     const placeholder = this.populateLoadingPlaceholder("movies__placeholder");
     this.container.innerHTML = "";
