@@ -4,7 +4,8 @@ import { SlideShow } from "../classes/SildeShow";
 import { FullNav } from "../nav/FullNav";
 import { movies } from "../utils/movies";
 
-const nav = new FullNav();
+const logoutModal = document.querySelector(".logout-modal") as HTMLElement;
+const nav = new FullNav(logoutModal);
 nav.generateNavbar();
 
 const menu = document.getElementById("menu") as HTMLElement;

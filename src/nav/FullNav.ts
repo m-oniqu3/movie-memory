@@ -1,3 +1,4 @@
+import CloseIcon from "../assets/close-icon.svg";
 import Logo from "../assets/logo.png";
 import MenuIcon from "../assets/menu_icon.svg";
 import SearchIcon from "../assets/search_icon.svg";
@@ -6,8 +7,11 @@ import UserIcon from "../assets/user_icon.svg";
 import { BaseNav } from "./BaseNav";
 
 export class FullNav extends BaseNav {
-  constructor() {
+  logoutModal: HTMLElement;
+
+  constructor(logoutModal: HTMLElement) {
     super();
+    this.logoutModal = logoutModal;
   }
 
   showNavLink(): void {
@@ -44,7 +48,7 @@ export class FullNav extends BaseNav {
             <img src=${SearchIcon} alt="search icon" />
           </figure>
 
-           <figure class="nav__container__icon">
+           <figure class="nav__container__icon" id="user">
             <img src=${UserIcon} alt="user icon" />
           </figure>
 
@@ -56,9 +60,69 @@ export class FullNav extends BaseNav {
         </div>
         `;
 
-    window.addEventListener("load", this.showActiveLink);
+    this.handleSideEffects();
 
     return this.nav;
+  }
+
+  //handle logout modal and active link
+  handleSideEffects() {
+    const user = document.getElementById("user") as HTMLElement;
+
+    user.addEventListener("click", () => this.showLogoutModal());
+    this.generateLogoutModal(this.logoutModal);
+    window.addEventListener("load", this.showActiveLink);
+
+    if (this.logoutModal.children.length > 0) {
+      this.closeLogoutModal();
+    }
+  }
+
+  generateLogoutModal(modalElement: HTMLElement) {
+    return (modalElement.innerHTML = `
+       <div class="container">
+      
+        <article class="logout-modal__content">
+         <figure class="close">
+          <img src=${CloseIcon} alt="close icon" />
+        </figure>
+
+          <h1 class="heading heading__small--dark">Are you sure you want to logout?</h1>
+          <p class="text">
+            If you logout, you can pick up where you left off by logging back in. Your progress will be saved.
+          </p>
+
+          <div class="logout-modal__buttons">
+            <button class="button button__primary--dark">Logout</button>
+            <button class="button button__secondary--dark">Cancel</button>
+          </div>
+
+        </article>
+      </div>
+    `);
+  }
+
+  closeLogoutModal() {
+    window.addEventListener("click", (e: Event) => {
+      const target = e.target as HTMLElement;
+
+      //close modal if user clicks outside of modal
+      if (target.classList.contains("logout-modal")) {
+        this.logoutModal.style.display = "none";
+      }
+    });
+
+    if (this.logoutModal.children.length > 0) {
+      const closeIcon = document.querySelector(".logout-modal__content .close") as HTMLElement;
+
+      closeIcon.addEventListener("click", () => {
+        this.logoutModal.style.display = "none";
+      });
+    }
+  }
+
+  showLogoutModal() {
+    this.logoutModal.style.display = "grid";
   }
 
   showActiveLink() {
