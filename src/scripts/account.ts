@@ -1,5 +1,8 @@
-import { validateEmail, validatePassword } from "../forms/helpers";
+import { createUser, signInUser } from "../firebase/firebase-config";
 import { DarkBaseNav } from "../nav/DarkNav";
+import { checkIfUserIsLoggedIn, validateEmail, validatePassword } from "../utils/helpers";
+
+document.addEventListener("DOMContentLoaded", checkIfUserIsLoggedIn);
 
 const toggleForm = document.querySelector("#toggle-form") as HTMLAnchorElement;
 const formHeader = document.querySelector(".form__container__header") as HTMLDivElement;
@@ -7,6 +10,7 @@ const submitButton = document.querySelector("button") as HTMLButtonElement;
 const form = document.querySelector("form") as HTMLFormElement;
 const emailInput = form.children[0] as HTMLInputElement;
 const passwordInput = form.children[2] as HTMLInputElement;
+const modal = document.querySelector(".loading-modal") as HTMLDivElement;
 
 let isCreateAccountForm = true;
 let isValidEmail = false;
@@ -41,6 +45,55 @@ form.addEventListener("input", () => {
   const isValidInputs = isValidEmail && isValidPassword;
   submitButton.disabled = !isValidInputs;
   submitButton.classList.toggle("button__primary--dark--disabled", !isValidInputs);
+});
+
+const clearForm = () => {
+  const emailFeedback = form.children[1] as HTMLParagraphElement;
+  const passwordFeedback = form.children[3] as HTMLParagraphElement;
+
+  emailInput.value = "";
+  passwordInput.value = "";
+  emailFeedback.textContent = "";
+  passwordFeedback.textContent = "";
+
+  isValidEmail = false;
+  isValidPassword = false;
+
+  submitButton.disabled = true;
+  submitButton.classList.add("button__primary--dark--disabled");
+};
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = emailInput.value;
+  const password = passwordInput.value;
+
+  console.log(email, password);
+
+  //loading true
+  modal.style.display = "grid";
+  try {
+    if (isCreateAccountForm) {
+      //create user
+      const user = await createUser(email, password);
+      console.log(user.user);
+    } else {
+      //login user
+      const user = await signInUser(email, password);
+      console.log(user.user);
+    }
+
+    //redirect to broswe page and prevent back button
+    window.location.href = "/browse.html";
+    window.history.pushState(null, "", "/browse.html");
+  } catch (error) {
+    console.log(error);
+  }
+
+  // loading false
+  modal.style.display = "none";
+
+  clearForm();
 });
 
 const formHeaderContent = {
