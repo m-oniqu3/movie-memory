@@ -32,12 +32,9 @@ export const createUser = (email: string, password: string) => {
 
 auth.onAuthStateChanged(function (user) {
   if (user) {
-    console.log(user);
-    // User is signed in.
     const userData = { uid: user.uid, email: user.email };
     localStorage.setItem("user", JSON.stringify(userData));
   } else {
-    // User is not signed in.
     localStorage.removeItem("user");
   }
 });

@@ -101,24 +101,27 @@ const formHeaderContent = {
     heading: "Create Account",
     greeting: "Keep track of the movies you've watched with Movie Memory. Create an account to get started.",
     button: "Create Account",
+    link: "create",
   },
   login: {
     heading: "Welcome Back",
     greeting: "Sign in to keep track of the movies you've watched with Movie Memory.",
     button: "Login",
+    link: "login",
   },
 };
 
 // toggle between the login and create account forms
 toggleForm.addEventListener("click", () => {
+  const { createAccount, login } = formHeaderContent;
+
   const heading = formHeader?.children[0] as HTMLHeadingElement;
   const greeting = formHeader?.children[1] as HTMLParagraphElement;
-  const buttonText = isCreateAccountForm ? formHeaderContent.login.button : formHeaderContent.createAccount.button;
+  const buttonText = isCreateAccountForm ? login.button : createAccount.button;
 
-  heading.textContent = isCreateAccountForm ? formHeaderContent.login.heading : formHeaderContent.createAccount.heading;
-  greeting.textContent = isCreateAccountForm
-    ? formHeaderContent.login.greeting
-    : formHeaderContent.createAccount.greeting;
+  toggleForm.hash = isCreateAccountForm ? createAccount.link : login.link;
+  heading.textContent = isCreateAccountForm ? login.heading : createAccount.heading;
+  greeting.textContent = isCreateAccountForm ? login.greeting : createAccount.greeting;
   submitButton.textContent = buttonText;
 
   isCreateAccountForm = !isCreateAccountForm;
