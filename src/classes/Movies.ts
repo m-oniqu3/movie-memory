@@ -1,5 +1,6 @@
 import CloseIcon from "../assets/close-icon.svg";
 import AddIcon from "../assets/icon_add.svg";
+import { saveData } from "../firebase/firebase-config";
 
 // todo, replace interface with type
 // todo, turn into abstract class and extend
@@ -173,6 +174,7 @@ export class Movies {
           genres: data.genres,
           releaseDate: data.release_date,
           description: data.overview,
+          id: data.id,
         };
         const summary = this.generateSummary(args);
 
@@ -181,6 +183,19 @@ export class Movies {
 
         // add event listener to close modal
         details.children[0].addEventListener("click", this.closeModal);
+
+        const addButton = details.children[2] as HTMLButtonElement;
+        addButton.addEventListener("click", () => {
+          console.log(args);
+        });
+
+        const descriptionElement = details.children[1].children[3] as HTMLElement;
+
+        if (descriptionElement) {
+          const descriptionText = descriptionElement.innerHTML;
+
+          this.truncateDescription(descriptionElement, descriptionText);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -203,7 +218,9 @@ export class Movies {
         <p class="heading heading__small--dark">${data.title}</p>
         <p class="text genres">${data.genres.map((genre) => genre.name).join(", ")}</p>
         <p class="text">${new Date(data.releaseDate).getFullYear().toString()}</p>
-        <p class="text description">${data.description ? data.description : "No description available."}</p>
+        <p class="text description" >${data.description ? data.description : "No description available."}
+      
+      </p>
       </article>
 
       
@@ -247,24 +264,75 @@ export class Movies {
     details.classList.add("modal__content--details");
     details.innerHTML = placeholderDetails.innerHTML;
 
-    results.then((data) => {
-      const args = {
-        posterPath: data.poster_path,
-        title: data.name,
-        genres: data.genres,
-        releaseDate: data.first_air_date,
-        description: data.overview,
-      };
-      const summary = this.generateSummary(args);
+    results
+      .then((data) => {
+        const args = {
+          posterPath: data.poster_path,
+          title: data.name,
+          genres: data.genres,
+          releaseDate: data.first_air_date,
+          description: data.overview,
+          id: data.id,
+        };
+        const summary = this.generateSummary(args);
 
-      image.innerHTML = summary.image;
-      details.innerHTML = summary.details;
+        image.innerHTML = summary.image;
+        details.innerHTML = summary.details;
 
-      // add event listener to close modal
-      details.children[0].addEventListener("click", this.closeModal);
-    });
+        // add event listener to close modal
+        details.children[0].addEventListener("click", this.closeModal);
+
+        // add to firebase
+        const addButton = details.children[2] as HTMLButtonElement;
+        addButton.addEventListener("click", () => {
+          const user = JSON.parse(localStorage.getItem("user") || "{}");
+          console.log(user);
+          if (!!user) saveData(user.uid, args);
+        });
+
+        const descriptionElement = details.children[1].children[3] as HTMLElement;
+
+        if (descriptionElement) {
+          const descriptionText = descriptionElement.innerHTML;
+
+          this.truncateDescription(descriptionElement, descriptionText);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     return { image, details };
+  }
+
+  truncateDescription(descriptionElement: HTMLElement, descriptionText: string) {
+    const truncatedText = descriptionText.slice(0, 200);
+
+    if (descriptionText.length > truncatedText.length) {
+      descriptionElement.innerHTML = `
+      <span>${truncatedText}</span>
+      <span class="read-more text--bold"> ... Read More</span>
+    `;
+
+      const readMoreElement = document.querySelector(".read-more");
+
+      if (readMoreElement) {
+        readMoreElement.addEventListener("click", () => {
+          descriptionElement.innerHTML = `${descriptionText} <span class="read-less text--bold"> ... Read Less</span>`;
+
+          const readLessElement = document.querySelector(".read-less");
+
+          if (readLessElement) {
+            readLessElement.addEventListener("click", () => {
+              descriptionElement.innerHTML = `
+              <span>${truncatedText}</span>
+              <span class="read-more text--bold"> ... Read More</span>
+            `;
+            });
+          }
+        });
+      }
+    }
   }
 
   private showDetailsModal(movieId: string, type: string) {

@@ -4,6 +4,14 @@ import { TvShows } from "../classes/TvShows";
 import { FullNav } from "../nav/FullNav";
 import { tvShows } from "../utils/movies";
 
+const user = JSON.parse(localStorage.getItem("user") || "{}");
+const isAuthenicated = user.uid ? true : false;
+
+if (!isAuthenicated) {
+  window.location.href = "/account.html";
+  console.log("not authenticated");
+}
+
 const logoutModal = document.querySelector(".logout-modal") as HTMLElement;
 const nav = new FullNav(logoutModal);
 nav.generateNavbar();

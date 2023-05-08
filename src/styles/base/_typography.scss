@@ -2,6 +2,11 @@
 
 .text {
   line-height: 150%;
+
+  &--bold {
+    font-weight: 700;
+    color: v.$primary;
+  }
 }
 
 h1 {

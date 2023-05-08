@@ -1,8 +1,13 @@
 import { createUser, signInUser } from "../firebase/firebase-config";
 import { DarkBaseNav } from "../nav/DarkNav";
-import { checkIfUserIsLoggedIn, validateEmail, validatePassword } from "../utils/helpers";
+import { validateEmail, validatePassword } from "../utils/helpers";
 
-document.addEventListener("DOMContentLoaded", checkIfUserIsLoggedIn);
+const user = JSON.parse(localStorage.getItem("user") || "{}");
+const isAuthenicated = user.uid ? true : false;
+
+if (isAuthenicated) {
+  window.location.href = "/browse.html";
+}
 
 const toggleForm = document.querySelector("#toggle-form") as HTMLAnchorElement;
 const formHeader = document.querySelector(".form__container__header") as HTMLDivElement;

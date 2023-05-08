@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -46,5 +46,39 @@ export const logOutUser = async () => {
   } catch (error) {
     console.log(error);
     alert("Error logging out. Please try again.");
+  }
+};
+
+type Info = {
+  posterPath: string;
+  title: string;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  releaseDate: string;
+  description: string;
+  id: number;
+};
+
+//const moviesCollection = collection(db, "movies");
+
+export const saveData = async (uid: string, data: Info) => {
+  try {
+    const userDocument = doc(db, "movies", uid);
+
+    // fetch the existing document data
+    const docSnapshot = await getDoc(userDocument);
+    const existingData = docSnapshot.exists() ? docSnapshot.data().movies : [];
+
+    // add the new data to the existing data
+    const newData = [...existingData, data];
+
+    // set the merged data to the document
+    await setDoc(userDocument, { movies: newData });
+
+    console.log(newData);
+  } catch (error) {
+    console.log("Error saving data: ", error);
   }
 };

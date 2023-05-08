@@ -3,7 +3,8 @@ import { SearchMovies } from "../classes/SearchMovies";
 import { FullNav } from "../nav/FullNav";
 
 // generate navbar
-const nav = new FullNav();
+const logoutModal = document.querySelector(".logout-modal") as HTMLElement;
+const nav = new FullNav(logoutModal);
 nav.generateNavbar();
 
 // show mobile menu

@@ -77,14 +77,3 @@ export function validatePassword(password: string): Validation {
     isValid: true,
   };
 }
-
-export function checkIfUserIsLoggedIn() {
-  const userData = localStorage.getItem("user");
-  const isLoggedIn = !!userData;
-
-  if (isLoggedIn) {
-    // User is signed in, redirect to another page
-    window.location.href = "/browse.html";
-    window.history.pushState({}, "", "/browse.html");
-  }
-}
