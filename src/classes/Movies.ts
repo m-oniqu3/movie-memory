@@ -1,6 +1,7 @@
 import CloseIcon from "../assets/close-icon.svg";
 import AddIcon from "../assets/icon_add.svg";
 import { saveData } from "../firebase/firebase-config";
+import { showToast } from "../utils/toast";
 
 // todo, replace interface with type
 // todo, turn into abstract class and extend
@@ -238,7 +239,6 @@ export class Movies {
 
   private closeModal() {
     const modal = document.querySelector(".modal") as HTMLElement;
-    console.log(modal);
 
     // close modal and allow scrolling
     modal.style.display = "none";
@@ -250,7 +250,6 @@ export class Movies {
 
   private getShowDetails(showId: string): FilmSummary {
     const results = this.fetchShowById(showId);
-    console.log("show", results);
 
     const { image: placeholderImage, details: placeholderDetails } = this.generatePlaceHolderSummary();
 
@@ -284,10 +283,16 @@ export class Movies {
 
         // add to firebase
         const addButton = details.children[2] as HTMLButtonElement;
+
         addButton.addEventListener("click", () => {
           const user = JSON.parse(localStorage.getItem("user") || "{}");
           console.log(user);
-          if (!!user) saveData(user.uid, args);
+
+          if (user.uid) {
+            saveData(user.uid, args);
+            this.closeModal();
+            showToast();
+          }
         });
 
         const descriptionElement = details.children[1].children[3] as HTMLElement;
@@ -305,7 +310,7 @@ export class Movies {
     return { image, details };
   }
 
-  truncateDescription(descriptionElement: HTMLElement, descriptionText: string) {
+  private truncateDescription(descriptionElement: HTMLElement, descriptionText: string) {
     const truncatedText = descriptionText.slice(0, 200);
 
     if (descriptionText.length > truncatedText.length) {
