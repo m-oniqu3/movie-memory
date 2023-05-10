@@ -1,6 +1,6 @@
 import CloseIcon from "../assets/close-icon.svg";
 import AddIcon from "../assets/icon_add.svg";
-import { saveData } from "../firebase/firebase-config";
+import { isShowSaved, saveData } from "../firebase/firebase-config";
 import { showToast } from "../utils/toast";
 
 // todo, replace interface with type
@@ -13,11 +13,14 @@ interface FilmSummary {
 }
 
 interface Summary {
-  posterPath: string;
+  poster_path: string;
   title: string;
   genres: { id: number; name: string }[];
   releaseDate: string;
   description: string;
+  media_type: string;
+  id: number;
+  isSaved?: boolean;
 }
 
 export class Movies {
@@ -170,12 +173,13 @@ export class Movies {
     movieDetails
       .then((data) => {
         const args = {
-          posterPath: data.poster_path,
+          poster_path: data.poster_path,
           title: data.title,
           genres: data.genres,
           releaseDate: data.release_date,
           description: data.overview,
           id: data.id,
+          media_type: "movie",
         };
         const summary = this.generateSummary(args);
 
@@ -185,16 +189,17 @@ export class Movies {
         // add event listener to close modal
         details.children[0].addEventListener("click", this.closeModal);
 
-        const addButton = details.children[2] as HTMLButtonElement;
-        addButton.addEventListener("click", () => {
-          console.log(args);
-        });
+        const addButton = document.querySelector("#addButton") as HTMLButtonElement;
 
-        const descriptionElement = details.children[1].children[3] as HTMLElement;
+        addButton &&
+          addButton.addEventListener("click", () => {
+            console.log(args);
+          });
+
+        const descriptionElement = document.querySelector(".description") as HTMLElement;
 
         if (descriptionElement) {
           const descriptionText = descriptionElement.innerHTML;
-
           this.truncateDescription(descriptionElement, descriptionText);
         }
       })
@@ -206,8 +211,17 @@ export class Movies {
   }
 
   protected generateSummary(data: Summary): { image: string; details: string } {
+    const button = !data.isSaved
+      ? `
+      <button class="button button__primary--dark icon__btn" id="addButton">
+          <figure><img src=${AddIcon} alt ="add icon"/></figure> Add to Memories
+      </button>`
+      : `<button class="button button__primary--dark icon__btn" id="removeButton">
+          <figure><img src=${AddIcon} alt ="add icon"/></figure>Remove from Memories
+        </button>`;
+
     const image = `
-      <img src="https://image.tmdb.org/t/p/w500${data.posterPath}" alt="movie image" class="movie-image"/>
+      <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="movie image" class="movie-image"/>
     `;
 
     const details = `
@@ -219,19 +233,11 @@ export class Movies {
         <p class="heading heading__small--dark">${data.title}</p>
         <p class="text genres">${data.genres.map((genre) => genre.name).join(", ")}</p>
         <p class="text">${new Date(data.releaseDate).getFullYear().toString()}</p>
-        <p class="text description" >${data.description ? data.description : "No description available."}
-      
-      </p>
+        <p class="text description" >${data.description ? data.description : "No description available."} </p>
       </article>
 
       
-      <button class="button button__primary--dark icon__btn">
-          <figure>
-            <img src=${AddIcon} alt ="add icon"/>
-          </figure>
-
-          Add to Memories
-       </button>
+      ${button}
     `;
 
     return { image, details };
@@ -264,14 +270,25 @@ export class Movies {
     details.innerHTML = placeholderDetails.innerHTML;
 
     results
+      .then(async (data) => {
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+        const isSaved = await isShowSaved(user.uid, "tvshows", data.id);
+        const updatedResults = Object.assign(data, { isSaved });
+
+        console.log(updatedResults);
+        return updatedResults;
+      })
       .then((data) => {
         const args = {
-          posterPath: data.poster_path,
+          poster_path: data.poster_path,
           title: data.name,
           genres: data.genres,
           releaseDate: data.first_air_date,
           description: data.overview,
           id: data.id,
+          media_type: "tv",
+          isSaved: data.isSaved,
         };
         const summary = this.generateSummary(args);
 
@@ -282,20 +299,24 @@ export class Movies {
         details.children[0].addEventListener("click", this.closeModal);
 
         // add to firebase
-        const addButton = details.children[2] as HTMLButtonElement;
+        const addButton = document.querySelector("#addButton") as HTMLButtonElement;
+        console.log(addButton);
 
-        addButton.addEventListener("click", () => {
-          const user = JSON.parse(localStorage.getItem("user") || "{}");
-          console.log(user);
+        if (addButton) {
+          addButton.addEventListener("click", () => {
+            const user = JSON.parse(localStorage.getItem("user") || "{}");
+            console.log(user);
 
-          if (user.uid) {
-            saveData(user.uid, args);
-            this.closeModal();
-            showToast();
-          }
-        });
+            if (user.uid) {
+              saveData(user.uid, args);
+              this.closeModal();
+              showToast();
+            }
+          });
+        }
 
-        const descriptionElement = details.children[1].children[3] as HTMLElement;
+        const descriptionElement = document.querySelector(".description") as HTMLElement;
+        console.log("descriptionElement", descriptionElement);
 
         if (descriptionElement) {
           const descriptionText = descriptionElement.innerHTML;
@@ -366,6 +387,7 @@ export class Movies {
   }
 
   private getDetails(type: string, movieId: string): FilmSummary {
+    console.log(type, movieId);
     switch (type) {
       case "movie":
         return this.getMovieDetails(movieId);
@@ -398,6 +420,8 @@ export class Movies {
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
 
+    console.log(movies, type);
+
     // filter out movies without poster
     movies
       .filter((movie) => movie.poster_path)
@@ -407,15 +431,19 @@ export class Movies {
         movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
         movieImage.addEventListener("click", () => {
+          console.log(type);
           if (!type) {
             this.showDetailsModal(movie.id, movie.media_type);
           } else {
+            console.log("calling");
             this.showDetailsModal(movie.id, type);
           }
         });
 
         movieGrid.append(movieImage);
       });
+
+    console.log("movie grid", movieGrid);
 
     return movieGrid;
   }

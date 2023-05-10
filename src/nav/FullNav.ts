@@ -33,7 +33,7 @@ export class FullNav extends BaseNav {
             <a href="browse.html" class="nav__container__link">Home</a>
           </li>
           <li class="nav__container__item">
-            <a href="#" class="nav__container__link">Memories</a>
+            <a href="memories.html#tvshows" class="nav__container__link">Memories</a>
           </li>
           <li class="nav__container__item">
             <a href="tvshows.html" class="nav__container__link">TV Shows</a>

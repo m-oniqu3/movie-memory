@@ -12,7 +12,7 @@ export class Footer {
     this.footer.innerHTML = `
       <ul>
         <li><a href="browse.html">Home</a></li>
-        <li><a href="#">Memories</a></li>
+        <li><a href="memories.html#tvshows">Memories</a></li>
         <li><a href="tvshows.html">Tv Shows</a></li>
         <li><a href="movies.html">Movies</a></li>
       </ul>

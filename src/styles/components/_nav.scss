@@ -141,3 +141,32 @@
     }
   }
 }
+
+.sub-nav {
+  display: flex;
+  height: 10vh;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid v.$primary-line;
+
+  li {
+    text-decoration: none;
+
+    a {
+      color: v.$primary-neutral;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: v.$primary-light;
+      }
+    }
+  }
+
+  @include m.breakpoint(medium) {
+    justify-content: start;
+  }
+}

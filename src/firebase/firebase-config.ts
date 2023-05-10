@@ -18,7 +18,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 export const auth = getAuth(app);
 
 // Sign in with an email and password
@@ -49,36 +49,54 @@ export const logOutUser = async () => {
   }
 };
 
-type Info = {
-  posterPath: string;
+export type Info = {
+  poster_path: string;
   title: string;
-  genres: {
-    id: number;
-    name: string;
-  }[];
+  genres: { id: number; name: string }[];
   releaseDate: string;
   description: string;
   id: number;
+  media_type: string;
 };
-
-//const moviesCollection = collection(db, "movies");
 
 export const saveData = async (uid: string, data: Info) => {
   try {
-    const userDocument = doc(db, "movies", uid);
+    const userDocument = (() => {
+      if (data.media_type === "movie") {
+        return doc(db, "movies", uid);
+      }
+      return doc(db, "tvshows", uid);
+    })();
 
     // fetch the existing document data
     const docSnapshot = await getDoc(userDocument);
-    const existingData = docSnapshot.exists() ? docSnapshot.data().movies : [];
+    // const existingData = docSnapshot.exists() ? docSnapshot.data().movies : [];
+    const existingData = docSnapshot.exists() ? docSnapshot.data().memories : [];
 
     // add the new data to the existing data
     const newData = [...existingData, data];
 
     // set the merged data to the document
-    await setDoc(userDocument, { movies: newData });
+    await setDoc(userDocument, { memories: newData });
 
     console.log(newData);
   } catch (error) {
     console.log("Error saving data: ", error);
+  }
+};
+
+export const isShowSaved = async (uid: string, collection: string, showId: number) => {
+  try {
+    const userDocument = doc(db, collection, uid);
+
+    // fetch the existing document data
+    const docSnapshot = await getDoc(userDocument);
+    const existingData: Info[] = docSnapshot.exists() ? docSnapshot.data().memories : [];
+
+    const isSaved = existingData.map((show: Info) => show.id).includes(showId);
+    return isSaved;
+  } catch (error) {
+    console.log("Error getting data: ", error);
+    return false;
   }
 };
