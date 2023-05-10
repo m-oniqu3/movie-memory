@@ -150,6 +150,8 @@
   align-items: center;
   gap: 1rem;
   border-bottom: 1px solid v.$primary-line;
+  position: relative;
+  top: 10vh;
 
   li {
     text-decoration: none;
