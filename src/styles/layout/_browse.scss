@@ -59,11 +59,17 @@
     max-width: 610px;
 
     display: grid;
-    grid-template-columns: 110px 1fr;
+    grid-template-columns: 120px 1fr;
     grid-gap: 0.5rem;
     padding: 0.5rem;
 
     position: relative;
+
+    @include m.breakpoint(small) {
+      grid-template-columns: 140px 1fr;
+      grid-gap: 0.8rem;
+      padding: 0.8rem;
+    }
 
     @include m.breakpoint(medium) {
       grid-template-columns: 165px 1fr;
@@ -95,7 +101,7 @@
 
         .heading {
           @include m.line-clamp(1);
-          min-height: 29px;
+          // min-height: 29px;
 
           @include m.breakpoint(medium) {
             @include m.line-clamp(2);
@@ -128,6 +134,10 @@
 
         figure {
           width: 15px;
+          height: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
           img {
             height: 100%;

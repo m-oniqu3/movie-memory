@@ -1,5 +1,6 @@
 import CloseIcon from "../assets/close-icon.svg";
 import AddIcon from "../assets/icon_add.svg";
+import RemoveIcon from "../assets/icon_remove.svg";
 import { isShowSaved, saveData } from "../firebase/firebase-config";
 import { showToast } from "../utils/toast";
 
@@ -7,12 +8,12 @@ import { showToast } from "../utils/toast";
 // todo, turn into abstract class and extend
 // todo, change protected access modifiers to static access modifier
 // todo, research inversion of control for control statements
-interface FilmSummary {
+type FilmSummary = {
   image: HTMLElement;
   details: HTMLDivElement;
-}
+};
 
-interface Summary {
+type Summary = {
   poster_path: string;
   title: string;
   genres: { id: number; name: string }[];
@@ -21,7 +22,7 @@ interface Summary {
   media_type: string;
   id: number;
   isSaved?: boolean;
-}
+};
 
 export class Movies {
   container: HTMLElement;
@@ -214,10 +215,10 @@ export class Movies {
     const button = !data.isSaved
       ? `
       <button class="button button__primary--dark icon__btn" id="addButton">
-          <figure><img src=${AddIcon} alt ="add icon"/></figure> Add to Memories
+          <figure><img src=${AddIcon} alt ="add icon"/></figure> Add to List
       </button>`
       : `<button class="button button__primary--dark icon__btn" id="removeButton">
-          <figure><img src=${AddIcon} alt ="add icon"/></figure>Remove from Memories
+          <figure><img src=${RemoveIcon} alt ="remove icon"/></figure>Remove
         </button>`;
 
     const image = `
@@ -273,10 +274,14 @@ export class Movies {
       .then(async (data) => {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
 
+        if (!user.uid) {
+          window.location.href = "/account.html";
+          throw new Error("User not logged in");
+        }
+
         const isSaved = await isShowSaved(user.uid, "tvshows", data.id);
         const updatedResults = Object.assign(data, { isSaved });
 
-        console.log(updatedResults);
         return updatedResults;
       })
       .then((data) => {
@@ -305,13 +310,15 @@ export class Movies {
         if (addButton) {
           addButton.addEventListener("click", () => {
             const user = JSON.parse(localStorage.getItem("user") || "{}");
-            console.log(user);
 
-            if (user.uid) {
-              saveData(user.uid, args);
-              this.closeModal();
-              showToast();
+            if (!user.uid) {
+              window.location.href = "/account.html";
+              throw new Error("User not logged in");
             }
+
+            saveData(user.uid, args);
+            this.closeModal();
+            showToast();
           });
         }
 
@@ -322,6 +329,10 @@ export class Movies {
           const descriptionText = descriptionElement.innerHTML;
 
           this.truncateDescription(descriptionElement, descriptionText);
+
+          window.addEventListener("resize", () => {
+            this.truncateDescription(descriptionElement, descriptionText);
+          });
         }
       })
       .catch((error) => {
@@ -332,7 +343,19 @@ export class Movies {
   }
 
   private truncateDescription(descriptionElement: HTMLElement, descriptionText: string) {
-    const truncatedText = descriptionText.slice(0, 200);
+    let sliceTextAmount = (() => {
+      if (window.innerWidth > 500) {
+        return 200;
+      } else if (window.innerWidth > 400) {
+        return 100;
+      } else if (window.innerWidth > 300) {
+        return 50;
+      } else {
+        return 20;
+      }
+    })();
+
+    const truncatedText = descriptionText.slice(0, sliceTextAmount);
 
     if (descriptionText.length > truncatedText.length) {
       descriptionElement.innerHTML = `
@@ -387,7 +410,6 @@ export class Movies {
   }
 
   private getDetails(type: string, movieId: string): FilmSummary {
-    console.log(type, movieId);
     switch (type) {
       case "movie":
         return this.getMovieDetails(movieId);
@@ -420,8 +442,6 @@ export class Movies {
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
 
-    console.log(movies, type);
-
     // filter out movies without poster
     movies
       .filter((movie) => movie.poster_path)
@@ -442,8 +462,6 @@ export class Movies {
 
         movieGrid.append(movieImage);
       });
-
-    console.log("movie grid", movieGrid);
 
     return movieGrid;
   }
