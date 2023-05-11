@@ -172,6 +172,19 @@ export class Movies {
     details.innerHTML = placeholderDetails.innerHTML;
 
     movieDetails
+      .then(async (data) => {
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+        if (!user.uid) {
+          window.location.href = "/account.html";
+          throw new Error("User not logged in");
+        }
+
+        const isSaved = await isShowSaved(user.uid, "movies", data.id);
+        const updatedResults = Object.assign(data, { isSaved });
+
+        return updatedResults;
+      })
       .then((data) => {
         const args = {
           poster_path: data.poster_path,
@@ -194,7 +207,16 @@ export class Movies {
 
         addButton &&
           addButton.addEventListener("click", () => {
-            console.log(args);
+            const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+            if (!user.uid) {
+              window.location.href = "/account.html";
+              throw new Error("User not logged in");
+            }
+
+            saveData(user.uid, args);
+            this.closeModal();
+            showToast();
           });
 
         const descriptionElement = document.querySelector(".description") as HTMLElement;
@@ -451,11 +473,9 @@ export class Movies {
         movieImage.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
         movieImage.addEventListener("click", () => {
-          console.log(type);
           if (!type) {
             this.showDetailsModal(movie.id, movie.media_type);
           } else {
-            console.log("calling");
             this.showDetailsModal(movie.id, type);
           }
         });
