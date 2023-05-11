@@ -136,6 +136,18 @@ export class Memories extends Movies {
   }
 
   async getDataForCurrentPage(hash: string) {
+    const subnav = document.querySelector(".sub-nav") as HTMLUListElement;
+    const subnavLinks = subnav.querySelectorAll("a") as NodeListOf<HTMLAnchorElement>;
+
+    subnavLinks &&
+      subnavLinks.forEach((link) => {
+        if (link.hash === hash) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+
     if (hash === "#tvshows") {
       this.getTvShowMemories();
     } else if (hash === "#movies") {

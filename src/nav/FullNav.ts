@@ -146,10 +146,10 @@ export class FullNav extends BaseNav {
 
   showActiveLink() {
     const allLinks = document.querySelectorAll(".nav__container__link") as NodeListOf<HTMLAnchorElement>;
-    const currentPath = window.location.pathname.replace("/", "");
+    const currentPath = window.location.pathname;
 
     allLinks.forEach((link: HTMLAnchorElement) => {
-      if (link.getAttribute("href") !== currentPath) {
+      if (link.pathname !== currentPath) {
         link.classList.remove("nav__container__link--active");
         return;
       }

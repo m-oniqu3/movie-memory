@@ -160,10 +160,26 @@
       color: v.$primary-neutral;
       font-size: 1rem;
       text-decoration: none;
-      transition: all 0.3s ease;
+
+      border-bottom: 2px solid transparent;
+      transition: border-bottom-width 0.3s ease-in-out;
+      padding: 0.2rem 1rem;
 
       &:hover {
         color: v.$primary-light;
+      }
+
+      &.active {
+        background-color: v.$primary-light;
+        color: v.$primary-dark;
+        padding: 0.2rem 1rem;
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background-color: v.$primary;
+          color: v.$primary-light;
+        }
       }
     }
   }

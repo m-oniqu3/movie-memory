@@ -21,7 +21,7 @@ type Summary = {
   description: string;
   media_type: string;
   id: number;
-  isSaved?: boolean;
+  isSaved: boolean;
 };
 
 export class Movies {
@@ -177,10 +177,11 @@ export class Movies {
 
         if (!user.uid) {
           window.location.href = "/account.html";
-          throw new Error("User not logged in");
+          return;
         }
 
         const isSaved = await isShowSaved(user.uid, "movies", data.id);
+        console.log("isSaved", isSaved);
         const updatedResults = Object.assign(data, { isSaved });
 
         return updatedResults;
@@ -194,6 +195,7 @@ export class Movies {
           description: data.overview,
           id: data.id,
           media_type: "movie",
+          isSaved: data.isSaved,
         };
         const summary = this.generateSummary(args);
 
@@ -305,7 +307,7 @@ export class Movies {
 
         if (!user.uid) {
           window.location.href = "/account.html";
-          throw new Error("User not logged in");
+          return;
         }
 
         const isSaved = await isShowSaved(user.uid, "tvshows", data.id);
@@ -351,7 +353,6 @@ export class Movies {
         }
 
         const descriptionElement = document.querySelector("#desc") as HTMLElement;
-        console.log("descriptionElement", descriptionElement);
 
         if (descriptionElement) {
           const descriptionText = descriptionElement.innerHTML;
@@ -374,7 +375,7 @@ export class Movies {
     // Determine the amount of text to slice based on the window width
     let sliceTextAmount = (() => {
       if (window.innerWidth > 500) {
-        return 200;
+        return 150;
       } else if (window.innerWidth > 400) {
         return 100;
       } else if (window.innerWidth > 300) {
