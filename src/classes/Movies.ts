@@ -219,11 +219,15 @@ export class Movies {
             showToast();
           });
 
-        const descriptionElement = document.querySelector(".description") as HTMLElement;
+        const descriptionElement = document.querySelector("#desc") as HTMLElement;
 
         if (descriptionElement) {
           const descriptionText = descriptionElement.innerHTML;
           this.truncateDescription(descriptionElement, descriptionText);
+
+          window.addEventListener("resize", () => {
+            this.truncateDescription(descriptionElement, descriptionText);
+          });
         }
       })
       .catch((error) => {
@@ -234,13 +238,16 @@ export class Movies {
   }
 
   protected generateSummary(data: Summary): { image: string; details: string } {
+    const buttonAddText = data.media_type === "movie" ? "Add Movie" : "Add Show";
+    const buttonRemoveText = data.media_type === "movie" ? "Remove Movie" : "Remove Show";
+
     const button = !data.isSaved
       ? `
       <button class="button button__primary--dark icon__btn" id="addButton">
-          <figure><img src=${AddIcon} alt ="add icon"/></figure> Add to List
+          <figure><img src=${AddIcon} alt ="add icon"/></figure>${buttonAddText}
       </button>`
       : `<button class="button button__primary--dark icon__btn" id="removeButton">
-          <figure><img src=${RemoveIcon} alt ="remove icon"/></figure>Remove
+          <figure><img src=${RemoveIcon} alt ="remove icon"/></figure>${buttonRemoveText}
         </button>`;
 
     const image = `
@@ -256,7 +263,7 @@ export class Movies {
         <p class="heading heading__small--dark">${data.title}</p>
         <p class="text genres">${data.genres.map((genre) => genre.name).join(", ")}</p>
         <p class="text">${new Date(data.releaseDate).getFullYear().toString()}</p>
-        <p class="text description" >${data.description ? data.description : "No description available."} </p>
+        <p class="text description" id="desc" >${data.description ? data.description : "No description available."} </p>
       </article>
 
       
@@ -327,7 +334,6 @@ export class Movies {
 
         // add to firebase
         const addButton = document.querySelector("#addButton") as HTMLButtonElement;
-        console.log(addButton);
 
         if (addButton) {
           addButton.addEventListener("click", () => {
@@ -344,7 +350,7 @@ export class Movies {
           });
         }
 
-        const descriptionElement = document.querySelector(".description") as HTMLElement;
+        const descriptionElement = document.querySelector("#desc") as HTMLElement;
         console.log("descriptionElement", descriptionElement);
 
         if (descriptionElement) {
@@ -365,6 +371,7 @@ export class Movies {
   }
 
   private truncateDescription(descriptionElement: HTMLElement, descriptionText: string) {
+    // Determine the amount of text to slice based on the window width
     let sliceTextAmount = (() => {
       if (window.innerWidth > 500) {
         return 200;
@@ -377,28 +384,40 @@ export class Movies {
       }
     })();
 
+    // Slice the description text to the appropriate length
     const truncatedText = descriptionText.slice(0, sliceTextAmount);
 
+    // If the original text is longer than the truncated text, add a "Read More" button
     if (descriptionText.length > truncatedText.length) {
+      // Update the description element to show the truncated text and "Read More" button
       descriptionElement.innerHTML = `
       <span>${truncatedText}</span>
       <span class="read-more text--bold"> ... Read More</span>
     `;
 
-      const readMoreElement = document.querySelector(".read-more");
+      // Get a reference to the "Read More" button
+      const readMoreElement = descriptionElement.querySelector(".read-more");
 
+      // If the "Read More" button exists, add a click event listener to expand the description
       if (readMoreElement) {
         readMoreElement.addEventListener("click", () => {
+          // Update the description element to show the full text and "Read Less" button
           descriptionElement.innerHTML = `${descriptionText} <span class="read-less text--bold"> ... Read Less</span>`;
 
-          const readLessElement = document.querySelector(".read-less");
+          // Get a reference to the "Read Less" button
+          const readLessElement = descriptionElement.querySelector(".read-less");
 
+          // If the "Read Less" button exists, add a click event listener to collapse the description
           if (readLessElement) {
             readLessElement.addEventListener("click", () => {
+              // Update the description element to show the truncated text and "Read More" button again
               descriptionElement.innerHTML = `
               <span>${truncatedText}</span>
               <span class="read-more text--bold"> ... Read More</span>
             `;
+
+              // Call the truncateDescription function again to re-bind the event listeners
+              this.truncateDescription(descriptionElement, descriptionText);
             });
           }
         });
