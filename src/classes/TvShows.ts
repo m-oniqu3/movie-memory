@@ -63,7 +63,6 @@ export class TvShows extends Movies {
     } catch (error) {
       this.clearPlaceholderElement(placeholder);
       this.renderErrorContent();
-      console.log(error);
     }
   }
 

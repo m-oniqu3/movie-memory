@@ -105,7 +105,6 @@ export class Memories extends Movies {
     } catch (error) {
       this.clearPlaceholderElement(placeholder);
       this.renderErrorContent("tv");
-      console.log(error);
     }
   }
 
@@ -130,8 +129,6 @@ export class Memories extends Movies {
     } catch (error) {
       this.clearPlaceholderElement(placeholder);
       this.renderErrorContent("movie");
-
-      console.log(error);
     }
   }
 

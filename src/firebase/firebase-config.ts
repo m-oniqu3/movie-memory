@@ -44,9 +44,9 @@ export const logOutUser = async () => {
   try {
     await signOut(auth);
     window.location.href = "/index.html";
+    window.history.pushState(null, "", "/index.html");
     showToast({ message: "Logged out successfully" });
   } catch (error) {
-    console.log(error);
     showToast({ message: "Error logging out. Please try again" });
   }
 };
@@ -81,7 +81,7 @@ export const saveData = async (uid: string, data: Info) => {
     // set the merged data to the document
     await setDoc(userDocument, { memories: newData });
   } catch (error) {
-    console.log("Error saving data: ", error);
+    showToast({ message: "Error saving data. Please try again" });
   }
 };
 
@@ -96,7 +96,7 @@ export const isShowSaved = async (uid: string, collection: string, showId: numbe
     const isSaved = existingData.map((show: Info) => show.id).includes(showId);
     return isSaved;
   } catch (error) {
-    console.log("Error getting data: ", error);
+    showToast({ message: "Something went wrong. Please try again" });
     return false;
   }
 };
@@ -114,6 +114,6 @@ export const removeData = async (uid: string, collection: string, showId: number
     // set the merged data to the document
     await setDoc(userDocument, { memories: results });
   } catch (error) {
-    console.log("Error saving data: ", error);
+    showToast({ message: "Something went wrong. Please try again" });
   }
 };

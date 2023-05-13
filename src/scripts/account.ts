@@ -1,6 +1,8 @@
+import { FirebaseError } from "firebase/app";
 import { createUser, signInUser } from "../firebase/firebase-config";
 import { DarkBaseNav } from "../nav/DarkNav";
 import { validateEmail, validatePassword } from "../utils/helpers";
+import { showToast } from "../utils/toast";
 
 const user = JSON.parse(localStorage.getItem("user") || "{}");
 const isAuthenicated = user.uid ? true : false;
@@ -87,8 +89,22 @@ form.addEventListener("submit", async (e) => {
     //redirect to broswe page and prevent back button
     window.location.href = "/browse.html";
     window.history.pushState(null, "", "/browse.html");
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    if (error instanceof FirebaseError) {
+      modal.style.display = "none";
+      if (error.code === "auth/email-already-in-use") {
+        return showToast({ message: "Email already in use. Please try again." });
+      }
+
+      if (error.code === "auth/wrong-password") {
+        return showToast({ message: "Incorrect password. Please try again." });
+      }
+
+      return showToast({ message: error.message });
+    }
+
+    modal.style.display = "none";
+    return showToast({ message: "Something went wrong. Please try again." });
   }
 
   // loading false

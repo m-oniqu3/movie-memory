@@ -58,6 +58,7 @@ export class Movies {
       }
     } catch (error) {
       console.log(error);
+      showToast({ message: "An error occured, please try again later" });
     }
   }
 
@@ -71,6 +72,7 @@ export class Movies {
       return data;
     } catch (error) {
       console.log(error);
+      showToast({ message: "An error occured, please try again later" });
     }
   }
 
@@ -79,12 +81,10 @@ export class Movies {
       const url = ` https://api.themoviedb.org/3/tv/${id}?api_key=${this.apiKey}&language=en-US`;
       const response = await fetch(url);
       const data = await response.json();
-
-      console.log(data);
-
       return data;
     } catch (error) {
       console.log(error);
+      showToast({ message: "An error occured, please try again later" });
     }
   }
 

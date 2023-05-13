@@ -65,8 +65,6 @@ export class BrowseMovies extends Movies {
     } catch (error) {
       this.clearPlaceholderElement(placeholder);
       this.renderErrorContent();
-
-      console.log(error);
     }
   }
 
