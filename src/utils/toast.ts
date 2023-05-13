@@ -1,9 +1,13 @@
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 
-export const showToast = () => {
+type ToastData = {
+  message: string;
+};
+
+export const showToast = (data: ToastData) => {
   return Toastify({
-    text: "Added to Memories",
+    text: data.message,
     duration: 3000,
     destination: "/memories.html",
     gravity: "top",

@@ -28,7 +28,6 @@ formInput.addEventListener("input", (e) => {
   const target = e.target as HTMLInputElement;
 
   if (target.value === "") {
-    console.log("it is empty ");
     searchMovies.generateFrequentlySearchedFor();
   }
 });

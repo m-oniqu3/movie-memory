@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { showToast } from "../utils/toast";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -43,9 +44,10 @@ export const logOutUser = async () => {
   try {
     await signOut(auth);
     window.location.href = "/index.html";
+    showToast({ message: "Logged out successfully" });
   } catch (error) {
     console.log(error);
-    alert("Error logging out. Please try again.");
+    showToast({ message: "Error logging out. Please try again" });
   }
 };
 
@@ -78,8 +80,6 @@ export const saveData = async (uid: string, data: Info) => {
 
     // set the merged data to the document
     await setDoc(userDocument, { memories: newData });
-
-    console.log(newData);
   } catch (error) {
     console.log("Error saving data: ", error);
   }
@@ -98,5 +98,22 @@ export const isShowSaved = async (uid: string, collection: string, showId: numbe
   } catch (error) {
     console.log("Error getting data: ", error);
     return false;
+  }
+};
+
+export const removeData = async (uid: string, collection: string, showId: number) => {
+  try {
+    const userDocument = doc(db, collection, uid);
+
+    // fetch the existing document data
+    const docSnapshot = await getDoc(userDocument);
+    const existingData: Info[] = docSnapshot.exists() ? docSnapshot.data().memories : [];
+
+    const results = existingData.filter((show: Info) => show.id !== showId);
+
+    // set the merged data to the document
+    await setDoc(userDocument, { memories: results });
+  } catch (error) {
+    console.log("Error saving data: ", error);
   }
 };

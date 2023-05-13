@@ -9,7 +9,6 @@ const isAuthenicated = user.uid ? true : false;
 
 if (!isAuthenicated) {
   window.location.href = "/account.html";
-  console.log("not authenticated");
 }
 
 const logoutModal = document.querySelector(".logout-modal") as HTMLElement;

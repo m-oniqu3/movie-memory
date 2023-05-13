@@ -1,7 +1,7 @@
 import CloseIcon from "../assets/close-icon.svg";
 import AddIcon from "../assets/icon_add.svg";
 import RemoveIcon from "../assets/icon_remove.svg";
-import { isShowSaved, saveData } from "../firebase/firebase-config";
+import { isShowSaved, removeData, saveData } from "../firebase/firebase-config";
 import { showToast } from "../utils/toast";
 
 // todo, replace interface with type
@@ -47,9 +47,6 @@ export class Movies {
       const data = localStorage.getItem(key);
 
       if (data) {
-        console.log("getting from local storage");
-        console.log(JSON.parse(data));
-
         return JSON.parse(data);
       } else {
         const response = await fetch(url);
@@ -61,7 +58,6 @@ export class Movies {
       }
     } catch (error) {
       console.log(error);
-      //select a div and display error message
     }
   }
 
@@ -71,8 +67,6 @@ export class Movies {
       const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}&language=en-US`;
       const response = await fetch(url);
       const data = await response.json();
-
-      console.log(data);
 
       return data;
     } catch (error) {
@@ -138,13 +132,9 @@ export class Movies {
   }
 
   protected populateLoadingPlaceholder(className: string) {
-    console.log(className);
-
     const placeholder = document.querySelector(`.${className}`) as HTMLElement;
     placeholder.innerHTML = this.generateMoviesPlaceholder(className).innerHTML;
     placeholder.style.padding = "3rem 0";
-
-    console.log({ placeholder });
 
     return placeholder;
   }
@@ -181,7 +171,6 @@ export class Movies {
         }
 
         const isSaved = await isShowSaved(user.uid, "movies", data.id);
-        console.log("isSaved", isSaved);
         const updatedResults = Object.assign(data, { isSaved });
 
         return updatedResults;
@@ -206,6 +195,7 @@ export class Movies {
         details.children[0].addEventListener("click", this.closeModal);
 
         const addButton = document.querySelector("#addButton") as HTMLButtonElement;
+        const removeButton = document.querySelector("#removeButton") as HTMLButtonElement;
 
         addButton &&
           addButton.addEventListener("click", () => {
@@ -218,8 +208,23 @@ export class Movies {
 
             saveData(user.uid, args);
             this.closeModal();
-            showToast();
+            showToast({ message: "Added movie to memories" });
           });
+
+        if (removeButton) {
+          removeButton.addEventListener("click", () => {
+            const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+            if (!user.uid) {
+              window.location.href = "/account.html";
+              return;
+            }
+
+            removeData(user.uid, "movies", data.id);
+            this.closeModal();
+            showToast({ message: "Removed movie from memories" });
+          });
+        }
 
         const descriptionElement = document.querySelector("#desc") as HTMLElement;
 
@@ -336,6 +341,7 @@ export class Movies {
 
         // add to firebase
         const addButton = document.querySelector("#addButton") as HTMLButtonElement;
+        const removeButton = document.querySelector("#removeButton") as HTMLButtonElement;
 
         if (addButton) {
           addButton.addEventListener("click", () => {
@@ -348,7 +354,22 @@ export class Movies {
 
             saveData(user.uid, args);
             this.closeModal();
-            showToast();
+            showToast({ message: "Added show to memories" });
+          });
+        }
+
+        if (removeButton) {
+          removeButton.addEventListener("click", () => {
+            const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+            if (!user.uid) {
+              window.location.href = "/account.html";
+              return;
+            }
+
+            removeData(user.uid, "tvshows", data.id);
+            this.closeModal();
+            showToast({ message: "Removed show from memories" });
           });
         }
 

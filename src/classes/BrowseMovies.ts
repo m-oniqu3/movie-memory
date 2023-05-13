@@ -26,7 +26,6 @@ export class BrowseMovies extends Movies {
       this.clearPlaceholderElement(placeholder);
     }
 
-    console.log(article);
     this.container.append(article);
   }
 

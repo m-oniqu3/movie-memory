@@ -73,19 +73,15 @@ form.addEventListener("submit", async (e) => {
   const email = emailInput.value;
   const password = passwordInput.value;
 
-  console.log(email, password);
-
   //loading true
   modal.style.display = "grid";
   try {
     if (isCreateAccountForm) {
       //create user
-      const user = await createUser(email, password);
-      console.log(user.user);
+      await createUser(email, password);
     } else {
       //login user
-      const user = await signInUser(email, password);
-      console.log(user.user);
+      await signInUser(email, password);
     }
 
     //redirect to broswe page and prevent back button
