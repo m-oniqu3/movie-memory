@@ -2,9 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logo_only.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/dist/main.css" />
+
     <title>Movie Memory</title>
   </head>
   <body>
@@ -22,11 +23,12 @@
           </p>
 
           <!-- if the user is logged in they should go to browse page else they should go sign up -->
-          <a href="/account.html" class="button button__primary">Get started</a>
+          <a id="navigate" class="button button__primary">Get started</a>
         </article>
       </div>
     </section>
 
+    <script type="module" src="/src/scripts/404.ts"></script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
