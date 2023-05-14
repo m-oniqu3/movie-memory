@@ -38,6 +38,10 @@ Here are some of the technologies that was used to build Movie Memories:
 - TMDB API
 - Toastify-JS
 
+## Design File
+
+Here is a link to the design file for Movie Memories: [Figma](https://www.figma.com/file/XVgFo6tAEbgZOqZkaOthPR/movie-memory?type=design&node-id=741%3A40&t=r9HtGCOnTISvO9K7-1)
+
 ## Installation
 
 This project was built using Vite and Firebase. To install the project, follow these steps:
