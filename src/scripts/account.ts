@@ -8,7 +8,7 @@ const user = JSON.parse(localStorage.getItem("user") || "{}");
 const isAuthenicated = user.uid ? true : false;
 
 if (isAuthenicated) {
-  window.location.href = "/browse.html";
+  window.location.href = "browse.html";
 }
 
 const toggleForm = document.querySelector("#toggle-form") as HTMLAnchorElement;
@@ -87,8 +87,8 @@ form.addEventListener("submit", async (e) => {
     }
 
     //redirect to broswe page and prevent back button
-    window.location.href = "/browse.html";
-    window.history.pushState(null, "", "/browse.html");
+    window.location.href = "browse.html";
+    window.history.pushState(null, "", "browse.html");
   } catch (error: unknown) {
     if (error instanceof FirebaseError) {
       modal.style.display = "none";

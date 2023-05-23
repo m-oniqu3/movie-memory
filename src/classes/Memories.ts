@@ -91,7 +91,7 @@ export class Memories extends Movies {
     try {
       const user = JSON.parse(localStorage.getItem("user") || "{}");
       if (!user.uid) {
-        window.location.href = "/account.html";
+        window.location.pathname = "./src/pages/account.html";
         return;
       }
 
@@ -115,7 +115,7 @@ export class Memories extends Movies {
       const user = JSON.parse(localStorage.getItem("user") || "{}");
 
       if (!user.uid) {
-        window.location.href = "/account.html";
+        window.location.pathname = "./src/pages/account.html";
         return;
       }
 

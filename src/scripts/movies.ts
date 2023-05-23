@@ -8,7 +8,7 @@ const user = JSON.parse(localStorage.getItem("user") || "{}");
 const isAuthenicated = user.uid ? true : false;
 
 if (!isAuthenicated) {
-  window.location.href = "/account.html";
+  window.location.pathname = "./src/pages/account.html";
 }
 
 // generate navbar
