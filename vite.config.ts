@@ -6,7 +6,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: resolve(__dirname, "index.html"),
-        notfound: resolve(__dirname, "index.html"),
+        notfound: resolve(__dirname, "src/pages/404.html"),
         account: resolve(__dirname, "src/pages/account.html"),
         browse: resolve(__dirname, "src/pages/browse.html"),
         memories: resolve(__dirname, "src/pages/memories.html"),
