@@ -17,6 +17,7 @@ const submitButton = document.querySelector("button") as HTMLButtonElement;
 const form = document.querySelector("form") as HTMLFormElement;
 const emailInput = form.children[0] as HTMLInputElement;
 const passwordInput = form.children[2] as HTMLInputElement;
+const prompt = document.querySelector(".prompt") as HTMLParagraphElement;
 const modal = document.querySelector(".loading-modal") as HTMLDivElement;
 
 let isCreateAccountForm = true;
@@ -119,12 +120,14 @@ const formHeaderContent = {
     greeting: "Keep track of the movies you've watched with Movie Memory. Create an account to get started.",
     button: "Create Account",
     link: "create",
+    prompt: "Already have an account?",
   },
   login: {
     heading: "Welcome Back",
     greeting: "Sign in to keep track of the movies you've watched with Movie Memory.",
     button: "Login",
     link: "login",
+    prompt: "Don't have an account?",
   },
 };
 
@@ -134,12 +137,15 @@ toggleForm.addEventListener("click", () => {
 
   const heading = formHeader?.children[0] as HTMLHeadingElement;
   const greeting = formHeader?.children[1] as HTMLParagraphElement;
+  console.log(prompt);
+
   const buttonText = isCreateAccountForm ? login.button : createAccount.button;
 
   toggleForm.hash = isCreateAccountForm ? createAccount.link : login.link;
   heading.textContent = isCreateAccountForm ? login.heading : createAccount.heading;
   greeting.textContent = isCreateAccountForm ? login.greeting : createAccount.greeting;
   submitButton.textContent = buttonText;
+  prompt.textContent = isCreateAccountForm ? login.prompt : createAccount.prompt;
 
   isCreateAccountForm = !isCreateAccountForm;
 });
